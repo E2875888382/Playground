@@ -1,20 +1,27 @@
 <template>
-    <div class="title-bar">
-        <div 
-            class="title-bar__item"
-            v-for="(titleBar, index) in titleBars"
-            :key="index"
-            @click="titleBar.event"
-        >
-            <i :class="[`el-icon-${titleBar.icon}`]"/>
+    <div class="title-bar-container">
+        <Search />
+        <div class="title-bar">
+            <div 
+                class="title-bar__item"
+                v-for="(titleBar, index) in titleBars"
+                :key="index"
+                @click="titleBar.event"
+            >
+                <i :class="[`el-icon-${titleBar.icon}`]"/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import Search from './Search';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 export default {
+    components: {
+        Search
+    },
     setup() {
         const store = useStore();
 
@@ -26,22 +33,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@titleBarHight: 30px;
-.title-bar {
+@titleBarHight: 78px;
+.title-bar-container {
+    position: relative;
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
     -webkit-app-region: drag;
     width: 100%;
     height: @titleBarHight;
     background-color: transparent;
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #e7e7e7;
+    }
+}
+.title-bar {
+    display: flex;
+    -webkit-app-region: no-drag;
+    height: 30px;
+    width: 200px;
 }
 .title-bar__item {
-    -webkit-app-region: no-drag;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50px;
-    height: @titleBarHight;
+    height: 30px;
     font-size: 15px;
     opacity: 0.6;
     &:hover {

@@ -32,21 +32,35 @@ const state = {
             event: ()=> ipcRenderer.send('developer')
         },
         {
-            icon: 'close',
-            event: ()=> ipcRenderer.send('close')
+            icon: 'minus',
+            event: ()=> ipcRenderer.send('min')
         },
         {
             icon: 'full-screen',
             event: ()=> ipcRenderer.send('max')
         },
         {
-            icon: 'minus',
-            event: ()=> ipcRenderer.send('min')
+            icon: 'close',
+            event: ()=> ipcRenderer.send('close')
         }
-    ]
+    ],
+    title: {
+        bbs: '新闻',
+        books: '看书',
+        chat: '聊天',
+        media: '听歌',
+        pictures: '看图',
+        collection: '收藏'
+    }
+};
+const mutations = {
+    updateTitle(state, {tabs, title}) {
+        state.title[tabs] = title;
+    }
 };
 
 export default {
     namespaced: true,
-    state
+    state,
+    mutations
 }

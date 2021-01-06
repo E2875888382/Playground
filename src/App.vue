@@ -3,7 +3,13 @@
         <side-bar />
         <div class="tabs-container">
             <title-bar />
-            <router-view />
+            <div class="tabs-content">
+                <router-view v-slot="{ Component }">
+                    <keep-alive>
+                        <component :is="Component" />
+                    </keep-alive>
+                </router-view>
+            </div>
         </div>
     </div>
 </template>
@@ -25,12 +31,18 @@ export default {
     height: 100%;
     margin: 0;
     padding: 0;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 .app-container {
     display: flex;
 }
 .tabs-container {
     flex-grow: 1;
-    height: calc(100% - 30px);
+    height: 100%;
+}
+.tabs-content {
+    height: calc(100% - 78px);
 }
 </style>

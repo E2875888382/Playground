@@ -1,25 +1,46 @@
-const { net } = require('electron').remote;
+ /**
+ * @description node的request模块请求
+ */
+const request = require('request');
+const paramsParse = params=> {
+    let res = '?';
 
-export default ()=> {
-    const request = net.request({
-        url: 'https://v1.alapi.cn/api/new/toutiao?start=1'
-    });
+    for (const [key, val] of Object.entries(params)) {
+        res += `${key}=${val}&`;
+    }
+    return res.slice(0, res.length - 1);
+};
+
+export const get = ({ url: baseUrl, params })=> {
+    const url = baseUrl + paramsParse(params);
 
     return new Promise((resolve, reject)=> {
-        request.on('response', response=> {
-            if (response.statusCode !== 200) {
-                reject(response.statusCode);
+        request(url, (err, response, body)=> {
+            if (!err && response.statusCode == 200) { 
+                resolve(JSON.parse(body));
+            } else {
+                reject(err);
             }
-            response.on('data', chunk=> {
-                resolve({
-                    headers: response.headers,
-                    data: JSON.parse(chunk.toString())
-                })
-            })
-            response.on('end', () => {
-                console.log('No more data in response.')
-            })
         })
-        request.end()
-    })
+    });
+}
+
+export const post = ({ url, data })=> {
+    return new Promise((resolve, reject)=> {
+        request({
+            methods: 'post',
+            url: url,
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }, (err, response, body)=> {
+            if (!err && response.statusCode == 200) { 
+                resolve(JSON.parse(body));
+            } else {
+                reject(err);
+            }
+        })
+    });
 }

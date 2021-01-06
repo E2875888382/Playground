@@ -48,7 +48,7 @@ export default {
     align-items: center;
     width: 80px;
     height: 100%;
-    background-color: #000000e0;
+    background-color: #26292d;
 }
 .side-bar__avatar {
     -webkit-app-region: no-drag;

@@ -1,6 +1,6 @@
  <template>
     <div class="collection-container">
-        collection
+
     </div>
 </template>
 

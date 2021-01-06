@@ -1,6 +1,6 @@
  <template>
     <div class="pictures-container">
-        pictures
+
     </div>
 </template>
 
