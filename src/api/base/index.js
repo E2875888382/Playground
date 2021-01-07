@@ -14,19 +14,22 @@ const paramsParse = params=> {
 export const get = ({ url: baseUrl, params })=> {
     const url = baseUrl + paramsParse(params);
 
-    return new Promise((resolve, reject)=> {
+    return new Promise(resolve=> {
         request(url, (err, response, body)=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
-                reject(err);
+                resolve({
+                    code: 500,
+                    err: err
+                })
             }
         })
     });
 }
 
 export const post = ({ url, data })=> {
-    return new Promise((resolve, reject)=> {
+    return new Promise(resolve=> {
         request({
             methods: 'post',
             url: url,
@@ -39,7 +42,10 @@ export const post = ({ url, data })=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
-                reject(err);
+                resolve({
+                    code: 500,
+                    err: err
+                })
             }
         })
     });

@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, Menu, Tray } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, Menu, Tray, shell } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 
 const path = require('path');
@@ -74,6 +74,13 @@ app.on('window-all-closed', () => {
         app.quit()
     }
 })
+
+app.on('web-contents-created', (e, webContents) => {
+    webContents.on('new-window', (event, url) => {
+        event.preventDefault();
+        shell.openExternal(url);
+    });
+});
 
 app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
