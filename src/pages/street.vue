@@ -20,14 +20,16 @@
 
 <script>
 import { newsList, newsDetail } from '../api/street';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useStore } from 'vuex';
+import { ipcRenderer } from 'electron';
 export default {
     setup() {
+        const {ctx} = getCurrentInstance();
         const store = useStore();
         const list = ref([]);
         const active = ref('');
-        const newsContent = ref({});
+        const newsContent = ref('');
         const newsRef = ref(null);
         const getList = async()=> {
             const res = await newsList();
@@ -36,20 +38,14 @@ export default {
             console.log('newslist:', res);
         };
         const bodyParser = data=> {
-            const {body, img, link} = data;
+            const {body, img, link, video} = data;
             const imgMap = {};
-            // const videoMap = {};
+            const videoMap = {};
             const linkMap = {};
 
-            for (const item of img) {
-                imgMap[item.ref] = item;
-            }
-            // for (const item of video) {
-            //     videoMap[item.ref] = item;
-            // }
-            for (const item of link) {
-                linkMap[item.ref] = item;
-            }
+            for (const item of img) imgMap[item.ref] = item;
+            if (video) for (const item of video) videoMap[item.ref] = item;
+            for (const item of link) linkMap[item.ref] = item;
             return body
                 .replace(/<!--IMG(.*?)-->/g, match=> {
                     return `<p align="center"><img src="${imgMap[match].src}" height="${imgMap[match].pixel / 700}" width="700px"/></p>`;
@@ -59,9 +55,9 @@ export default {
 
                     return `<a src="${href}" onclick="window.open('${href}')">${title}</a>`
                 })
-                // .replace(/<!--VIDEO(.*?)-->/g, match=> {
-                //     return `<video controls src="${videoMap[match].m3u8_url}" poster="${videoMap[match].cover}" width="400" height="300"/>`;
-                // });
+                .replace(/<!--VIDEO(.*?)-->/g, match=> {
+                    return `<video controls src="${videoMap[match].url_m3u8}" poster="${videoMap[match].cover}" width="730" />`;
+                });
         };
         const handleClick = async (news)=> {
             active.value = news.docid;
@@ -73,6 +69,10 @@ export default {
             newsRef.value.scrollTop = '0'; // 回弹顶部
         };
 
+        // 监听event的回调，重定向到webview页
+        ipcRenderer.on('new-window', ()=> {
+            ctx.$router.push({name:'webview'});
+        })
         onMounted(getList);
         return {
             list,
@@ -86,13 +86,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+@newsFontSize: 20px;
+@newsLineHeight: 1.8;
 strong {
-    font-size: 18px;
+    font-size: @newsFontSize;
+    line-height: @newsLineHeight;
 }
 a {
     color: -webkit-link;
     cursor: pointer;
+}
+.newsContent__main {
+    p {
+        font-size: @newsFontSize;
+        line-height: @newsLineHeight;
+    }
 }
 </style>
 

@@ -6,6 +6,10 @@ const state = {
             path: '/bbs'
         },
         {
+            icon: 'link',
+            path: 'webview'
+        },
+        {
             icon: 'notebook-2',
             path: '/books'
         },
@@ -46,6 +50,7 @@ const state = {
     ],
     title: {
         bbs: '新闻',
+        webview: '浏览器',
         books: '看书',
         chat: '聊天',
         media: '听歌',

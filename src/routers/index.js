@@ -14,6 +14,11 @@ const router = createRouter({
             component: ()=> import('../pages/street.vue')
         },
         {
+            path: '/webview',
+            name: 'webview',
+            component: ()=> import('../pages/link.vue')
+        },
+        {
             path: '/books',
             name: 'books',
             component: ()=> import('../pages/books.vue')

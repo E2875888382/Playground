@@ -1,14 +1,13 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, Menu, Tray, shell } from 'electron';
+import { app, protocol, BrowserWindow, BrowserView, ipcMain, Menu, Tray} from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 
 const path = require('path');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const icon = path.join(__dirname, '../src/assets/img/icon.png');
-
 let appTray = null;
-
+let webview = null;
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
     { scheme: 'app', privileges: { secure: true, standard: true } }
@@ -17,7 +16,7 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 1500,
+        width: 1000,
         height: 650,
         minWidth: 1000,
         minHeight: 650,
@@ -26,9 +25,9 @@ async function createWindow() {
         icon: icon,
         webPreferences: {
             enableRemoteModule: true,
-            nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
+            nodeIntegration: true
         }
-    })
+    });
     // 监听自定义titleBar事件
     ipcMain.on('min', () => win.unmaximize());
     ipcMain.on('max', () => win.maximize());
@@ -55,10 +54,35 @@ async function createWindow() {
         });
     });
     ipcMain.on('developer', () => win.webContents.openDevTools());
+
+    webview = new BrowserView();
+
+    win.setBrowserView(webview);
+    webview.setAutoResize({width: true, height: true});
+
+    function hideWebview() {
+        webview.setBounds({
+            width: 0,
+            height: 0,
+            x: 315,
+            y: 63
+        });
+    }
+    hideWebview();
+    ipcMain.on('openWebview', (event, url)=> {
+        webview.setBounds({
+            width: 946,
+            height: 730,
+            x: 64,
+            y: 64
+        });
+        url && webview.webContents.loadURL(url);
+    });
+    ipcMain.on('hideWebview', ()=> hideWebview());
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-        if (!process.env.IS_TEST) win.webContents.openDevTools()
+        // if (!process.env.IS_TEST) win.webContents.openDevTools()
     } else {
         createProtocol('app')
         // Load the index.html when not in development
@@ -76,9 +100,12 @@ app.on('window-all-closed', () => {
 })
 
 app.on('web-contents-created', (e, webContents) => {
+    // 拦截app内所有的打开网页事件
     webContents.on('new-window', (event, url) => {
         event.preventDefault();
-        shell.openExternal(url);
+        webview.webContents.loadURL('https://github.com');
+        // 告诉当前页面要跳转到webview页,并传入地址
+        event.sender.send('new-window', url);
     });
 });
 

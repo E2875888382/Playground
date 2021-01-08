@@ -12,6 +12,7 @@ export const newsList = async ()=> {
 
     // // 网易新闻每天只能调100次，请求失败返回mock
     return res.code === 200 ? res : mock.newsListMock();
+    // return mock.newsListMock();
 }
 
 export const newsDetail = async (docid)=> {
@@ -24,4 +25,5 @@ export const newsDetail = async (docid)=> {
 
     // // 网易新闻每天只能调100次，请求失败返回mock
     return res.code === 200 ? res : mock.newsDetailMock();
+    // return mock.newsDetailMock(docid);
 }
