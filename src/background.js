@@ -67,6 +67,7 @@ async function createWindow() {
             x: 315,
             y: 63
         });
+        webview.setAutoResize({width: false, height: false});
     }
     hideWebview();
     ipcMain.on('openWebview', (event, url)=> {
@@ -76,6 +77,7 @@ async function createWindow() {
             x: 64,
             y: 64
         });
+        webview.setAutoResize({width: true, height: true});
         url && webview.webContents.loadURL(url);
     });
     ipcMain.on('hideWebview', ()=> hideWebview());

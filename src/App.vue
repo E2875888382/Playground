@@ -41,6 +41,7 @@ export default {
 .tabs-container {
     flex-grow: 1;
     height: 100%;
+    background-color: #f5f5f5;
 }
 .tabs-content {
     height: calc(100% - 78px);
