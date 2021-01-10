@@ -13,12 +13,6 @@ yarn install
 
 ### Compiles and hot-reloads for development
 
-运行vue项目
-```
-yarn serve
-```
-
-运行electron
 ```
  yarn electron:serve
 ```
