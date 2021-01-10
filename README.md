@@ -1,9 +1,15 @@
 # playground
 ## description
 
-使用electron包装的PC单页应用
+electron + vue 桌面应用
 
-vue3 + vue-router4 + vuex4 + less + element plus + electron9
+![](https://img.shields.io/static/v1?label=vue&message=3.0&color=green)
+![](https://img.shields.io/static/v1?label=vue-router&message=@4.0&color=green)
+![](https://img.shields.io/static/v1?label=vuex&message=@4.0&color=green)
+![](https://img.shields.io/static/v1?label=component&message=element+plus&color=green)
+![](https://img.shields.io/static/v1?label=electron&message=9.0&color=green)
+![](https://img.shields.io/static/v1?label=style&message=less&color=green)
+
 
 ## Project setup
 
