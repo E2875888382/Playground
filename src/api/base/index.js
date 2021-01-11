@@ -11,7 +11,7 @@ const paramsParse = params=> {
     return res.slice(0, res.length - 1);
 };
 
-export const get = ({ url: baseUrl, params })=> {
+export const get = ({ url: baseUrl, params = {} })=> {
     const url = baseUrl + paramsParse(params);
 
     return new Promise(resolve=> {
