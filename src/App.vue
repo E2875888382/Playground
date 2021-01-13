@@ -17,10 +17,14 @@
 <script>
 import SideBar from './components/SideBar';
 import TitleBar from './components/TitleBar';
+import api from './api/manager';
 export default {
     components: {
         'side-bar': SideBar,
         'title-bar': TitleBar
+    },
+    provide: {
+        api: api
     }
 }
 </script>

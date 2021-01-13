@@ -11,37 +11,53 @@ const router = createRouter({
         {
             path: '/bbs',
             name: 'bbs',
-            component: ()=> import('../pages/street.vue')
+            component: ()=> import('../pages/street/main.vue')
         },
         {
             path: '/webview',
             name: 'webview',
-            component: ()=> import('../pages/link.vue')
+            component: ()=> import('../pages/link/main.vue')
         },
         {
             path: '/books',
             name: 'books',
-            component: ()=> import('../pages/books/books.vue')
+            component: ()=> import('../pages/books/main.vue'),
+            children: [
+                {
+                    path: '',
+                    redirect: '/books/index'
+                },
+                {
+                    path: 'index',
+                    name: 'booksIndex',
+                    component: ()=> import('../pages/books/pages/index.vue')
+                },
+                {
+                    path: 'ranking',
+                    name: 'booksRanking',
+                    component: ()=> import('../pages/books/pages/ranking.vue')
+                }
+            ]
         },
         {
             path: '/chat',
             name: 'chat',
-            component: ()=> import('../pages/chat.vue')
+            component: ()=> import('../pages/chat/main.vue')
         },
         {
             path: '/collection',
             name: 'collection',
-            component: ()=> import('../pages/collection.vue')
+            component: ()=> import('../pages/collection/main.vue')
         },
         {
             path: '/pictures',
             name: 'pictures',
-            component: ()=> import('../pages/pictures.vue')
+            component: ()=> import('../pages/pictures/main.vue')
         },
         {
             path: '/media',
             name: 'media',
-            component: ()=> import('../pages/media.vue')
+            component: ()=> import('../pages/media/main.vue')
         }
     ]
 });

@@ -2,30 +2,37 @@ import { ipcRenderer } from 'electron';
 const state = {
     tabs: [
         {
+            name: 'news',
             icon: 'news',
             path: '/bbs'
         },
         {
+            name: 'webview',
             icon: 'link',
-            path: 'webview'
+            path: '/webview'
         },
         {
+            name: 'books',
             icon: 'notebook-2',
             path: '/books'
         },
         {
+            name: 'chat',
             icon: 'chat-round',
             path: '/chat'
         },
         {
+            name: 'media',
             icon: 'video-play',
             path: '/media'
         },
         {
+            name: 'pictures',
             icon: 'picture-outline-round',
             path: '/pictures'
         },
         {
+            name: 'collection',
             icon: 'star-off',
             path: '/collection'
         }
@@ -50,6 +57,8 @@ const state = {
     ],
     title: {
         bbs: '新闻',
+        booksIndex: '追书神器',
+        booksRanking: '排行榜',
         webview: '浏览器',
         books: '看书',
         chat: '聊天',
@@ -61,6 +70,9 @@ const state = {
 const mutations = {
     updateTitle(state, {tabs, title}) {
         state.title[tabs] = title;
+    },
+    updateTabsPath(state, {tabsIndex, path}) {
+        state.tabs[tabsIndex].path = path;
     }
 };
 

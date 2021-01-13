@@ -2,12 +2,17 @@
     <div class="books-index">
         <div class="books-index__main">
             <el-carousel :interval="4000" height="200px">
-                <el-carousel-item v-for="carouselItem in carousel" :key="carouselItem.id">
+                <el-carousel-item v-for="carouselItem in booksCarousel" :key="carouselItem._id">
                     <img class="carousel-item__img" :src="carouselItem.img" alt="">
                 </el-carousel-item>
             </el-carousel>
             <el-card class="ranking-box">
-                <el-divider><i class="el-icon-s-data"></i>追书最热榜 Top100</el-divider>
+                <div class="ranking-box__title">
+                    <el-divider><i class="el-icon-s-data"></i>追书最热榜 Top100</el-divider>
+                    <div class="ranking-box__link_more" @click="jump('ranking')">
+                        <span>更多</span><i class="el-icon-arrow-right"></i>
+                    </div>
+                </div>
                 <div class="ranking-item" v-for="item in booksRanking" :key="item._id">
                     <a href="" class="ranking-item__cover">
                         <img :src="`http://statics.zhuishushenqi.com${item.cover}`" alt="">
@@ -27,7 +32,12 @@
         </div>
         <div class="side-bar">
             <el-card style="margin-bottom:15px">
-                <el-divider><i class="el-icon-male"></i>男生</el-divider>
+                <div class="side-bar__title_male">
+                    <el-divider><i class="el-icon-male"></i>男生</el-divider>
+                    <div class="title_male__link_more">
+                        <span>更多</span><i class="el-icon-arrow-right"></i>
+                    </div>
+                </div>
                 <div class="side-bar__class_male">
                     <div 
                         class="side-bar__classItem" 
@@ -41,7 +51,12 @@
                 </div>
             </el-card>
             <el-card style="margin-bottom:15px">
-                <el-divider><i class="el-icon-female"></i>女生</el-divider>
+                <div class="side-bar__title_female">
+                    <el-divider><i class="el-icon-female"></i>女生</el-divider>
+                    <div class="title_female__link_more">
+                        <span>更多</span><i class="el-icon-arrow-right"></i>
+                    </div>
+                </div>
                 <div class="side-bar__class_female">
                     <div 
                         class="side-bar__classItem" 
@@ -59,47 +74,51 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-import { booksClass, booksIndexRank } from '../../api/books';
+import { onMounted, ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default {
     setup() {
+        const {booksClass, booksIndexRank, booksIndexCarousel} = inject('api').books;
         const booksClasses = ref({});
         const booksRanking = ref({});
+        const booksCarousel = ref([]);
+        const router = useRouter();
+        const store = useStore();
         const getClasses = async()=> {
-            const res = await booksClass();
-
-            booksClasses.value = res;
+            booksClasses.value = await booksClass();
+            console.log('首页分类：', booksClasses.value);
         };
         const getRanking = async()=> {
             const res = await booksIndexRank();
 
             booksRanking.value = res.ranking.books.slice(0, 10);
-            console.log(booksRanking.value);
+            console.log('首页前10排行榜：', booksRanking.value);
+        };
+        const getCarousel = async()=> {
+            const res = await booksIndexCarousel();
+
+            booksCarousel.value = res.data;
+            console.log('首页轮播图：', booksCarousel.value);
+        };
+        const jump = path=> {
+            router.push(`/books/${path}`);
+            store.commit('config/updateTabsPath', {tabsIndex: 2, path: `/books/${path}`});
         };
 
         onMounted(()=> {
             getClasses();
             getRanking();
+            getCarousel();
         })
         return {
+            jump,
             getClasses,
             getRanking,
+            getCarousel,
+            booksCarousel,
             booksRanking,
-            booksClasses,
-            carousel: [
-                {
-                    id: 0,
-                    img: 'https://img2.qidian.com/upload/gamesy/2020/12/14/20201214172329iudctarcwz.jpg'
-                },
-                {
-                    id: 1,
-                    img: 'https://img2.qidian.com/upload/gamesy/2020/12/14/20201214172329iudctarcwz.jpg'
-                },
-                {
-                    id: 2,
-                    img: 'https://img2.qidian.com/upload/gamesy/2020/12/14/20201214172329iudctarcwz.jpg'
-                }
-            ]
+            booksClasses
         }
     }
 }
@@ -109,8 +128,11 @@ export default {
 @sideBarWidth: 280px;
 @bookClassesHeight: 60px;
 i {
-    color: red;
     margin-right: 5px;
+    color: red;
+}
+.el-icon-arrow-right {
+    color: #333;
 }
 .books-index {
     display: flex;
@@ -166,6 +188,36 @@ i {
     &:deep(.el-card__body) {
         padding: 0 20px;
     }
+}
+.ranking-box__title,
+.side-bar__title_male,
+.side-bar__title_female {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.side-bar__title_male,
+.side-bar__title_female {
+    padding: 0 10px 0 20px;
+    .title_male__link_more,
+    .title_female__link_more {
+        flex-basis: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1px 0 0 10px;
+        font-size: 12px;
+        cursor: pointer;
+    }
+}
+.ranking-box__link_more {
+    flex-basis: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1px 0 0 15px;
+    font-size: 12px;
+    cursor: pointer;
 }
 .ranking-item {
     display: flex;

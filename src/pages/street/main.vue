@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import { newsList, newsDetail } from '../api/street';
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, inject } from 'vue';
 import { useStore } from 'vuex';
 import { ipcRenderer } from 'electron';
 export default {
     setup() {
+        const {newsList, newsDetail} = inject('api').street;
         const {ctx} = getCurrentInstance();
         const store = useStore();
         const list = ref([]);
@@ -35,7 +35,6 @@ export default {
             const res = await newsList();
 
             list.value = res.data;
-            console.log('newslist:', res);
         };
         const bodyParser = data=> {
             const {body, img, link, video} = data;

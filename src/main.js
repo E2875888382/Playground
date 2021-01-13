@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { ElAvatar, ElIcon, ElInput, ElCard, ElCarousel, ElCarouselItem, ElDivider } from 'element-plus';
+import { ElAvatar, ElIcon, ElInput, ElCard, ElCarousel, ElCarouselItem, ElDivider, ElTabs, ElTabPane } from 'element-plus';
 import router from './routers';
 import store from './store';
 import { webFrame } from 'electron';
@@ -18,5 +18,7 @@ app
 .use(ElCarousel)
 .use(ElCarouselItem)
 .use(ElDivider)
+.use(ElTabs)
+.use(ElTabPane)
 .use(store);
 app.mount('#app');
