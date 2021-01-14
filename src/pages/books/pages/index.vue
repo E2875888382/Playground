@@ -79,14 +79,14 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 export default {
     setup() {
-        const {booksClass, booksIndexRank, booksIndexCarousel} = inject('api').books;
+        const {booksIndexClass, booksIndexRank, booksIndexCarousel} = inject('api').books;
         const booksClasses = ref({});
         const booksRanking = ref({});
         const booksCarousel = ref([]);
         const router = useRouter();
         const store = useStore();
         const getClasses = async()=> {
-            booksClasses.value = await booksClass();
+            booksClasses.value = await booksIndexClass();
             console.log('首页分类：', booksClasses.value);
         };
         const getRanking = async()=> {
@@ -136,11 +136,11 @@ i {
 }
 .books-index {
     display: flex;
-    width: 800px;
+    width: 100%;
     padding: 20px 0;
 }
 .books-index__main {
-    width: 500px;
+    flex-grow: 1;
     .el-carousel {
         border-radius: 5px;
     }
@@ -148,6 +148,7 @@ i {
 .carousel-item__img {
     width: 100%;
     height: 100%;
+    object-fit: fill;
 }
 .side-bar {
     width: @sideBarWidth;

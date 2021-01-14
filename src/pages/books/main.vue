@@ -82,8 +82,8 @@ export default {
         width: 0;
     }
     .booksContent__main {
-        min-height: 100%;
-        width: 800px;
+        height: 100%;
+        width: 80%;
         padding: 0 30px;
         margin: 0 auto;
     }

@@ -1,7 +1,7 @@
 import {get} from '../base';
 
 // books首页分类
-export const booksClass = ()=> {
+export const booksIndexClass = ()=> {
     return get({
         url: 'http://api.zhuishushenqi.com/cats/lv2/statistics'
     })

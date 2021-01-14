@@ -47,7 +47,7 @@ export default {
             for (const item of link) linkMap[item.ref] = item;
             return body
                 .replace(/<!--IMG(.*?)-->/g, match=> {
-                    return `<p align="center"><img src="${imgMap[match].src}" height="${imgMap[match].pixel / 700}" width="700px"/></p>`;
+                    return `<p align="center"><img src="${imgMap[match].src}" width="100%"/></p>`;
                 })
                 .replace(/<!--link(.*?)-->/g, match=> {
                     const {title, href} = linkMap[match];
@@ -55,7 +55,7 @@ export default {
                     return `<a src="${href}" onclick="window.open('${href}')">${title}</a>`
                 })
                 .replace(/<!--VIDEO(.*?)-->/g, match=> {
-                    return `<video controls src="${videoMap[match].url_m3u8}" poster="${videoMap[match].cover}" width="730" />`;
+                    return `<video controls src="${videoMap[match].url_m3u8}" poster="${videoMap[match].cover}" width="100%" />`;
                 });
         };
         const handleClick = async (news)=> {
@@ -156,7 +156,7 @@ a {
         width: 0;
     }
     .newsContent__main {
-        width: 730px;
+        width: 80%;
         padding: 0 60px;
         margin: 0 auto;
     }
