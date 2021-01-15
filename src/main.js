@@ -10,7 +10,8 @@ import {
     ElDivider, 
     ElTabs, 
     ElTabPane,
-    ElTag
+    ElTag,
+    ElInfiniteScroll
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -32,5 +33,6 @@ app
 .use(ElTabs)
 .use(ElTabPane)
 .use(ElTag)
+.use(ElInfiniteScroll)
 .use(store);
 app.mount('#app');

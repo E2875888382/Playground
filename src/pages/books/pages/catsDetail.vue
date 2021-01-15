@@ -30,7 +30,7 @@
                 </el-tag>
             </div>
             <el-divider></el-divider>
-            <div class="books-catsDetail__content">
+            <div class="books-catsDetail__content" v-infinite-scroll="loadMore">
                 <div class="books-catsDetail__item" v-for="el in cache" :key="el._id">
                     <a href="" class="item-cover">
                         <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
@@ -47,7 +47,6 @@
                     </div>
                 </div>
             </div>
-            <button @click="loadMore">滑动加载分页</button>
         </div>
     </div>
 </template>
