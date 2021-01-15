@@ -83,8 +83,7 @@ export default {
     }
     .booksContent__main {
         height: 100%;
-        width: 80%;
-        padding: 0 30px;
+        width: 90%;
         margin: 0 auto;
     }
 }

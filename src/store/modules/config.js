@@ -59,6 +59,8 @@ const state = {
         bbs: '新闻',
         booksIndex: '追书神器',
         booksRanking: '排行榜',
+        booksCats: '分类',
+        booksCatsDetail: '详细分类',
         webview: '浏览器',
         books: '看书',
         chat: '聊天',

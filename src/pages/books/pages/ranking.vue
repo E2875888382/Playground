@@ -1,9 +1,11 @@
 <template>
     <div class="books-ranking">
         <div class="books-ranking__tabs">
+            <i class="el-icon-back" @click="back"></i>
             <div class="tabs-item" :class="{'tabs-item_active':mainClass === 'epub'}" @click="handleMainClassChange('epub')">出版</div>
             <div class="tabs-item" :class="{'tabs-item_active':mainClass === 'male'}" @click="handleMainClassChange('male')">男频</div>
             <div class="tabs-item" :class="{'tabs-item_active':mainClass === 'female'}" @click="handleMainClassChange('female')">女频</div>
+            <i class="el-icon-s-home" @click="back"></i>
         </div>
         <el-tabs tab-position="left" v-show="mainClass === 'epub'" @tab-click="handleSubClassChange" v-model="epubSubTab">
             <el-tab-pane 
@@ -82,8 +84,10 @@
 
 <script>
 import { inject, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     setup() {
+        const router = useRouter();
         const cache = ref({});
         const epubSubTab = ref('');
         const maleSubTab = ref('');
@@ -92,6 +96,7 @@ export default {
         const rankingClasses = ref({});
         const {booksRankingClass, booksRankingDetail} = inject('api').booksRanking;
         const handleMainClassChange = (tab)=> { mainClass.value = tab; };
+        const back = ()=> router.push('/books/index');
         const updateCache = async(type, id)=> {
             const res = await booksRankingDetail(id);
 
@@ -139,13 +144,22 @@ export default {
             handleSubClassChange,
             rankingClasses,
             mainClass,
-            getContent
+            getContent,
+            back
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+.el-icon-back,
+.el-icon-s-home {
+    flex-basis: 40px;
+    text-align: center;
+    line-height: 50px;
+    color: #bbb;
+    cursor: pointer;
+}
 .books-ranking {
     position: relative;
     width: 100%;

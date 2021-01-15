@@ -34,7 +34,7 @@
             <el-card style="margin-bottom:15px">
                 <div class="side-bar__title_male">
                     <el-divider><i class="el-icon-male"></i>男生</el-divider>
-                    <div class="title_male__link_more">
+                    <div class="title_male__link_more" @click="jump('cats')">
                         <span>更多</span><i class="el-icon-arrow-right"></i>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
             <el-card style="margin-bottom:15px">
                 <div class="side-bar__title_female">
                     <el-divider><i class="el-icon-female"></i>女生</el-divider>
-                    <div class="title_female__link_more">
+                    <div class="title_female__link_more" @click="jump('cats')">
                         <span>更多</span><i class="el-icon-arrow-right"></i>
                     </div>
                 </div>

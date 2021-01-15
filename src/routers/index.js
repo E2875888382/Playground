@@ -36,6 +36,16 @@ const router = createRouter({
                     path: 'ranking',
                     name: 'booksRanking',
                     component: ()=> import('../pages/books/pages/ranking.vue')
+                },
+                {
+                    path: 'cats',
+                    name: 'booksCats',
+                    component: ()=> import('../pages/books/pages/cats.vue')
+                },
+                {
+                    path: 'catsDetail',
+                    name: 'booksCatsDetail',
+                    component: ()=> import('../pages/books/pages/catsDetail.vue')
                 }
             ]
         },
