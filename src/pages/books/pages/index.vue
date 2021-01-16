@@ -13,7 +13,7 @@
                         <span>更多</span><i class="el-icon-arrow-right"></i>
                     </div>
                 </div>
-                <div class="ranking-item" v-for="item in booksRanking" :key="item._id">
+                <div class="ranking-item" v-for="item in booksRanking" :key="item._id" @click="toBooksDetail(item._id, 'index')">
                     <a href="" class="ranking-item__cover">
                         <img :src="`http://statics.zhuishushenqi.com${item.cover}`" alt="">
                     </a>
@@ -44,6 +44,7 @@
                         shadow="hover" 
                         v-for="(booksClass, index) in booksClasses.male" 
                         :key="index"
+                        @click="toClassDetail(booksClass.name, 'male')"
                     >
                         <p class="classItem__name">{{booksClass.name}}</p>
                         <p class="classItem__count">{{booksClass.bookCount}}</p>
@@ -63,6 +64,7 @@
                         shadow="hover" 
                         v-for="(booksClass, index) in booksClasses.female" 
                         :key="index"
+                        @click="toClassDetail(booksClass.name, 'female')"
                     >
                         <p class="classItem__name">{{booksClass.name}}</p>
                         <p class="classItem__count">{{booksClass.bookCount}}</p>
@@ -105,6 +107,9 @@ export default {
             router.push(`/books/${path}`);
             store.commit('config/updateTabsPath', {tabsIndex: 2, path: `/books/${path}`});
         };
+        const toClassDetail = (major, gender)=> {
+            router.push({name: 'booksCatsDetail', params: {major,gender}});
+        };
 
         onMounted(()=> {
             getClasses();
@@ -118,7 +123,9 @@ export default {
             getCarousel,
             booksCarousel,
             booksRanking,
-            booksClasses
+            booksClasses,
+            toClassDetail,
+            toBooksDetail: inject('toBooksDetail')
         }
     }
 }
@@ -181,6 +188,11 @@ i {
             margin: 0;
             text-align: center;
             line-height: calc(@bookClassesHeight / 2);
+        }
+        &:hover {
+            .classItem__name {
+                color: #d82626;
+            }
         }
     }
 }

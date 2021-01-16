@@ -18,13 +18,20 @@
 import SideBar from './components/SideBar';
 import TitleBar from './components/TitleBar';
 import api from './api/manager';
+import { useRouter } from 'vue-router';
+import { provide } from 'vue';
 export default {
     components: {
         'side-bar': SideBar,
         'title-bar': TitleBar
     },
-    provide: {
-        api: api
+    setup() {
+        const router = useRouter();
+
+        provide('api', api);
+        provide('toBooksDetail', (booksId, from='')=> {
+            router.push({name: 'booksDetail', params: {booksId, from}})
+        });
     }
 }
 </script>

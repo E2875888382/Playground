@@ -13,7 +13,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('epub', item.title)" :key="el._id">
+                    <div class="sub-tab__item" v-for="el in getContent('epub', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
                         <a href="" class="item-cover">
                             <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
                         </a>
@@ -37,7 +37,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('male', item.title)" :key="el._id">
+                    <div class="sub-tab__item" v-for="el in getContent('male', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
                         <a href="" class="item-cover">
                             <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
                         </a>
@@ -61,7 +61,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('female', item.title)" :key="el._id">
+                    <div class="sub-tab__item" v-for="el in getContent('female', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
                         <a href="" class="item-cover">
                             <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
                         </a>
@@ -95,7 +95,7 @@ export default {
         const mainClass = ref('epub');
         const rankingClasses = ref({});
         const {booksRankingClass, booksRankingDetail} = inject('api').booksRanking;
-        const handleMainClassChange = (tab)=> { mainClass.value = tab; };
+        const handleMainClassChange = tab=> { mainClass.value = tab; };
         const back = ()=> router.push('/books/index');
         const updateCache = async(type, id)=> {
             const res = await booksRankingDetail(id);
@@ -145,7 +145,8 @@ export default {
             rankingClasses,
             mainClass,
             getContent,
-            back
+            back,
+            toBooksDetail: inject('toBooksDetail')
         }
     }
 }

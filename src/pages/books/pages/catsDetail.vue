@@ -31,7 +31,7 @@
             </div>
             <el-divider></el-divider>
             <div class="books-catsDetail__content" v-infinite-scroll="loadMore">
-                <div class="books-catsDetail__item" v-for="el in cache" :key="el._id">
+                <div class="books-catsDetail__item" v-for="el in cache" :key="el._id" @click="toBooksDetail(el._id, `catsDetail/${title}/${genderTitle}`)">
                     <a href="" class="item-cover">
                         <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
                     </a>
@@ -163,7 +163,8 @@ export default {
             changeType,
             changeMins,
             loadMore,
-            loadEnd
+            loadEnd,
+            toBooksDetail: inject('toBooksDetail')
         }
     }
 }

@@ -61,6 +61,7 @@ const state = {
         booksRanking: '排行榜',
         booksCats: '分类',
         booksCatsDetail: '详细分类',
+        booksDetail: '书籍详情',
         webview: '浏览器',
         books: '看书',
         chat: '聊天',

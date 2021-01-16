@@ -1,6 +1,6 @@
 <template>
     <div class="bbs-container">
-        <div class="bbs-newsList">
+        <div class="bbs-newsList" v-infinite-scroll="getList">
             <div 
                 class="newsList__item" 
                 :class="{'newsList__item_active': news.docid === active}"
@@ -31,10 +31,12 @@ export default {
         const active = ref('');
         const newsContent = ref('');
         const newsRef = ref(null);
+        const page = ref(1);
         const getList = async()=> {
-            const res = await newsList();
+            const res = await newsList(page.value);
 
-            list.value = res.data;
+            list.value = [...list.value, ...res.data];
+            page.value++;
         };
         const bodyParser = data=> {
             const {body, img, link, video} = data;
@@ -79,7 +81,8 @@ export default {
             getList,
             handleClick,
             newsContent,
-            newsRef
+            newsRef,
+            page
         }
     }
 }
