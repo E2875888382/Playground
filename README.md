@@ -42,6 +42,32 @@ electron + vue 桌面应用
 - [ ] IM ?
 - ...
 
+## About request
+
+- 数据请求使用的是Node.js的request模块，不存在跨域问题。
+- 在request上简单封装了get和post方法，后续可以改为其他请求库。
+
+## About data
+
+大部分的请求都是使用的开源接口，包括：
+- 新闻类：网易新闻API，每天有100次的调用限制，调用失败会返回本地mock
+- 小说类：追书神器API，暂时没有限制（本项目仅供学习参考，请勿商用）
+- 除了用户系统，其他模块目标是使用开源API。
+
+## About webview
+
+官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。
+
+## About pull requests
+
+如果你对本项目感兴趣的话，或者想把单独的项目作为tab模块放进本项目，请将branch命名为：
+- 添加tab下单独模块：`feature-tabs-XXX`
+- 添加功能：`feature-add-XXX`
+- bug fix：`bug-fix-XXX`
+- hot fix：`hot-fix-XXX`
+- 样式修正：`feature-style-XXX`
+- 更新README：`update-readme`
+
 ## Project setup
 
 ```
