@@ -49,8 +49,11 @@
             </span>
         </div>
         <el-divider></el-divider>
+        <p class="books-ifo__comments__title">
+            <span>热门书评</span>
+            <span class="title_more">更多<i class="el-icon-arrow-right"></i></span>
+        </p>
         <div class="books-ifo__comments">
-            <p>热门书评</p>
             <div class="comments-item" v-for="comment in comments.reviews" :key="comment._id">
                 <el-avatar class="comments-item__avatar" :src="`http://statics.zhuishushenqi.com${comment.author.avatar}`"></el-avatar>
                 <div class="comments-item__ifo">
@@ -65,6 +68,19 @@
                 </div>
             </div>
         </div>
+        <p class="books-ifo__recommend__title">
+            <span>你可能感兴趣</span>
+            <span class="title_more">更多<i class="el-icon-arrow-right"></i></span>
+        </p>
+        <div class="books-ifo__recommend">
+            <div 
+                class="recommend-item" 
+                v-for="item in (recommends?.books.slice(0, 4) || [])" :key="item._id"
+            >
+                <img class="recommend-item__cover" :src="`http://statics.zhuishushenqi.com${item.cover}`" alt="">
+                <p class="recommend-item__title">{{item.title}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -76,13 +92,16 @@ export default {
         const router = useRouter();
         const comments = ref({});
         const booksIfo = ref({});
+        const recommends = ref({});
         const route = useRoute();
         const from = ref('');
-        const { booksDetail, booksComment } = inject('api').booksDetail;
+        const { booksDetail, booksComment, booksRecommend } = inject('api').booksDetail;
         const back = (path)=> router.push(`/books/${path}`);
         const getBooksDetail = async booksId=> {
             booksIfo.value = await booksDetail(booksId);
             comments.value = await booksComment(booksId);
+            recommends.value = await booksRecommend(booksId);
+            console.log('同类书籍推荐:', recommends.value);
             console.log('书籍信息:', booksIfo.value);
             console.log('5条短评:', comments.value);
         };
@@ -117,7 +136,8 @@ export default {
             wordFormat,
             timeFormat,
             back,
-            from
+            from,
+            recommends
         }
     }
 }
@@ -161,6 +181,10 @@ export default {
     width: 110px;
     height: 140px;
     margin-right: 30px;
+    border-radius: 4px;
+    border: 1px solid #EBEEF5;
+    background-color: #FFF;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 }
 .books-ifo__detail {
     .books-ifo__title {
@@ -237,8 +261,7 @@ export default {
 }
 .books-ifo__comments {
     width: 100%;
-    padding: 0 10px;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
     .comments-item {
         position: relative;
         display: flex;
@@ -295,6 +318,39 @@ export default {
     &:deep(.el-icon-star-off) {
         font-size: 14px;
         line-height: 20px;
+    }
+}
+.books-ifo__recommend__title,
+.books-ifo__comments__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title_more {
+    font-size: 13px;
+    color: #b93321;
+}
+.books-ifo__recommend {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0;
+    .recommend-item {
+        flex-basis: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__cover {
+            width: 110px;
+            height: 140px;
+            border-radius: 4px;
+            border: 1px solid #EBEEF5;
+            background-color: #FFF;
+            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        }
+        &__title {
+            font-size: 14px;
+        }
     }
 }
 </style>

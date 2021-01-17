@@ -18,3 +18,10 @@ export const booksComment = async booksId=> {
         }
     })
 }
+
+// 同类书籍推荐
+export const booksRecommend = async booksId=> {
+    return get({
+        url: `http://api.zhuishushenqi.com/book/${booksId}/recommend`
+    })
+}
