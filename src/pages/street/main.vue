@@ -135,6 +135,7 @@ a {
     justify-content: space-between;
     height: 80px;
     padding: 0 15px;
+    cursor: pointer;
     &_active {
         background-color: #c9c9ca;
     }
