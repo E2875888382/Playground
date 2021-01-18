@@ -14,7 +14,9 @@ import {
     ElInfiniteScroll,
     ElImage,
     ElButton,
-    ElRate
+    ElRate,
+    ElEmpty,
+    ElBacktop
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -40,5 +42,7 @@ app
 .use(ElImage)
 .use(ElButton)
 .use(ElRate)
+.use(ElEmpty)
+.use(ElBacktop)
 .use(store);
 app.mount('#app');

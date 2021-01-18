@@ -62,6 +62,8 @@ const state = {
         booksCats: '分类',
         booksCatsDetail: '详细分类',
         booksDetail: '书籍详情',
+        booksRecommend: '你可能感兴趣',
+        booksChapters: '目录',
         webview: '浏览器',
         books: '看书',
         chat: '聊天',

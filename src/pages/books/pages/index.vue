@@ -3,7 +3,13 @@
         <div class="books-index__main">
             <el-carousel :interval="4000" height="200px">
                 <el-carousel-item v-for="carouselItem in booksCarousel" :key="carouselItem._id">
-                    <img class="carousel-item__img" :src="carouselItem.img" alt="">
+                    <el-image class="carousel-item__img" :src="carouselItem.img" alt="" fit="fit">
+                        <template #placeholder>
+                            <div class="image-slot">
+                                <i class="el-icon-picture-outline"></i>
+                            </div>
+                        </template>
+                    </el-image>
                 </el-carousel-item>
             </el-carousel>
             <el-card class="ranking-box">
@@ -155,7 +161,6 @@ i {
 .carousel-item__img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
 }
 .side-bar {
     width: @sideBarWidth;

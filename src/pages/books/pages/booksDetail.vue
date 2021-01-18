@@ -20,7 +20,7 @@
         </div>
         <div class="books-ifo__buttons">
             <el-button class="books-ifo__button">加入书架</el-button>
-            <el-button class="books-ifo__button" type="danger">开始阅读</el-button>
+            <el-button class="books-ifo__button" type="danger" @click="back(`booksChapters/${booksIfo._id}`)">开始阅读</el-button>
         </div>
         <p class="books-ifo__vip" v-if="!booksIfo.allowFree">开通vip，免费阅读此书</p>
         <el-divider></el-divider>
@@ -43,7 +43,7 @@
         <el-divider></el-divider>
         <div class="books-ifo__dir">
             <span class="books-ifo__dir_left">目录</span>
-            <span class="books-ifo__dir_right">
+            <span class="books-ifo__dir_right" @click="back(`booksChapters/${booksIfo._id}`)">
                 {{booksIfo.lastChapter}}
                 <i class="el-icon-arrow-right"></i>
             </span>
@@ -70,12 +70,12 @@
         </div>
         <p class="books-ifo__recommend__title">
             <span>你可能感兴趣</span>
-            <span class="title_more">更多<i class="el-icon-arrow-right"></i></span>
+            <span class="title_more" @click="back(`booksRecommend/${booksIfo._id}`)">更多<i class="el-icon-arrow-right"></i></span>
         </p>
-        <div class="books-ifo__recommend">
+        <div class="books-ifo__recommend" v-if="recommends.books">
             <div 
                 class="recommend-item" 
-                v-for="item in (recommends?.books.slice(0, 4) || [])" :key="item._id"
+                v-for="item in recommends.books.slice(0, 4)" :key="item._id"
             >
                 <img class="recommend-item__cover" :src="`http://statics.zhuishushenqi.com${item.cover}`" alt="">
                 <p class="recommend-item__title">{{item.title}}</p>
@@ -96,7 +96,7 @@ export default {
         const route = useRoute();
         const from = ref('');
         const { booksDetail, booksComment, booksRecommend } = inject('api').booksDetail;
-        const back = (path)=> router.push(`/books/${path}`);
+        const back = (path)=> path === '-1' ? router.back(-1) : router.push(`/books/${path}`);
         const getBooksDetail = async booksId=> {
             booksIfo.value = await booksDetail(booksId);
             comments.value = await booksComment(booksId);
@@ -257,6 +257,7 @@ export default {
     &_right {
         font-size: 13px;
         color: #999;
+        cursor: pointer;
     }
 }
 .books-ifo__comments {
@@ -329,6 +330,7 @@ export default {
 .title_more {
     font-size: 13px;
     color: #b93321;
+    cursor: pointer;
 }
 .books-ifo__recommend {
     display: flex;

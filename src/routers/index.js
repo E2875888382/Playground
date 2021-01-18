@@ -48,9 +48,19 @@ const router = createRouter({
                     component: ()=> import('../pages/books/pages/catsDetail.vue')
                 },
                 {
-                    path: 'booksDetail',
+                    path: 'booksDetail/:from/:booksId',
                     name: 'booksDetail',
                     component: ()=> import('../pages/books/pages/booksDetail.vue')
+                },
+                {
+                    path: 'booksRecommend/:booksId',
+                    name: 'booksRecommend',
+                    component: ()=> import('../pages/books/pages/recommend.vue')
+                },
+                {
+                    path: 'booksChapters/:booksId',
+                    name: 'booksChapters',
+                    component: ()=> import('../pages/books/pages/chapters.vue')
                 }
             ]
         },

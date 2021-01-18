@@ -3754,10 +3754,10 @@ electron@^9.0.0:
     "@types/node" "^12.0.12"
     extract-zip "^1.0.3"
 
-element-plus@^1.0.1-beta.20:
-  version "1.0.1-beta.20"
-  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.1-beta.20.tgz?cache=0&sync_timestamp=1609732669518&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.1-beta.20.tgz#3d5db7801fc4ffad371f3851d5769543a0bb74d1"
-  integrity sha1-PV23gB/E/603HzhR1XaVQ6C7dNE=
+element-plus@^1.0.1-beta.27:
+  version "1.0.1-beta.27"
+  resolved "http://172.22.23.22:7001/element-plus/download/element-plus-1.0.1-beta.27.tgz#f7ea863e2a85f40d0bfccd9a3f778c883a844802"
+  integrity sha1-9+qGPiqF9A0L/M2aP3eMiDqESAI=
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"

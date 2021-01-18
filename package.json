@@ -14,7 +14,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.8.2",
-    "element-plus": "^1.0.1-beta.20",
+    "element-plus": "^1.0.1-beta.27",
     "less": "^4.0.0",
     "less-loader": "^7.2.1",
     "request": "^2.88.2",

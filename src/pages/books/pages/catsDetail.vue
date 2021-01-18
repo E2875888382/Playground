@@ -32,9 +32,7 @@
             <el-divider></el-divider>
             <div class="books-catsDetail__content" v-infinite-scroll="loadMore">
                 <div class="books-catsDetail__item" v-for="el in cache" :key="el._id" @click="toBooksDetail(el._id, `catsDetail/${title}/${genderTitle}`)">
-                    <a href="" class="item-cover">
-                        <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
-                    </a>
+                    <el-image class="item-cover" :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="" lazy/>
                     <div class="item-ifo">
                         <h4 class="item__title">{{el.title}}</h4>
                         <p class="item__author">{{el.author}}</p>
@@ -48,6 +46,7 @@
                 </div>
             </div>
         </div>
+        <el-backtop target=".books-catsDetail__content"></el-backtop>
     </div>
 </template>
 
@@ -240,12 +239,11 @@ export default {
     margin-bottom: 20px;
     cursor: pointer;
     .item-cover {
-        img {
-            width: 90px;
-            height: 120px;
-            border: 1px solid #ebebeb;
-            box-shadow: 2px 4px 6px #bbb;
-        }
+        flex-shrink: 0;
+        width: 90px;
+        height: 120px;
+        border: 1px solid #ebebeb;
+        box-shadow: 2px 4px 6px #bbb;
     }
     .item-ifo {
         flex-grow: 1;

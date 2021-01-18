@@ -11,6 +11,7 @@ electron + vue 桌面应用
 ![](https://img.shields.io/static/v1?label=style&message=less&color=green)
 
 ## Project target
+- [ ] 骨架屏
 - [ ] 应用登录（通过微信小程序码 || 公众号码）
 - [ ] 应用消息通知
 - [ ] 全局主题
@@ -26,7 +27,7 @@ electron + vue 桌面应用
 - [x] 小说小分类及列表加载
 - [x] 小说排行榜
 - [x] 小说详细页、热评
-- [ ] 同类小说推荐
+- [x] 小说推荐页
 - [ ] 小说搜索
 - [ ] 小说目录页
 - [ ] 小说评论页

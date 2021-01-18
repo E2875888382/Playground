@@ -20,6 +20,7 @@ import TitleBar from './components/TitleBar';
 import api from './api/manager';
 import { useRouter } from 'vue-router';
 import { provide } from 'vue';
+import { ElLoading } from 'element-plus';
 export default {
     components: {
         'side-bar': SideBar,
@@ -28,6 +29,7 @@ export default {
     setup() {
         const router = useRouter();
 
+        provide('loading', options=> ElLoading.service(options));
         provide('api', api);
         provide('toBooksDetail', (booksId, from='')=> {
             router.push({name: 'booksDetail', params: {booksId, from}})

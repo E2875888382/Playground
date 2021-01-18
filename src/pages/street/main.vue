@@ -13,8 +13,10 @@
             </div>
         </div>
         <div class="bbs-newsContent" ref="newsRef">
-            <div class="newsContent__main" v-html="newsContent" ></div>
+            <div class="newsContent__main" v-html="newsContent" v-if="newsContent"></div>
+            <el-empty description=" " v-else></el-empty>
         </div>
+        <el-backtop target=".bbs-newsContent"></el-backtop>
     </div>
 </template>
 
@@ -109,6 +111,9 @@ a {
 
 <style lang="less" scoped>
 @newsListWidth: 312px;
+.el-empty {
+    height: 100%;
+}
 .bbs-container {
     display: flex;
     width: 100%;
