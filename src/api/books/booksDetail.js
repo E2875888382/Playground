@@ -8,13 +8,13 @@ export const booksDetail = async booksId=> {
 }
 
 // 获取5条短评
-export const booksComment = async booksId=> {
+export const booksComment = async (booksId, page = 0, limit = 5)=> {
     return get({
         url: 'http://api.zhuishushenqi.com/post/review/by-book',
         params: {
             book: booksId,
-            start: 0,
-            limit: 5
+            start: page,
+            limit: limit
         }
     })
 }

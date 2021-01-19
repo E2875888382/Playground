@@ -20,3 +20,10 @@ export const booksChapters = async sourceId=> {
         }
     })
 }
+
+// 获取章节内容
+export const booksChaptersContent = async chapterlink=> {
+    return get({
+        url: `http://chapterup.zhuishushenqi.com/chapter/${encodeURIComponent(chapterlink)}`
+    })
+}

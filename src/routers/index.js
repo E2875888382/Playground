@@ -53,6 +53,11 @@ const router = createRouter({
                     component: ()=> import('../pages/books/pages/booksDetail.vue')
                 },
                 {
+                    path: 'booksComments/:booksId',
+                    name: 'booksComments',
+                    component: ()=> import('../pages/books/pages/comments.vue')
+                },
+                {
                     path: 'booksRecommend/:booksId',
                     name: 'booksRecommend',
                     component: ()=> import('../pages/books/pages/recommend.vue')
@@ -61,6 +66,14 @@ const router = createRouter({
                     path: 'booksChapters/:booksId',
                     name: 'booksChapters',
                     component: ()=> import('../pages/books/pages/chapters.vue')
+                },
+                {
+                    path: 'booksChaptersDetail/:chapterIndex',
+                    name: 'booksChaptersDetail',
+                    meta: {
+                        customClass: 'booksChaptersDetail'
+                    },
+                    component: ()=> import('../pages/books/pages/read.vue')
                 }
             ]
         },

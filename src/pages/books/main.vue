@@ -5,7 +5,7 @@
                 <img class="bookshelf-item__cover" :src="book.cover">
             </el-card>
         </div>
-        <div class="books-content">
+        <div class="books-content" :class="customClass">
             <div class="booksContent__main">
                 <router-view v-slot="{ Component }">
                     <keep-alive>
@@ -20,12 +20,16 @@
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 export default {
     setup() {
         const store = useStore();
+        const route = useRoute();
+        const customClass = computed(()=> route?.meta?.customClass);
 
         return {
-            bookshelf: computed(()=> store.state.user.bookshelf)
+            bookshelf: computed(()=> store.state.user.bookshelf),
+            customClass
         }
     }
 }
@@ -75,6 +79,7 @@ export default {
     }
 }
 .books-content {
+    position: relative;
     flex-grow: 1;
     height: 100%;
     overflow: auto;

@@ -9,7 +9,11 @@
                 <p class="books-chapters__title">目录<span class="books-chapters__length">共{{chapters.chapters.length}}章</span></p>
                 <span class="books-chapters__btn" @click="reverse">倒序</span>
             </div>
-            <p class="books-chapters__item" v-for="item in chaptersItems" :key="item._id">
+            <p 
+                class="books-chapters__item" 
+                v-for="(item,index) in chaptersItems" :key="item._id"
+                @click="back(`booksChaptersDetail/${index}`)"
+            >
                 {{item.title}}
             </p>
         </div>
@@ -21,8 +25,10 @@
 <script>
 import { computed, inject, onActivated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default {
     setup() {
+        const store = useStore();
         const router = useRouter();
         const route = useRoute();
         const loading = inject('loading');
@@ -35,6 +41,7 @@ export default {
         const reverse = ()=> chaptersItems.value.reverse();
 
         onActivated(async ()=> {
+            store.commit('book/resetBook');
             showContent.value = false;
             const loadingObj = loading({
                 target: '.books-chapters',
@@ -47,6 +54,10 @@ export default {
                 chapters.value = await booksChapters(source[0]._id);
                 chaptersItems.value = chapters.value?.chapters;
                 console.log(chaptersItems.value);
+                store.commit('book/updateBook', {
+                    booksId: route.params.booksId,
+                    chapters: chaptersItems.value
+                });
             }
             loadingObj.close();
             showContent.value = true;

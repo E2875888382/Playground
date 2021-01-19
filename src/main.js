@@ -16,7 +16,11 @@ import {
     ElButton,
     ElRate,
     ElEmpty,
-    ElBacktop
+    ElBacktop,
+    ElDropdown,
+    ElDropdownMenu,
+    ElDropdownItem,
+    ElSlider
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -44,5 +48,9 @@ app
 .use(ElRate)
 .use(ElEmpty)
 .use(ElBacktop)
+.use(ElDropdownItem)
+.use(ElDropdownMenu)
+.use(ElDropdown)
+.use(ElSlider)
 .use(store);
 app.mount('#app');

@@ -51,7 +51,7 @@
         <el-divider></el-divider>
         <p class="books-ifo__comments__title">
             <span>热门书评</span>
-            <span class="title_more">更多<i class="el-icon-arrow-right"></i></span>
+            <span class="title_more" @click="back(`booksComments/${booksIfo._id}`)">更多<i class="el-icon-arrow-right"></i></span>
         </p>
         <div class="books-ifo__comments">
             <div class="comments-item" v-for="comment in comments.reviews" :key="comment._id">
