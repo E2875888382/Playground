@@ -40,10 +40,16 @@ export default {
         const back = path=> path ? router.push(`/books/${path}`) : router.back(-1);
         const haveSource = computed(()=> chapters.value?.chapters?.length > 1);
         const reverse = ()=> chaptersItems.value.reverse();
+        const storeId = computed(()=> store.state.book.book.booksId);
 
         onActivated(async ()=> {
-            store.commit('book/resetBook');
             showContent.value = false;
+            // 判断booksId是否相同，减少相同请求
+            if (route.params.booksId === storeId.value) {
+                showContent.value = true;
+                return;
+            }
+            store.commit('book/resetBook');
             const loadingObj = loading({
                 target: '.books-chapters',
                 background: 'transparent',
