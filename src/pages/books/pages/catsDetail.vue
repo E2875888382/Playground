@@ -1,10 +1,6 @@
 <template>
     <div class="books-catsDetail">
-        <div class="books-catsDetail__nav">
-            <i class="el-icon-back" @click="back('cats')"></i>
-            <span class="books-catsDetail__title">{{title}}</span>
-            <i class="el-icon-s-home" @click="back('index')"></i>
-        </div>
+        <nav-bar :title="title" @back="back('cats')" />
         <div class="books-catsDetail__container">
             <div class="books-catsDetail__type">
                 <el-tag 
@@ -31,19 +27,7 @@
             </div>
             <el-divider></el-divider>
             <div class="books-catsDetail__content" v-infinite-scroll="loadMore">
-                <div class="books-catsDetail__item" v-for="el in cache" :key="el._id" @click="toBooksDetail(el._id, `catsDetail/${title}/${genderTitle}`)">
-                    <el-image class="item-cover" :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="" lazy/>
-                    <div class="item-ifo">
-                        <h4 class="item__title">{{el.title}}</h4>
-                        <p class="item__author">{{el.author}}</p>
-                        <p class="item__desc">{{el.shortIntro}}</p>
-                        <p class="item__popularity">
-                            <span class="popularity__num">{{el.latelyFollower}}</span><span>人气</span>
-                            <el-divider direction="vertical"></el-divider>
-                            <span class="popularity__num">{{el.retentionRatio}}%</span><span>读者留存</span>
-                        </p>
-                    </div>
-                </div>
+                <books-list :from="`catsDetail/${title}/${genderTitle}`" :list="cache"/>
             </div>
         </div>
         <el-backtop target=".books-catsDetail__content"></el-backtop>
@@ -53,21 +37,27 @@
 <script>
 import { computed, inject, onActivated, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import navBar from '../components/navBar';
+import booksList from '../components/booksList';
 export default {
+    components: {
+        'nav-bar': navBar,
+        'books-list': booksList
+    },
     setup() {
         const loadEnd = ref(false); // 没有更多了
         const page = ref(0);
-        const cache = ref({});
+        const cache = ref([]);
         const currentType = ref('热门');
         const currentMins = ref('全部');
-        const {booksCats, booksCatsDetail} = inject('api').booksCats;
+        const { booksCats, booksCatsDetail } = inject('api').booksCats;
         const allCats = ref({});
         const title = ref('');
         const genderTitle = ref('');
         const router = useRouter();
         const route = useRoute();
-        const back = (path)=> router.push(`/books/${path}`);
-        const arr2Map = (arr)=> {
+        const back = path=> router.push(`/books/${path}`);
+        const arr2Map = arr=> {
             let map = {};
 
             for (const {major, mins} of arr) {
@@ -101,7 +91,6 @@ export default {
                 cache.value = [...Array.from(cache.value), ...res?.books];
             }
             page.value++;
-            console.log(cache.value);
         };
         const changeType = (key)=> {
             if (currentType.value !== key) {
@@ -162,49 +151,19 @@ export default {
             changeType,
             changeMins,
             loadMore,
-            loadEnd,
-            toBooksDetail: inject('toBooksDetail')
+            loadEnd
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-.el-icon-back,
-.el-icon-s-home {
-    flex-basis: 40px;
-    text-align: center;
-    line-height: 50px;
-    color: #bbb;
-    cursor: pointer;
-}
 .books-catsDetail {
     width: 100%;
     height: 100%;
 }
 .books-catsDetail__container {
     height: calc(100% - 60px);
-}
-.books-catsDetail__nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
-}
-.books-catsDetail__title {
-    flex-grow: 1;
-    text-align: center;
-    font-weight: bold;
 }
 .books-catsDetail__type,
 .books-catsDetail__mins {
@@ -226,63 +185,6 @@ export default {
     height: calc(100% - 150px);
     width: 100%;
     margin-top: 10px;
-    overflow: auto;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
-.books-catsDetail__item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 122px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    .item-cover {
-        flex-shrink: 0;
-        width: 90px;
-        height: 120px;
-        border: 1px solid #ebebeb;
-        box-shadow: 2px 4px 6px #bbb;
-    }
-    .item-ifo {
-        flex-grow: 1;
-        height: 122px;
-        padding: 0 10px;
-    }
-    .item__title {
-        margin: 0;
-        font-size: 14px;
-        line-height: 25px;
-    }
-    .item__author {
-        margin: 0;
-        font-size: 12px;
-        line-height: 22px;
-    }
-    .item__desc {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        height: 40px;
-        margin: 3px 0;
-        overflow: hidden;
-        color: #999;
-        text-overflow: ellipsis;
-        font-size: 13px;
-        line-height: 20px;
-    }
-    .item__popularity {
-        height: 20px;
-        color: #999;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 12px;
-        line-height: 20px;
-        .popularity__num {
-            margin-right: 3px;
-            color: #d82626;
-        }
-    }
+    .overfloScroll;
 }
 </style>

@@ -21,6 +21,7 @@ import api from './api/manager';
 import { useRouter } from 'vue-router';
 import { provide } from 'vue';
 import { ElLoading } from 'element-plus';
+import { timeFormat } from './assets/js/utils';
 export default {
     components: {
         'side-bar': SideBar,
@@ -31,9 +32,9 @@ export default {
 
         provide('loading', options=> ElLoading.service(options));
         provide('api', api);
-        provide('toBooksDetail', (booksId, from='')=> {
-            router.push({name: 'booksDetail', params: {booksId, from}})
-        });
+        provide('toBooksDetail', (booksId, from='')=> router.push({name: 'booksDetail', params: {booksId, from}}));
+        provide('getStaticsImg', src=> `http://statics.zhuishushenqi.com${src}`);
+        provide('timeFormat', timeFormat);
     }
 }
 </script>

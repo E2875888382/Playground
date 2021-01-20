@@ -13,21 +13,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('epub', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
-                        <a href="" class="item-cover">
-                            <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
-                        </a>
-                        <div class="item-ifo">
-                            <h4 class="item__title">{{el.title}}</h4>
-                            <p class="item__author">{{el.author}}</p>
-                            <p class="item__desc">{{el.shortIntro}}</p>
-                            <p class="item__popularity">
-                                <span class="popularity__num">{{el.latelyFollower}}</span><span>人气</span>
-                                <el-divider direction="vertical"></el-divider>
-                                <span class="popularity__num">{{el.retentionRatio}}%</span><span>读者留存</span>
-                            </p>
-                        </div>
-                    </div>
+                    <books-list from="ranking" :list="getContent('epub', item.title)"/>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -37,21 +23,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('male', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
-                        <a href="" class="item-cover">
-                            <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
-                        </a>
-                        <div class="item-ifo">
-                            <h4 class="item__title">{{el.title}}</h4>
-                            <p class="item__author">{{el.author}}</p>
-                            <p class="item__desc">{{el.shortIntro}}</p>
-                            <p class="item__popularity">
-                                <span class="popularity__num">{{el.latelyFollower}}</span><span>人气</span>
-                                <el-divider direction="vertical"></el-divider>
-                                <span class="popularity__num">{{el.retentionRatio}}%</span><span>读者留存</span>
-                            </p>
-                        </div>
-                    </div>
+                    <books-list from="ranking" :list="getContent('male', item.title)"/>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -61,21 +33,7 @@
                 :label="item.title" :name="item._id + ''" 
             >
                 <div class="sub-tab__content">
-                    <div class="sub-tab__item" v-for="el in getContent('female', item.title)" :key="el._id" @click="toBooksDetail(el._id, 'ranking')">
-                        <a href="" class="item-cover">
-                            <img :src="`http://statics.zhuishushenqi.com${el.cover}`" alt="">
-                        </a>
-                        <div class="item-ifo">
-                            <h4 class="item__title">{{el.title}}</h4>
-                            <p class="item__author">{{el.author}}</p>
-                            <p class="item__desc">{{el.shortIntro}}</p>
-                            <p class="item__popularity">
-                                <span class="popularity__num">{{el.latelyFollower}}</span><span>人气</span>
-                                <el-divider direction="vertical"></el-divider>
-                                <span class="popularity__num">{{el.retentionRatio}}%</span><span>读者留存</span>
-                            </p>
-                        </div>
-                    </div>
+                    <books-list from="ranking" :list="getContent('female', item.title)"/>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -85,7 +43,11 @@
 <script>
 import { inject, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import booksList from '../components/booksList';
 export default {
+    components: {
+        'books-list': booksList
+    },
     setup() {
         const router = useRouter();
         const cache = ref({});
@@ -126,8 +88,6 @@ export default {
             updateCache('epub', epubSubTab.value);
             updateCache('male', maleSubTab.value);
             updateCache('female', femaleSubTab.value);
-
-            console.log('排行榜分类：', rankingClasses.value);
         };
         const getContent = (mainClass, subClass)=> cache.value?.[mainClass]?.[subClass];
 
@@ -146,7 +106,8 @@ export default {
             mainClass,
             getContent,
             back,
-            toBooksDetail: inject('toBooksDetail')
+            toBooksDetail: inject('toBooksDetail'),
+            getStaticsImg: inject('getStaticsImg')
         }
     }
 }
@@ -173,10 +134,7 @@ export default {
     }
     &:deep(.el-tabs__content) {
         height: 100%;
-        overflow-y: scroll;
-        &::-webkit-scrollbar {
-            display: none;
-        }
+        .overfloScroll;
     }
 }
 .books-ranking__tabs {
@@ -218,61 +176,6 @@ export default {
             height: 1px;
             background-color:#409EFF;
             z-index: 1;
-        }
-    }
-}
-.sub-tab__item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 122px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    .item-cover {
-        img {
-            width: 90px;
-            height: 120px;
-            border: 1px solid #ebebeb;
-            box-shadow: 2px 4px 6px #bbb;
-        }
-    }
-    .item-ifo {
-        flex-grow: 1;
-        height: 122px;
-        padding: 0 10px;
-    }
-    .item__title {
-        margin: 0;
-        font-size: 14px;
-        line-height: 25px;
-    }
-    .item__author {
-        margin: 0;
-        font-size: 12px;
-        line-height: 22px;
-    }
-    .item__desc {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        height: 40px;
-        margin: 3px 0;
-        overflow: hidden;
-        color: #999;
-        text-overflow: ellipsis;
-        font-size: 13px;
-        line-height: 20px;
-    }
-    .item__popularity {
-        height: 20px;
-        color: #999;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 12px;
-        line-height: 20px;
-        .popularity__num {
-            margin-right: 3px;
-            color: #d82626;
         }
     }
 }

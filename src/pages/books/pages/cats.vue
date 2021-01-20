@@ -1,10 +1,6 @@
 <template>
     <div class="books-cats">
-        <div class="books-cats__nav">
-            <i class="el-icon-back" @click="back"></i>
-            <span class="books-cats__title">全部分类</span>
-            <i class="el-icon-s-home" @click="back"></i>
-        </div>
+        <nav-bar title="全部分类" @back="back" />
         <div class="cats-box" v-for="(value, key) in cats" :key="key">
             <p class="cats_main">{{key}}</p>
             <div class="cats-container">
@@ -20,7 +16,11 @@
 <script>
 import { inject, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
+import navBar from '../components/navBar';
 export default {
+    components: {
+        'nav-bar': navBar
+    },
     setup() {
         const router = useRouter();
         const cats = ref({});
@@ -30,7 +30,6 @@ export default {
             const {male, female, press} = await booksIndexClass();
 
             cats.value = {'男生':addType('male', male), '女生':addType('female', female), '出版':addType('press', press)};
-            console.log('全部分类：', cats.value);
         };
         const addType = (type, arr)=> {
             return arr.map(item=> {
@@ -59,38 +58,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-icon-back,
-.el-icon-s-home {
-    flex-basis: 40px;
-    text-align: center;
-    line-height: 50px;
-    color: #bbb;
-    cursor: pointer;
-}
 .books-cats {
     width: 100%;
     padding-bottom: 24px;
-}
-.books-cats__nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
-}
-.books-cats__title {
-    flex-grow: 1;
-    text-align: center;
-    font-weight: bold;
 }
 .cats-box {
     width: 100%;

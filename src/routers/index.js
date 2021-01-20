@@ -28,6 +28,11 @@ const router = createRouter({
                     redirect: '/books/index'
                 },
                 {
+                    path: 'booksSearch',
+                    name: 'booksSearch',
+                    component: ()=> import('../pages/books/pages/search.vue')
+                },
+                {
                     path: 'index',
                     name: 'booksIndex',
                     component: ()=> import('../pages/books/pages/index.vue')

@@ -86,7 +86,6 @@ export default {
 
             currentChapter.value = index;
             chapterContent.value = (`<p class="book-read__content-title">${res?.chapter?.title}</p>` + res?.chapter?.cpContent) || '';
-            console.log(`第${currentChapter.value}章内容：`, res);
             contentRef.value.scrollTop = '0';
         };
         const changeChapter = (dir)=> {
@@ -109,7 +108,7 @@ export default {
             bookChapters.value = chapters;
             bookMsg.value = await booksDetail(booksId);
             selectChapter(bookChapters.value[currentChapter.value].link, currentChapter.value);
-            console.log('信息:', {
+            console.log('书籍信息:', {
                 detail: bookMsg.value,
                 chapters: bookChapters.value,
                 chapterIndex: currentChapter.value
@@ -135,12 +134,6 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.booksChaptersDetail {
-    background-color: #eee6dd;
-}
-</style>
 
 <style lang="less" scoped>
 .fontsize__btn {
@@ -178,11 +171,8 @@ export default {
     line-height: 1.8;
     white-space: pre-line;
     color: #5c5d58;
-    overflow: auto;
     user-select: none;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    .overfloScroll;
     &:deep(.book-read__content-title) {
         font-size: 30px;
         font-weight: bold;
@@ -225,10 +215,7 @@ export default {
     height: 100%;
     background-color: #FFF;
     opacity: 1;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    .overfloScroll;
 }
 .book-read__chapters-item {
     height: 75px;

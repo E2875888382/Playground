@@ -1,9 +1,6 @@
 <template>
     <div class="books-chapters">
-        <div class="books-chapters__nav">
-            <i class="el-icon-back" @click="back"></i>
-            <i class="el-icon-s-home" @click="back('index')"></i>
-        </div>
+        <nav-bar @back="back" />
         <div v-if="showContent && haveSource" class="books-chapters__content">
             <div class="books-chapters__header">
                 <p class="books-chapters__title">目录<span class="books-chapters__length">共{{chapters.chapters.length}}章</span></p>
@@ -26,7 +23,11 @@
 import { computed, inject, onActivated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import navBar from '../components/navBar';
 export default {
+    components: {
+        'nav-bar': navBar
+    },
     setup() {
         const store = useStore();
         const router = useRouter();
@@ -36,7 +37,7 @@ export default {
         const chapters = ref({});
         const chaptersItems = ref([]);
         const {booksSource, booksChapters} = inject('api').booksChapters;
-        const back = path=> path.length > 0 ? router.push(`/books/${path}`) : router.back(-1);
+        const back = path=> path ? router.push(`/books/${path}`) : router.back(-1);
         const haveSource = computed(()=> chapters.value?.chapters?.length > 1);
         const reverse = ()=> chaptersItems.value.reverse();
 
@@ -53,7 +54,6 @@ export default {
             if (Array.isArray(source)) {
                 chapters.value = await booksChapters(source[0]._id);
                 chaptersItems.value = chapters.value?.chapters;
-                console.log(chaptersItems.value);
                 store.commit('book/updateBook', {
                     booksId: route.params.booksId,
                     chapters: chaptersItems.value
@@ -75,33 +75,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-icon-back,
-.el-icon-s-home {
-    flex-basis: 40px;
-    text-align: center;
-    line-height: 50px;
-    color: #bbb;
-    cursor: pointer;
-}
 .el-empty {
     height: calc(100% - 50px);
-}
-.books-chapters__nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 50px;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
 }
 .books-chapters {
     width: 100%;
@@ -113,10 +88,7 @@ export default {
 }
 .books-chapters__content {
     height: calc(100% - 55px);
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    .overfloScroll;
 }
 .books-chapters__header {
     display: flex;

@@ -20,7 +20,8 @@ import {
     ElDropdown,
     ElDropdownMenu,
     ElDropdownItem,
-    ElSlider
+    ElSlider,
+    ElAutocomplete
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -52,5 +53,6 @@ app
 .use(ElDropdownMenu)
 .use(ElDropdown)
 .use(ElSlider)
+.use(ElAutocomplete)
 .use(store);
 app.mount('#app');

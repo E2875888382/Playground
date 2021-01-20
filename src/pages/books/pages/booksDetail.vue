@@ -1,11 +1,8 @@
 <template>
     <div class="books-detail">
-        <div class="books-detail__nav">
-            <i class="el-icon-back" @click="back(from)"></i>
-            <i class="el-icon-s-home" @click="back('index')"></i>
-        </div>
+        <nav-bar @back="back(from)"/>
         <div class="books-ifo">
-            <img class="books-ifo__cover" :src="`http://statics.zhuishushenqi.com${booksIfo.cover}`" alt="" v-if="booksIfo.cover">
+            <img class="books-ifo__cover" :src="getStaticsImg(booksIfo.cover)" alt="" v-if="booksIfo.cover">
             <div class="books-ifo__detail">
                 <h3 class="books-ifo__title">{{booksIfo.title}}</h3>
                 <p class="books-ifo__author">
@@ -54,30 +51,15 @@
             <span class="title_more" @click="back(`booksComments/${booksIfo._id}`)">更多<i class="el-icon-arrow-right"></i></span>
         </p>
         <div class="books-ifo__comments">
-            <div class="comments-item" v-for="comment in comments.reviews" :key="comment._id">
-                <el-avatar class="comments-item__avatar" :src="`http://statics.zhuishushenqi.com${comment.author.avatar}`"></el-avatar>
-                <div class="comments-item__ifo">
-                    <p class="comments-item__nickname">{{comment.author.nickname}}</p>
-                    <p class="comments-item__title">{{comment.title}}</p>
-                    <el-rate v-model="comment.rating" disabled text-color="#ff9900" disabled-void-color="#ff9900" disabled-void-icon-class="el-icon-star-off"></el-rate>
-                    <p class="comments-item__content">{{comment.content}}</p>
-                    <p class="comments-item__love">
-                        <span>{{timeFormat(comment.updated)}}</span>
-                        <span>{{comment.likeCount}}人觉得有用</span>
-                    </p>
-                </div>
-            </div>
+            <comments-list :comments="comments.reviews" />
         </div>
         <p class="books-ifo__recommend__title">
             <span>你可能感兴趣</span>
             <span class="title_more" @click="back(`booksRecommend/${booksIfo._id}`)">更多<i class="el-icon-arrow-right"></i></span>
         </p>
         <div class="books-ifo__recommend" v-if="recommends.books">
-            <div 
-                class="recommend-item" 
-                v-for="item in recommends.books.slice(0, 4)" :key="item._id"
-            >
-                <img class="recommend-item__cover" :src="`http://statics.zhuishushenqi.com${item.cover}`" alt="">
+            <div class="recommend-item" v-for="item in recommends.books.slice(0, 4)" :key="item._id">
+                <img class="recommend-item__cover" :src="getStaticsImg(item.cover)" alt="">
                 <p class="recommend-item__title">{{item.title}}</p>
             </div>
         </div>
@@ -86,8 +68,14 @@
 
 <script>
 import { inject, onActivated, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router';
+import navBar from '../components/navBar';
+import commentsList from '../components/commentsList';
 export default {
+    components: {
+        'nav-bar': navBar,
+        'comments-list': commentsList
+    },
     setup() {
         const router = useRouter();
         const comments = ref({});
@@ -101,29 +89,10 @@ export default {
             booksIfo.value = await booksDetail(booksId);
             comments.value = await booksComment(booksId);
             recommends.value = await booksRecommend(booksId);
-            console.log('同类书籍推荐:', recommends.value);
             console.log('书籍信息:', booksIfo.value);
-            console.log('5条短评:', comments.value);
         };
         const numFormat = num=> num > 9999 ? `${Math.round(Math.floor(num/1000)/10)}万` : num;
         const wordFormat = num=> num > 9999 ? `${Math.round(174920/1000)/10}万` : num;
-        const timeFormat = time=> {
-            const timeNum = (Date.now() - (+new Date(time))) / 1000;
-            const timeList = [
-                { diff: 60 * 60 * 24 * 30 * 12, str: '年前'},
-                { diff: 60 * 60 * 24 * 30, str: '月前' },
-                { diff: 60 * 60 * 24, str: '天前' },
-                { diff: 60 * 60, str: '小时前' },
-                { diff: 60, str: '分钟前' },
-                { diff: 0, str: '刚刚' }
-            ];
-
-            for (const {diff, str} of timeList) {
-                if (timeNum > diff) {
-                    return (diff === 0 ? '' : Math.floor(timeNum / diff)) + str;
-                }
-            }
-        };
 
         onActivated(()=> {
             from.value = route.params.from;
@@ -134,41 +103,17 @@ export default {
             comments,
             numFormat,
             wordFormat,
-            timeFormat,
+            timeFormat: inject('timeFormat'),
             back,
             from,
-            recommends
+            recommends,
+            getStaticsImg: inject('getStaticsImg')
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-.el-icon-back,
-.el-icon-s-home {
-    flex-basis: 40px;
-    text-align: center;
-    line-height: 50px;
-    color: #bbb;
-    cursor: pointer;
-}
-.books-detail__nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 50px;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
-}
 .books-detail {
     width: 100%;
 }

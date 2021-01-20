@@ -66,6 +66,7 @@ const state = {
         booksChapters: '目录',
         booksComments: '全部评论',
         booksChaptersDetail: '',
+        booksSearch: '搜索',
         webview: '浏览器',
         books: '看书',
         chat: '聊天',

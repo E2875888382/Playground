@@ -123,11 +123,8 @@ a {
     flex-shrink: 0;
     width: @newsListWidth;
     height: 100%;
-    overflow: auto;
     background-color: #f0efee;
-    &::-webkit-scrollbar {
-        width: 0;
-    }
+    .overfloScroll;
 }
 .newsList__item {
     display: flex;
@@ -160,10 +157,7 @@ a {
 .bbs-newsContent {
     flex-grow: 1;
     height: 100%;
-    overflow: auto;
-    &::-webkit-scrollbar {
-        width: 0;
-    }
+    .overfloScroll;
     .newsContent__main {
         width: 80%;
         padding: 0 60px;

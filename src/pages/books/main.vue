@@ -52,11 +52,8 @@ export default {
     flex-shrink: 0;
     width: @booksshelfWidth;
     height: 100%;
-    overflow: auto;
     background-color: #f0efee;
-    &::-webkit-scrollbar {
-        width: 0;
-    }
+    .overfloScroll;
     &::after {
         content: '';
         flex: 0 0 @bookshelfItemWdith;
@@ -82,10 +79,7 @@ export default {
     position: relative;
     flex-grow: 1;
     height: 100%;
-    overflow: auto;
-    &::-webkit-scrollbar {
-        width: 0;
-    }
+    .overfloScroll;
     .booksContent__main {
         height: 100%;
         width: 90%;
