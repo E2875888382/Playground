@@ -19,7 +19,7 @@ export const autoComplete = async query=> {
     return get({
         url: 'http://api.zhuishushenqi.com/book/auto-complete',
         params: {
-            query: query
+            query: encodeURIComponent(query)
         }
     })
 };
@@ -28,7 +28,9 @@ export const autoComplete = async query=> {
 export const searchByTitle = async query=> {
     return get({
         url: 'http://api.zhuishushenqi.com/book/fuzzy-search',
-        query: encodeURIComponent(query)
+        params: {
+            query: encodeURIComponent(query)
+        }
     })
 };
 

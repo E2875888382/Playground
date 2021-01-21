@@ -4,7 +4,7 @@
         <div class="books-ifo">
             <img class="books-ifo__cover" :src="getStaticsImg(booksIfo.cover)" alt="" v-if="booksIfo.cover">
             <div class="books-ifo__detail">
-                <h3 class="books-ifo__title">{{booksIfo.title}}</h3>
+                <h3 class="books-ifo__title" v-cloak>{{booksIfo.title}}</h3>
                 <p class="books-ifo__author">
                     <span>{{booksIfo.author}}</span>
                     <el-divider direction="vertical"></el-divider>

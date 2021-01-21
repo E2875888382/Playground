@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import SideBar from './components/SideBar';
-import TitleBar from './components/TitleBar';
-import api from './api/manager';
+import SideBar from '../components/SideBar';
+import TitleBar from '../components/TitleBar';
+import api from '../api/manager';
 import { useRouter } from 'vue-router';
 import { provide } from 'vue';
 import { ElLoading } from 'element-plus';
-import { timeFormat } from './assets/js/utils';
+import { timeFormat } from '../assets/js/utils';
 export default {
     components: {
         'side-bar': SideBar,

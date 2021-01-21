@@ -73,8 +73,8 @@ export default {
         };
 
         // 监听event的回调，重定向到webview页
-        ipcRenderer.on('new-window', ()=> {
-            ctx.$router.push({name:'webview'});
+        ipcRenderer.on('new-window', (event, url)=> {
+            ctx.$router.push({name:'webview', params: {url: url}});
         })
         onMounted(getList);
         return {

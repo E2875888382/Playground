@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import App from './App.vue';
+import App from '../app/App.vue';
 import { 
     ElAvatar, 
     ElIcon, 
@@ -23,8 +23,8 @@ import {
     ElSlider,
     ElAutocomplete
 } from 'element-plus';
-import router from './routers';
-import store from './store';
+import router from '../routers';
+import store from '../store';
 import { webFrame } from 'electron';
 
 const app = createApp(App);
