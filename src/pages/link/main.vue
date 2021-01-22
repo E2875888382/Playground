@@ -1,26 +1,36 @@
  <template>
     <div class="webview-container">
         <div class="webview-bookmarks"></div>
-        <div class="webview-content"></div>
+        <div class="webview-content">
+            <webview ref="webviewDom" :src="url" class="webview"></webview>
+        </div>
     </div>
 </template>
 
 <script>
-import { ipcRenderer } from 'electron';
-import { onBeforeRouteLeave } from 'vue-router';
+import { onActivated, ref } from 'vue';
+import { useRoute } from 'vue-router';
 export default {
     setup() {
-        onBeforeRouteLeave(()=> ipcRenderer.send('hideWebview'))
+        const webviewDom = ref(null);
+        const route = useRoute();
+        const url = ref('https://www.baidu.com');
+
+        onActivated(()=> {
+            url.value = route.params.url;
+            webviewDom.value && webviewDom.value.addEventListener('new-window', e=> {
+                url.value = e.url;
+            });
+        });
+        return {
+            url,
+            webviewDom
+        }
     },
-    beforeRouteEnter (to, from, next) {
-        ipcRenderer.send('openWebview', to.params.url);
-        next();
-    }
 }
 </script>
 
-<style 
-Webview lang="less" scoped>
+<style lang="less" scoped>
 @booksmarksWidth: 312px;
 .webview-container {
     display: flex;
@@ -34,5 +44,10 @@ Webview lang="less" scoped>
     &::-webkit-scrollbar {
         width: 0;
     }
+}
+.webview {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
 }
 </style>

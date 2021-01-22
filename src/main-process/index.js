@@ -1,20 +1,19 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, BrowserView, ipcMain, Menu, Tray} from 'electron';
+import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
+import { initIpcManager } from './ipcManager';
 
 const path = require('path');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const icon = path.join(__dirname, '../src/assets/img/icon.png');
-let appTray = null;
-let webview = null;
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
     { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
 async function createWindow() {
-    // Create the browser window.
     const win = new BrowserWindow({
         width: 1000,
         height: 650,
@@ -25,62 +24,12 @@ async function createWindow() {
         icon: icon,
         webPreferences: {
             enableRemoteModule: true,
-            nodeIntegration: true
+            nodeIntegration: true,
+            webviewTag: true
         }
     });
-    // 监听自定义titleBar事件
-    ipcMain.on('min', () => win.unmaximize());
-    ipcMain.on('max', () => win.maximize());
-    // 点击关闭最小化到托盘
-    ipcMain.on('close', () => {
-        const trayMenu = [
-            {
-                label: '退出',
-                click: () => app.quit()
-            }
-        ];
-        // 图标的上下文菜单
-        const contextMenu = Menu.buildFromTemplate(trayMenu);
 
-        appTray = new Tray(icon);
-        win.hide();
-        appTray.setContextMenu(contextMenu);
-        // 单击托盘小图标显示应用
-        appTray.on('click', function () {
-            // 显示主程序
-            win.show();
-            // 关闭托盘显示
-            appTray.destroy();
-        });
-    });
-    ipcMain.on('developer', () => win.webContents.openDevTools());
-
-    webview = new BrowserView();
-
-    win.setBrowserView(webview);
-    webview.setAutoResize({width: true, height: true});
-
-    function hideWebview() {
-        webview.setBounds({
-            width: 0,
-            height: 0,
-            x: 315,
-            y: 63
-        });
-        webview.setAutoResize({width: false, height: false});
-    }
-    hideWebview();
-    ipcMain.on('openWebview', (event, url)=> {
-        webview.setBounds({
-            width: 946,
-            height: 730,
-            x: 64,
-            y: 64
-        });
-        webview.setAutoResize({width: true, height: true});
-        url && webview.webContents.loadURL(url);
-    });
-    ipcMain.on('hideWebview', ()=> hideWebview());
+    initIpcManager(win);
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
@@ -100,16 +49,6 @@ app.on('window-all-closed', () => {
         app.quit()
     }
 })
-
-app.on('web-contents-created', (e, webContents) => {
-    // 拦截app内所有的打开网页事件
-    webContents.on('new-window', (event, url) => {
-        event.preventDefault();
-        webview.webContents.loadURL('https://github.com');
-        // 告诉当前页面要跳转到webview页,并传入地址
-        event.sender.send('new-window', url);
-    });
-});
 
 app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the

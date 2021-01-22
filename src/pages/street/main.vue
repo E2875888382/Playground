@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="bbs-newsContent" ref="newsRef">
-            <div class="newsContent__main" v-html="newsContent" v-if="newsContent"></div>
+            <div class="newsContent__main" @click="handleUrl" v-html="newsContent" v-if="newsContent"></div>
             <el-empty description=" " v-else></el-empty>
         </div>
         <el-backtop target=".bbs-newsContent"></el-backtop>
@@ -21,19 +21,19 @@
 </template>
 
 <script>
-import { ref, onMounted, getCurrentInstance, inject } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useStore } from 'vuex';
-import { ipcRenderer } from 'electron';
+import { useRouter } from 'vue-router';
 export default {
     setup() {
         const {newsList, newsDetail} = inject('api').street;
-        const {ctx} = getCurrentInstance();
         const store = useStore();
         const list = ref([]);
         const active = ref('');
         const newsContent = ref('');
         const newsRef = ref(null);
         const page = ref(1);
+        const router = useRouter();
         const getList = async()=> {
             const res = await newsList(page.value);
 
@@ -56,7 +56,7 @@ export default {
                 .replace(/<!--link(.*?)-->/g, match=> {
                     const {title, href} = linkMap[match];
 
-                    return `<a src="${href}" onclick="window.open('${href}')">${title}</a>`
+                    return `<a data-src="${href}">${title}</a>`;
                 })
                 .replace(/<!--VIDEO(.*?)-->/g, match=> {
                     return `<video controls src="${videoMap[match].url_m3u8}" poster="${videoMap[match].cover}" width="100%" />`;
@@ -71,11 +71,14 @@ export default {
             newsContent.value = parsedData;
             newsRef.value.scrollTop = '0'; // 回弹顶部
         };
+        const handleUrl = e=> {
+            const src = e.target.innerHTML;
+            const urlExec = /data-src="(.*)"/g.exec(src);
+            const url = Array.isArray(urlExec) && urlExec[1];
 
-        // 监听event的回调，重定向到webview页
-        ipcRenderer.on('new-window', (event, url)=> {
-            ctx.$router.push({name:'webview', params: {url: url}});
-        })
+            url && router.push({name: 'webview', params: {url}});
+        };
+
         onMounted(getList);
         return {
             list,
@@ -84,7 +87,8 @@ export default {
             handleClick,
             newsContent,
             newsRef,
-            page
+            page,
+            handleUrl
         }
     }
 }
@@ -105,6 +109,12 @@ a {
     p {
         font-size: @newsFontSize;
         line-height: @newsLineHeight;
+    }
+    a {
+        pointer-events: none;
+    }
+    b {
+        pointer-events: none;
     }
 }
 </style>
