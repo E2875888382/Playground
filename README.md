@@ -24,6 +24,7 @@ electron + vue 桌面应用
 - [x] 新闻阅读、无限加载
 - [ ] 新闻搜索
 - [x] 应用内webview
+- [ ] webview导航栏
 - [ ] 骨架屏
 - [ ] 应用登录（通过微信小程序码 || 公众号码）
 - [ ] 应用消息通知
@@ -31,7 +32,6 @@ electron + vue 桌面应用
 - [ ] 应用本地状态持久化
 - [ ] 用户设置页
 - [ ] 用户收藏
-- [ ] webview导航栏
 - [ ] 小说书架
 - [ ] 小说书签
 - [ ] 黑夜模式、护眼模式
@@ -59,7 +59,9 @@ electron + vue 桌面应用
 
 ## About webview
 
-官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。
+~~官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。~~
+
+更新：由于`BrowserView`似乎没法自定义导航栏（实现history前进后退等），暂时回退到`<webview>`方案。
 
 ## About pull requests
 
