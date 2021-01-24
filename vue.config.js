@@ -1,6 +1,19 @@
 const path = require('path');
 
 module.exports = {
+    chainWebpack: (config) => {
+      config.module
+        .rule('vue')
+        .use('vue-loader')
+        .loader('vue-loader')
+        .tap((options) => {
+          options.compilerOptions = {
+            ...(options.compilerOptions || {}),
+            isCustomElement: (tag) => /^webview/.test(tag)
+          }
+          return options
+        })
+    },
     configureWebpack: config => {
         config.entry.app = './src/rendering-process/main.js'
     },
