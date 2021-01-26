@@ -112,6 +112,7 @@ export default {
             webviewDom.value.reload();
         };
         const navHome = ()=> {
+            netError.value = false;
             url.value = 'https://www.baidu.com';
             urlInput.value = 'https://www.baidu.com';
         };
