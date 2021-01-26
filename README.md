@@ -24,7 +24,7 @@ electron + vue 桌面应用
 - [x] 新闻阅读、无限加载
 - [ ] 新闻搜索
 - [x] 应用内webview
-- [ ] webview导航栏
+- [x] webview导航栏
 - [ ] 骨架屏
 - [ ] 应用登录（通过微信小程序码 || 公众号码）
 - [ ] 应用消息通知
@@ -84,6 +84,10 @@ yarn install
 ```
  yarn electron:serve
 ```
+如果启动项目报错：`TypeError: Cannot read property ‘parseComponent‘ of undefined`
+
+请尝试删除yarn.lock和node_module，并重新`yarn install`
+
 
 ### Compiles and minifies for production
 ```

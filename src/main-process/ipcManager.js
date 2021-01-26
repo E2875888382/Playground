@@ -5,8 +5,14 @@ const icon = path.join(__dirname, '../src/assets/img/icon.png');
 
 export const initIpcManager = (win)=> {
     // 监听自定义titleBar事件
-    ipcMain.on('min', () => win.unmaximize());
-    ipcMain.on('max', () => win.maximize());
+    ipcMain.on('min', () => win.minimize());
+    ipcMain.on('max', () => {
+        if (win.isMaximized()) {
+            win.unmaximize();
+            return;
+        }
+        win.maximize();
+    });
     ipcMain.on('developer', () => win.webContents.openDevTools());
     // 点击关闭最小化到托盘
     ipcMain.on('close', () => {

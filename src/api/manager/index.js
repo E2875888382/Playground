@@ -5,6 +5,7 @@ import * as booksDetail from '../books/booksDetail';
 import * as booksChapters from '../books/chapters';
 import * as booksSearch from '../books/search';
 import * as street from '../street';
+import * as webview from '../link';
 
 // 全局管理api，通过provide注入
 export default {
@@ -14,5 +15,6 @@ export default {
     booksDetail,
     street,
     booksChapters,
-    booksSearch
+    booksSearch,
+    webview
 }

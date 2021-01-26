@@ -20,7 +20,7 @@ import TitleBar from '../components/TitleBar';
 import api from '../api/manager';
 import { useRouter } from 'vue-router';
 import { provide } from 'vue';
-import { ElLoading } from 'element-plus';
+import { ElLoading, ElMessage  } from 'element-plus';
 import { timeFormat } from '../assets/js/utils';
 export default {
     components: {
@@ -30,6 +30,7 @@ export default {
     setup() {
         const router = useRouter();
 
+        provide('message', options=> ElMessage(options));
         provide('loading', options=> ElLoading.service(options));
         provide('api', api);
         provide('toBooksDetail', (booksId, from='')=> router.push({name: 'booksDetail', params: {booksId, from}}));

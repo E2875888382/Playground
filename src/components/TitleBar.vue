@@ -1,6 +1,6 @@
 <template>
     <div class="title-bar-container">
-        <Search />
+        <Search v-show="showSearch"/>
         <div class="title-bar">
             <div 
                 class="title-bar__item"
@@ -18,14 +18,20 @@
 import Search from './Search';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 export default {
     components: {
         Search
     },
     setup() {
         const store = useStore();
+        const route = useRoute();
+        const showSearch = computed(()=> {
+            return route.name !== 'webview';
+        });
 
         return {
+            showSearch,
             titleBars: computed(()=> store.state.config.titleBars)
         }
     }
@@ -54,6 +60,8 @@ export default {
 }
 .title-bar {
     display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
     -webkit-app-region: no-drag;
     height: 30px;
     width: 200px;
