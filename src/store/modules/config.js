@@ -2,6 +2,11 @@ import { ipcRenderer } from 'electron';
 const state = {
     tabs: [
         {
+            name: 'pictures',
+            icon: 'picture-outline-round',
+            path: '/pictures'
+        },
+        {
             name: 'news',
             icon: 'news',
             path: '/bbs'
@@ -25,11 +30,6 @@ const state = {
             name: 'media',
             icon: 'video-play',
             path: '/media'
-        },
-        {
-            name: 'pictures',
-            icon: 'picture-outline-round',
-            path: '/pictures'
         },
         {
             name: 'collection',
@@ -71,9 +71,15 @@ const state = {
         books: '看书',
         chat: '聊天',
         media: '听歌',
-        pictures: '看图',
+        pictures: '壁纸',
         collection: '收藏'
-    }
+    },
+    readMode: 'eyecare',
+    backgroundImg: "linear-gradient(0deg,#f5f5f5b3,#f5f5f5b3), url('https://cn.bing.com/th?id=OHR.KagamiMirror_ZH-CN0889648187_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp')",
+    // backgroundImg: '#f5f5f5',
+    // browserBackgroundImg: 'https://cn.bing.com/th?id=OHR.HeartAustralia_ZH-CN7049080558_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
+    browserBackgroundImg: ''
+
 };
 const mutations = {
     updateTitle(state, {tabs, title}) {
@@ -81,6 +87,9 @@ const mutations = {
     },
     updateTabsPath(state, {tabsIndex, path}) {
         state.tabs[tabsIndex].path = path;
+    },
+    updateReadMode(state, mode) {
+        state.readMode = mode;
     }
 };
 

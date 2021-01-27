@@ -23,9 +23,16 @@ import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 export default {
     setup() {
+        const readModes = {
+            default: 'booksChaptersDetail',
+            eyecare: 'booksChaptersDetail_eyecare',
+            dark: 'booksChaptersDetail_dark'
+        };
         const store = useStore();
         const route = useRoute();
-        const customClass = computed(()=> route?.meta?.customClass);
+        const customClass = computed(()=> {
+            return route.name === 'booksChaptersDetail' ? readModes[store.state.config.readMode] : '';
+        });
 
         return {
             bookshelf: computed(()=> store.state.user.bookshelf),

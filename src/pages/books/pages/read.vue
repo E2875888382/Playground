@@ -18,9 +18,15 @@
         </transition>
         <transition name="fade_up">
             <div class="book-read__drawer_bottom" v-show="showBottomDrawer">
+                <div class="bookshelf__btn">加入书架</div>
                 <div class="fontsize__btn">
                     <span>字体大小</span>
                     <el-slider v-model="fontSize" :min="18" :max="30"></el-slider>
+                    <div class="color__box">
+                        <el-button class="color__btn" plain @click="changeMode('default')">默认</el-button>
+                        <el-button class="color__btn" plain @click="changeMode('dark')">黑夜</el-button>
+                        <el-button class="color__btn" plain @click="changeMode('eyecare')">护眼</el-button>
+                    </div>
                 </div>
                 <div class="chapters__nav">
                     <span @click="changeChapter(-1)">上一章</span>
@@ -97,6 +103,9 @@ export default {
                 selectChapter(bookChapters.value[currentChapter.value].link, currentChapter.value);
             }
         };
+        const changeMode = mode=> {
+            store.commit('config/updateReadMode', mode);
+        };
 
         onActivated(async ()=> {
             showTopDrawer.value = false;
@@ -129,7 +138,8 @@ export default {
             back,
             changeChapter,
             contentRef,
-            fontSize
+            fontSize,
+            changeMode
         }
     }
 }
@@ -151,6 +161,20 @@ export default {
     .el-slider {
         display: inline-block;
         width: 400px;
+    }
+    .color__box {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 60px;
+        margin: 0 20px;
+    }
+    .color__btn {
+        flex-basis: 25%;
+        font-size: 16px;
+        color: #a8a8aa;
+        background-color: transparent;
     }
 }
 .el-icon-arrow-left,
@@ -204,8 +228,23 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
+    padding-top: 20px;
     background-color: #323334e6;
     opacity: 1;
+}
+.bookshelf__btn {
+    position: absolute;
+    right: 0;
+    top: -140px;
+    width: 140px;
+    height: 50px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: #323334e6;
+    color: #FFF;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
 }
 .book-read__drawer_left {
     position: absolute;

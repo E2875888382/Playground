@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/bbs'
+            redirect: '/pictures'
         },
         {
             path: '/bbs',
@@ -75,9 +75,6 @@ const router = createRouter({
                 {
                     path: 'booksChaptersDetail/:chapterIndex',
                     name: 'booksChaptersDetail',
-                    meta: {
-                        customClass: 'booksChaptersDetail'
-                    },
                     component: ()=> import('../pages/books/pages/read.vue')
                 }
             ]
@@ -96,6 +93,11 @@ const router = createRouter({
             path: '/pictures',
             name: 'pictures',
             component: ()=> import('../pages/pictures/main.vue')
+        },
+        {
+            path: '/preview/:currentIndex',
+            name: 'preview',
+            component: ()=> import('../pages/pictures/preview.vue')
         },
         {
             path: '/media',

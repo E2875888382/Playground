@@ -143,6 +143,7 @@ i {
 }
 .side-bar__hotWords {
     padding: 0 20px;
+    font-size: 14px;
 }
 .ranking-box {
     margin-top: 15px;

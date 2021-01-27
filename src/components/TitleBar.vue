@@ -1,5 +1,5 @@
 <template>
-    <div class="title-bar-container">
+    <div class="title-bar-container" :style="containerHeight">
         <Search v-show="showSearch"/>
         <div class="title-bar">
             <div 
@@ -27,11 +27,15 @@ export default {
         const store = useStore();
         const route = useRoute();
         const showSearch = computed(()=> {
-            return route.name !== 'webview';
+            return !['webview', 'preview'].includes(route.name);
+        });
+        const containerHeight = computed(()=> {
+            return showSearch.value ? {height: '78px'} : {}
         });
 
         return {
             showSearch,
+            containerHeight,
             titleBars: computed(()=> store.state.config.titleBars)
         }
     }
@@ -39,14 +43,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@titleBarHight: 78px;
 .title-bar-container {
     position: relative;
     display: flex;
     justify-content: space-between;
     -webkit-app-region: drag;
     width: 100%;
-    height: @titleBarHight;
     background-color: transparent;
     &::after {
         content: '';
@@ -62,7 +64,6 @@ export default {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
-    -webkit-app-region: no-drag;
     height: 30px;
     width: 200px;
 }
@@ -77,5 +78,6 @@ export default {
     &:hover {
         opacity: 1;
     }
+    -webkit-app-region: no-drag;
 }
 </style>

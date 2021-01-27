@@ -25,6 +25,7 @@
                 v-on:[eventLoadFail]="handleLoadFail"
                 v-on:[eventStartLoad]="handleStartLoad"
                 v-on:[eventFinishLoad]="handleFinishLoad"
+                v-on:[eventDomReady]="handleDomReady"
                 v-show="!netError"
             ></webview>
             <div class="netError" v-show="netError">
@@ -37,11 +38,12 @@
 </template>
 
 <script>
-import { inject, onActivated, ref } from 'vue';
+import { inject, onActivated, ref, computed } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { shell, clipboard } from 'electron';
+import { useStore } from 'vuex';
 export default {
     setup() {
         NProgress.configure({ showSpinner: false, parent: '.tabs-content' });
@@ -54,6 +56,8 @@ export default {
         const urlInput = ref('');
         const webviewDom = ref(null);
         const route = useRoute();
+        const store = useStore();
+        const backgroundImg = computed(()=> store.state.config.browserBackgroundImg);
         // 刷新nav状态
         const refreshNav = ()=> {
             canBack.value = webviewDom.value.canGoBack();
@@ -94,6 +98,19 @@ export default {
         const handleLoadFail = e=> {
             console.log('加载页面出错:', e);
             netError.value = true;
+        };
+        // webview dom ready
+        const handleDomReady = ()=> {
+            // webview 缩放
+            webviewDom.value.setZoomFactor(0.7);
+            backgroundImg.value && webviewDom.value.insertCSS(`
+                body {
+                    background: linear-gradient(0deg,#f5f5f5b3,#f5f5f5b3),
+                    url(${backgroundImg.value}) !important;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                }
+            `);
         };
         // nav方法
         const navBack = ()=> {
@@ -159,10 +176,12 @@ export default {
             eventLoadFail: 'did-fail-load',
             eventStartLoad: 'did-start-loading',
             eventFinishLoad: 'did-finish-load',
+            eventDomReady: 'dom-ready',
             handleNewWindow,
             handleLoadFail,
             handleStartLoad,
             handleFinishLoad,
+            handleDomReady,
             navBack,
             navForward,
             navReload,
@@ -218,6 +237,7 @@ export default {
     align-items: center;
     height: @navbarHeight;
     width: 100%;
+    background-color: #f5f7fa;
 }
 .webview-nav__item {
     display: flex;
