@@ -1,9 +1,23 @@
 import { ipcMain, Menu, Tray, app } from 'electron';
 
+const fs = require('fs');
+const request = require('request');
 const path = require('path');
 const icon = path.join(__dirname, '../src/assets/img/icon.png');
 
 export const initIpcManager = (win)=> {
+    // 根据url下载图片
+    ipcMain.on('saveImg', (event, filePath, imgSrc) => {
+        const writeStream = fs.createWriteStream(filePath);
+
+        request(imgSrc).pipe(writeStream);
+        writeStream.on('finish', ()=> {
+            event.sender.send('saveImg-reply', '保存成功');
+        })
+        writeStream.on('error', err=> {
+            event.sender.send('saveImg-reply', '保存失败', err);
+        })
+    });
     // 监听自定义titleBar事件
     ipcMain.on('min', () => win.minimize());
     ipcMain.on('max', () => {

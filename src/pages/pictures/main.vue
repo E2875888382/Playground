@@ -2,8 +2,8 @@
     <div class="pictures-container" v-infinite-scroll="loadMore">
         <el-image 
             v-for="(img, index) in imgs"
-            :key="index"
-            :src="img" fit="cover"
+            :key="img.id"
+            :src="img.img_1024_768" fit="cover"
             class="pictures__item"
             @click="preview(index)"
         />
@@ -11,23 +11,35 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 export default {
     setup() {
         const router = useRouter();
         const store = useStore();
+        const page = ref(0);
+        const { getPictures } = inject('api').pictures;
         const imgs = computed(()=> store.state.pictures.pictures);
-        const loadMore = ()=> {
+        const init = async ()=> {
+            const res = await getPictures(page.value);
+
+            console.log('壁纸：', res.data);
+            store.commit('pictures/updatePictures', res.data);
+            page.value++;
+        };
+        const loadMore = async ()=> {
+            const res = await getPictures(page.value);
             // computed is read only
             const currentImgs = Array.from(imgs.value);
 
-            store.commit('pictures/updatePictures', [...currentImgs, ...currentImgs]);
+            store.commit('pictures/updatePictures', [...currentImgs, ...res.data]);
+            page.value++;
         };
         const preview = index=> {
             router.push({name:'preview', params:{currentIndex:index}});
         };
+        init();
 
         return {
             imgs,
@@ -51,7 +63,8 @@ export default {
     .pictures__item {
         flex-grow: 1;
         height: 180px;
-        margin: 5px;
+        padding: 5px;
+        box-sizing: border-box;
     }
 }
 </style>

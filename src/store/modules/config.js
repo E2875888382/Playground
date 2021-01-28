@@ -90,6 +90,12 @@ const mutations = {
     },
     updateReadMode(state, mode) {
         state.readMode = mode;
+    },
+    updateBackground(state, style) {
+        state.backgroundImg = style;
+    },
+    updateBrowserBackground(state, style) {
+        state.browserBackgroundImg = style;
     }
 };
 
