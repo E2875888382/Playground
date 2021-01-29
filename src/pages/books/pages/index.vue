@@ -130,14 +130,11 @@ i {
     padding: 0 20px;
     font-weight: bold;
     font-size: 21px;
+    .border_bottom(#DCDFE6);
     &::after {
-        content: '';
-        position: absolute;
         bottom: -11px;
         left: 50%;
         width: 90%;
-        height: 1px;
-        background-color: #DCDFE6;
         transform: translateX(-50%);
     }
 }

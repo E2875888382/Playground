@@ -24,7 +24,6 @@ export default {
         const init = async ()=> {
             const res = await getPictures(page.value);
 
-            console.log('壁纸：', res.data);
             store.commit('pictures/updatePictures', res.data);
             page.value++;
         };

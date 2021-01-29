@@ -57,7 +57,7 @@ const state = {
     ],
     title: {
         bbs: '新闻',
-        booksIndex: '追书神器',
+        booksIndex: '读书',
         booksRanking: '排行榜',
         booksCats: '分类',
         booksCatsDetail: '详细分类',
@@ -75,8 +75,7 @@ const state = {
         collection: '收藏'
     },
     readMode: 'eyecare',
-    backgroundImg: "linear-gradient(0deg,#f5f5f5b3,#f5f5f5b3), url('https://cn.bing.com/th?id=OHR.KagamiMirror_ZH-CN0889648187_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp')",
-    // backgroundImg: '#f5f5f5',
+    backgroundImg: '#f5f5f5',
     // browserBackgroundImg: 'https://cn.bing.com/th?id=OHR.HeartAustralia_ZH-CN7049080558_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp'
     browserBackgroundImg: ''
 

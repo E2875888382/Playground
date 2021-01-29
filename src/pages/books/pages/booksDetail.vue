@@ -208,63 +208,6 @@ export default {
 .books-ifo__comments {
     width: 100%;
     margin-bottom: 15px;
-    .comments-item {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        height: 185px;
-        margin-bottom: 18px;
-        font-size: 12px;
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 0px;
-            width: 100%;
-            height: 1px;
-            background-color: #ebebeb;
-        }
-        &__nickname {
-            margin: 0;
-            line-height: 21px;
-            font-size: 12px;
-            color: #a58d5e;
-        }
-        &__title {
-            font-weight: bold;
-        }
-        &__avatar {
-            margin: 0;
-            flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            margin-right: 15px;
-        }
-        &__ifo {
-            flex-shrink: 1;
-            flex-grow: 1;
-        }
-        &__content {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            margin: 10px 0 0 0;
-            overflow: hidden;
-            font-size: 14px;
-            line-height: 24px;
-            color: #999;
-        }
-        &__love {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            line-height: 24px;
-            color: #999;
-        }
-    }
-    &:deep(.el-icon-star-off) {
-        font-size: 14px;
-        line-height: 20px;
-    }
 }
 .books-ifo__recommend__title,
 .books-ifo__comments__title {
@@ -283,10 +226,8 @@ export default {
     padding: 20px 0;
     .recommend-item {
         flex-basis: 25%;
-        display: flex;
+        .flex-center;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         &__cover {
             width: 110px;
             height: 140px;

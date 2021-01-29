@@ -94,7 +94,7 @@ export default {
             chapterContent.value = (`<p class="book-read__content-title">${res?.chapter?.title}</p>` + res?.chapter?.cpContent) || '';
             contentRef.value.scrollTop = '0';
         };
-        const changeChapter = (dir)=> {
+        const changeChapter = dir=> {
             if (dir === -1 && currentChapter.value >= 1) {
                 currentChapter.value--;
                 selectChapter(bookChapters.value[currentChapter.value].link, currentChapter.value);

@@ -29,7 +29,11 @@ export default {
         const getCats = async()=> {
             const {male, female, press} = await booksIndexClass();
 
-            cats.value = {'男生':addType('male', male), '女生':addType('female', female), '出版':addType('press', press)};
+            cats.value = {
+                '男生': addType('male', male),
+                '女生': addType('female', female),
+                '出版': addType('press', press)
+            };
         };
         const addType = (type, arr)=> {
             return arr.map(item=> {
@@ -83,11 +87,9 @@ export default {
     }
 }
 .cats-item {
+    .flex-center;
     flex: 0 0 190px;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 70px;
     cursor: pointer;
     border-bottom: 1px solid #ebeef5;

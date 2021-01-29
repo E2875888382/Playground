@@ -61,6 +61,7 @@ export default {
         });
         const handleSelect = item=> {
             searchInput.value = item.word || item;
+            handleSearch();
         };
         const querySearch = async (queryString, cb) => {
             const res = queryString ? (await autoComplete(queryString)).keywords : hotwordsTopTen.value;

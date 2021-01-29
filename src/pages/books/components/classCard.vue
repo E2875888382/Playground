@@ -88,6 +88,7 @@ i {
         width: 50%;
         height: @bookClassesHeight;
         cursor: pointer;
+        font-size: 14px;
         .classItem__name {
             margin: 0;
             text-align: center;

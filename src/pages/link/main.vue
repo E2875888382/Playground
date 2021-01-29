@@ -1,4 +1,4 @@
- <template>
+<template>
     <div class="webview-container">
         <div class="webview-nav">
             <i class="el-icon-back webview-nav__item" :class="{'disable': !canBack}" @click="navBack"></i>
@@ -200,10 +200,8 @@ export default {
 @booksmarksWidth: 312px;
 @navbarHeight: 50px;
 .netError {
-    display: flex;
+    .flex-center;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     width: 100%;
     color: #909399a6;
@@ -240,8 +238,7 @@ export default {
     background-color: #f5f7fa;
 }
 .webview-nav__item {
-    display: flex;
-    justify-content: center;
+    .flex-center;
     flex-basis: 60px;
     cursor: pointer;
     font-size: 23px;

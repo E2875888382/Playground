@@ -27,10 +27,10 @@ export default {
         const store = useStore();
         const route = useRoute();
         const showSearch = computed(()=> {
-            return !['webview', 'preview'].includes(route.name);
+            return !['webview', 'preview', 'pictures'].includes(route.name);
         });
         const containerHeight = computed(()=> {
-            return showSearch.value ? {height: '78px'} : {}
+            return showSearch.value ? {height: '78px'} : {};
         });
 
         return {
@@ -50,15 +50,7 @@ export default {
     -webkit-app-region: drag;
     width: 100%;
     background-color: transparent;
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: #e7e7e7;
-    }
+    .border_bottom(#e7e7e7);
 }
 .title-bar {
     display: flex;
@@ -68,9 +60,7 @@ export default {
     width: 200px;
 }
 .title-bar__item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .flex-center;
     width: 50px;
     height: 30px;
     font-size: 15px;

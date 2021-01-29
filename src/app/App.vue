@@ -38,9 +38,9 @@ export default {
                 background: backgroundImg.value,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                height: `calc(100% - ${['webview','preview'].includes(route.name) ? '30px' : '78px'})`
+                height: `calc(100% - ${['webview', 'preview', 'pictures'].includes(route.name) ? '30px' : '78px'})`
             }
-        })
+        });
 
         provide('message', options=> ElMessage(options));
         provide('loading', options=> ElLoading.service(options));
@@ -72,6 +72,6 @@ export default {
 .tabs-container {
     flex-grow: 1;
     height: 100%;
-    background-color: #f5f5f5;
+    background-color: @bgc_common;
 }
 </style>

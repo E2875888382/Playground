@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/pictures'
+            redirect: '/webview'
         },
         {
             path: '/bbs',

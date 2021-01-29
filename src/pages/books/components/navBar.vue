@@ -34,15 +34,7 @@ export default {
     align-items: center;
     width: 100%;
     height: 50px;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
+    .border_bottom(#DCDFE6);
 }
 .el-icon-back,
 .el-icon-s-home {

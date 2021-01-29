@@ -242,9 +242,7 @@ export default {
     }
 }
 .preview-img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .flex-center;
     overflow: hidden;
     height: 100%;
     flex-grow: 1;
@@ -257,9 +255,7 @@ export default {
 }
 .preview-arrow_left,
 .preview-arrow_right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .flex-center;
     flex-basis: 140px;
     height: 100%;
     font-size: 100px;

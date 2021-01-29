@@ -1,14 +1,19 @@
 # playground
 ## description
+> 一个 electron + vue 桌面应用
 
-electron + vue 桌面应用
+<p align="center">
+  <img src="https://raw.githubusercontent.com/E2875888382/playground/master/src/assets/img/icon.png" width="120">
+</p>
 
-![](https://img.shields.io/static/v1?label=vue&message=3.0&color=green)
-![](https://img.shields.io/static/v1?label=vue-router&message=@4.0&color=green)
-![](https://img.shields.io/static/v1?label=vuex&message=@4.0&color=green)
-![](https://img.shields.io/static/v1?label=component&message=element+plus&color=green)
-![](https://img.shields.io/static/v1?label=electron&message=9.0&color=green)
-![](https://img.shields.io/static/v1?label=style&message=less&color=green)
+<p align="center">
+  <img src="https://img.shields.io/static/v1?label=vue&message=3.0&color=green" />
+  <img src="https://img.shields.io/static/v1?label=vue-router&message=@4.0&color=green" />
+  <img src="https://img.shields.io/static/v1?label=vuex&message=@4.0&color=green" />
+  <img src="https://img.shields.io/static/v1?label=component&message=element+plus&color=green" />
+  <img src="https://img.shields.io/static/v1?label=electron&message=9.0&color=green" />
+  <img src="https://img.shields.io/static/v1?label=style&message=less&color=green">
+</p>
 
 ## Project target
 - [x] 小说主页
@@ -26,7 +31,7 @@ electron + vue 桌面应用
 - [x] webview导航栏
 - [x] 新闻阅读、无限加载
 - [x] 修改壁纸、注入webview背景
-- [x] 壁纸瀑布流
+- [x] 壁纸等高瀑布流（接口数据现在是统一宽高，无瀑布效果）
 - [x] 壁纸预览、下载到本地
 - [ ] 新闻搜索
 - [ ] 骨架屏
@@ -44,8 +49,25 @@ electron + vue 桌面应用
 - [ ] 壁纸集横向播放
 - [ ] 本地持久化笔记
 - [ ] 笔记markdown编写
+- [ ] join TypeScript
 - [ ] IM ?
 - ...
+
+## Project screenshots
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/0.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/1.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/2.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/3.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/4.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/5.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/6.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/7.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/8.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/9.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/10.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/11.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/12.png')
+![]('https://raw.githubusercontent.com/E2875888382/playground/master/screenshots/13.png')
 
 ## About request
 
@@ -57,13 +79,29 @@ electron + vue 桌面应用
 大部分的请求都是使用的开源接口，包括：
 - 新闻类：网易新闻API，每天有100次的调用限制，调用失败会返回本地mock
 - 小说类：追书神器API，暂时没有限制（本项目仅供学习参考，请勿商用）
+- 壁纸类：360浏览器API，暂时没有限制（本项目仅供学习参考，请勿商用）
 - 除了用户系统，其他模块目标是使用开源API。
 
 ## About webview
 
-~~官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。~~
+> ~~官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。~~
+><br/>更新：由于`BrowserView`似乎没法自定义导航栏（实现history前进后退等），暂时回退到`<webview>`方案。
 
-更新：由于`BrowserView`似乎没法自定义导航栏（实现history前进后退等），暂时回退到`<webview>`方案。
+## About debug
+
+渲染进程的debug可以借助vue-devtools，在主进程加入
+```
+const { app, session } = require('electron')
+const path = require('path')
+
+app.on('ready', async () => {
+  await session.defaultSession.loadExtension(path.join(__dirname, 'vue-devtools'))
+  // Note that in order to use the Vue DevTools extension, you'll need to
+  // download and unzip a copy of the extension.
+})
+```
+> 注意：Vue2 的devtools无法检测到Vue3，最新版的devtools可以到 `https://github.com/vuejs/vue-devtools`下载最新版的zip。
+> <br/> 更新：vue-devtools@v6.0.0-beta.3还没支持vuex
 
 ## About pull requests
 
@@ -86,9 +124,7 @@ yarn install
 ```
  yarn electron:serve
 ```
-如果启动项目报错：`TypeError: Cannot read property ‘parseComponent‘ of undefined`
-
-请尝试删除yarn.lock和node_module，并重新`yarn install`
+> 如果启动项目报错：`TypeError: Cannot read property 'parseComponent' of undefined`。<br/>请尝试删除yarn.lock和node_module，并重新`yarn install`。
 
 
 ### Compiles and minifies for production

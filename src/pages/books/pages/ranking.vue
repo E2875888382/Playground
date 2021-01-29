@@ -145,16 +145,8 @@ export default {
     height: 50px;
     margin-top: 1px;
     margin-bottom: 10px;
-    background-color: #f5f5f5;
-    &::after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #DCDFE6;
-    }
+    background-color: @bgc_common;
+    .border_bottom(#DCDFE6);
     .tabs-item {
         position: relative;
         flex-grow: 1;
@@ -167,14 +159,8 @@ export default {
     }
     .tabs-item_active {
         color: #409EFF;
+        .border_bottom(#409EFF);
         &::after {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            content: '';
-            width: 100%;
-            height: 1px;
-            background-color:#409EFF;
             z-index: 1;
         }
     }

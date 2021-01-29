@@ -36,11 +36,6 @@ export default {
 
 <style lang="less" scoped>
 @tabs-item-size: 30px;
-.flex-box-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .side-bar {
     -webkit-app-region: drag;
     display: flex;
@@ -52,7 +47,7 @@ export default {
 }
 .side-bar__avatar {
     -webkit-app-region: no-drag;
-    .flex-box-center();
+    .flex-center;
     width: 80px;
     height: 80px;
 }

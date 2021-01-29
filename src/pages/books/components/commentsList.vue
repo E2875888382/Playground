@@ -48,14 +48,7 @@ export default {
         font-size: 14px;
         line-height: 20px;
     }
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        height: 1px;
-        background-color: #ebebeb;
-    }
+    .border_bottom(#ebebeb);
     &__nickname {
         margin: 0;
         line-height: 21px;
