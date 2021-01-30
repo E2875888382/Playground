@@ -1,6 +1,6 @@
 # playground
 ## description
-> 一个 electron + vue3.0 构建的桌面应用
+> 一个 electron + vue3.0 + element plus 构建的桌面应用，灵感来源于WeChat
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/E2875888382/playground/master/src/assets/img/icon.png" width="120">
