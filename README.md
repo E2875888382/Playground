@@ -1,6 +1,6 @@
 # playground
 ## description
-> 一个 electron + vue 桌面应用
+> 一个 electron + vue3.0 构建的桌面应用
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/E2875888382/playground/master/src/assets/img/icon.png" width="120">
@@ -17,22 +17,14 @@
 
 ## Project target
 - [x] 小说主页
-- [x] 小说大分类
-- [x] 小说小分类及列表加载
-- [x] 小说排行榜
-- [x] 小说详细页、热评
-- [x] 小说推荐页
-- [x] 小说搜索
-- [x] 小说目录页
-- [x] 小说评论页
-- [x] 小说阅读
-- [x] 黑夜模式、护眼模式
-- [x] 应用内webview
-- [x] webview导航栏
+- [x] 小说大分类、小分类及列表加载
+- [x] 小说详细、热评、全部评论、推荐、搜索、目录、排行榜
+- [x] 小说阅读、黑夜模式、护眼模式 
+- [x] 应用内webview、自定义导航栏
 - [x] 新闻阅读、无限加载
 - [x] 修改壁纸、注入webview背景
 - [x] 壁纸等高瀑布流（接口数据现在是统一宽高，无瀑布效果）
-- [x] 壁纸预览、下载到本地
+- [x] 壁纸预览、下载本地
 - [ ] 新闻搜索
 - [ ] 骨架屏
 - [ ] 应用登录（通过微信小程序码 || 公众号码）
@@ -82,23 +74,12 @@
 
 ![13.png](https://upload-images.jianshu.io/upload_images/19383585-505b24cb205381ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## About request
-
-- 数据请求使用的是Node.js的request模块，不存在跨域问题。
-- 在request上简单封装了get和post方法，后续可以改为其他请求库。
-
 ## About data
 
 大部分的请求都是使用的开源接口，包括：
 - 新闻类：网易新闻API，每天有100次的调用限制，调用失败会返回本地mock
 - 小说类：追书神器API，暂时没有限制（本项目仅供学习参考，请勿商用）
 - 壁纸类：360浏览器API，暂时没有限制（本项目仅供学习参考，请勿商用）
-- 除了用户系统，其他模块目标是使用开源API。
-
-## About webview
-
-> ~~官方推荐使用`BrowserView`代替`<webview />`，通过主进程监听`new-window`打开自定义的容器。暂时使用的方案也是`BrowserView`，但是关于相关的配置比较少，而且`JavaScript`、`CSS`注入的问题待解决。~~
-><br/>更新：由于`BrowserView`似乎没法自定义导航栏（实现history前进后退等），暂时回退到`<webview>`方案。
 
 ## About debug
 
@@ -109,8 +90,6 @@ const path = require('path')
 
 app.on('ready', async () => {
   await session.defaultSession.loadExtension(path.join(__dirname, 'vue-devtools'))
-  // Note that in order to use the Vue DevTools extension, you'll need to
-  // download and unzip a copy of the extension.
 })
 ```
 > 注意：Vue2 的devtools无法检测到Vue3，最新版的devtools可以到 `https://github.com/vuejs/vue-devtools`下载最新版的zip。
