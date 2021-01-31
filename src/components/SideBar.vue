@@ -14,7 +14,7 @@
             </router-link>
         </div>
         <div class="side-bar__options">
-            <i class="el-icon-setting options__item"></i>
+            <router-link exact to="/set" class="el-icon-setting options__item"></router-link>
         </div>
     </div>
 </template>
@@ -81,10 +81,15 @@ export default {
         padding: 20px 25px;
         font-size: @tabs-item-size;
         color: #FFF;
+        text-decoration: none;
         opacity: 0.3;
         &:hover {
-            opacity: 0.5;
+            opacity: 0.6;
         }
+    }
+    .router-link-active, .active-tab{
+        opacity: 0.6;
+        color: #1ae61a;
     }
 }
 </style>

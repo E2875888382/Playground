@@ -72,7 +72,8 @@ const state = {
         chat: '聊天',
         media: '听歌',
         pictures: '壁纸',
-        collection: '收藏'
+        collection: '收藏',
+        set: '设置'
     },
     readMode: 'eyecare',
     backgroundImg: '#f5f5f5',

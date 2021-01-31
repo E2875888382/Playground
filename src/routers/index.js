@@ -103,6 +103,11 @@ const router = createRouter({
             path: '/media',
             name: 'media',
             component: ()=> import('../pages/media/main.vue')
+        },
+        {
+            path: '/set',
+            name: 'set',
+            component: ()=> import('../pages/set/main.vue')
         }
     ]
 });
