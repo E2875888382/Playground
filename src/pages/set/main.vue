@@ -11,7 +11,9 @@
             </el-tab-pane>
             <el-tab-pane label="账号设置">
                 <div class="pane-container">
-
+                    <el-avatar :src="logo" shape="circle" :size="100"/>
+                    <p>Elric</p>
+                    <el-button>退出登录</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
