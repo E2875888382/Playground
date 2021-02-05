@@ -11,7 +11,7 @@
             </el-tab-pane>
             <el-tab-pane label="账号设置">
                 <div class="pane-container">
-                    <el-avatar :src="logo" shape="circle" :size="100"/>
+                    <el-avatar :src="avatar" shape="circle" :size="100"/>
                     <p>Elric</p>
                     <el-button>退出登录</el-button>
                 </div>
@@ -22,15 +22,19 @@
 
 <script>
 import Layout from '../../components/Layout';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
     components: {
         Layout
     },
     setup() {
+        const store = useStore();
         const logo = require('../../assets/img/icon.png');
 
         return {
-            logo
+            logo,
+            avatar: computed(()=> store.state.user.avatar)
         }
     }
 }
