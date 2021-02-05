@@ -1,7 +1,7 @@
 <template>
     <div class="side-bar">
         <div class="side-bar__avatar">
-            <el-avatar :src="avatar" shape="square"/>
+            <el-avatar :src="avatar" shape="square" class="avatar-content" @click="showLoginDialog"/>
         </div>
         <div class="side-bar__tabs">
             <router-link
@@ -25,8 +25,12 @@ import { useStore } from 'vuex';
 export default {
     setup() {
         const store = useStore();
+        const showLoginDialog = ()=> {
+            console.log('登录');
+        };
 
         return {
+            showLoginDialog,
             avatar: computed(()=> store.state.user.avatar),
             tabs: computed(()=> store.state.config.tabs)
         }
@@ -50,6 +54,9 @@ export default {
     .flex-center;
     width: 80px;
     height: 80px;
+    .avatar-content {
+        cursor: pointer;
+    }
 }
 .side-bar__tabs {
     flex-grow: 1;

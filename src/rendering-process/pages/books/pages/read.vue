@@ -117,11 +117,6 @@ export default {
             bookChapters.value = chapters;
             bookMsg.value = await booksDetail(booksId);
             selectChapter(bookChapters.value[currentChapter.value].link, currentChapter.value);
-            console.log('书籍信息:', {
-                detail: bookMsg.value,
-                chapters: bookChapters.value,
-                chapterIndex: currentChapter.value
-            });
         });
         return {
             book,

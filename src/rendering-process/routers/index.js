@@ -6,7 +6,8 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/webview'
+            name: 'login',
+            component: ()=> import('../pages/login/main.vue')
         },
         {
             path: '/bbs',

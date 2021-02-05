@@ -89,7 +89,6 @@ export default {
             booksIfo.value = await booksDetail(booksId);
             comments.value = await booksComment(booksId);
             recommends.value = await booksRecommend(booksId);
-            console.log('书籍信息:', booksIfo.value);
         };
         const numFormat = num=> num > 9999 ? `${Math.round(Math.floor(num/1000)/10)}万` : num;
         const wordFormat = num=> num > 9999 ? `${Math.round(174920/1000)/10}万` : num;

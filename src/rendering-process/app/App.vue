@@ -42,12 +42,19 @@ export default {
             }
         });
 
+        // 全局消息提醒
         provide('message', options=> ElMessage(options));
+        // 全局loading
         provide('loading', options=> ElLoading.service(options));
+        // 全局api
         provide('api', api);
+        // 跳转书籍详情页
         provide('toBooksDetail', (booksId, from='')=> router.push({name: 'booksDetail', params: {booksId, from}}));
+        // 获取静态图片资源
         provide('getStaticsImg', src=> `http://statics.zhuishushenqi.com${src}`);
+        // 格式化相对日期
         provide('timeFormat', timeFormat);
+
         return {
             backgroundImg,
             tabsContentStyle

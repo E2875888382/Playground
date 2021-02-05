@@ -1,3 +1,4 @@
+// 计算相对时间
 export const timeFormat = time=> {
     const timeNum = (Date.now() - (+new Date(time))) / 1000;
     const timeList = [

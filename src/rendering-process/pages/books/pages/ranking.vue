@@ -68,12 +68,10 @@ export default {
                     [res.ranking.title]: res.ranking.books
                 }
             }
-            console.log('更新排行榜内容缓存：', cache.value);
         }
         const handleSubClassChange = async(tab)=> {
             // 如果缓存过了就不调用接口
             if (cache.value?.[mainClass.value]?.[tab.props.label]) {
-                console.log('数据已经缓存过了，不用调接口');
                 return;
             }
             updateCache(mainClass.value, tab.props.name);
