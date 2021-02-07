@@ -1,5 +1,5 @@
  <template>
-    <div class="books-container">
+    <Layout :flex="true">
         <div class="books-bookshelf">
             <el-card class="bookshelf-item" v-for="(book, index) in bookshelf" :key="index">
                 <img class="bookshelf-item__cover" :src="book.cover">
@@ -14,14 +14,18 @@
                 </router-view>
             </div>
         </div> 
-    </div>
+    </Layout>
 </template>
 
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import Layout from '../../components/Layout';
 export default {
+    components: {
+        Layout
+    },
     setup() {
         const readModes = {
             default: 'booksChaptersDetail',
@@ -46,11 +50,6 @@ export default {
 @booksshelfWidth: 312px;
 @bookshelfItemWdith: 120px;
 @bookshelfItemHeight: 160px;
-.books-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
 .books-bookshelf {
     display: flex;
     flex-wrap: wrap;

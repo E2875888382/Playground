@@ -3,7 +3,7 @@
 > 一个 electron + vue3.0 + element plus 构建的桌面应用，灵感来源于WeChat
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/E2875888382/playground/master/src/assets/img/icon.png" width="120">
+  <img src="https://raw.githubusercontent.com/E2875888382/playground/master/src/rendering-process/assets/img/icon.png" width="120">
 </p>
 
 <p align="center">
@@ -130,4 +130,8 @@ yarn lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Vue-cli Configuration Reference](https://cli.vuejs.org/config/).
+
+[Plugin electron-builder](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#configuring-electron-builder)
+
+[Vue3.0](https://vue3js.cn/docs/zh/)

@@ -10,6 +10,7 @@ export const getPictures = page=> {
             start: page,
             count: 20,
             from: '360chrome'
-        }
+        },
+        apiName: '壁纸'
     })
 }

@@ -1,16 +1,11 @@
 <template>
-    <div class="webview-container">
+    <Layout customClass="webview-container">
         <div class="webview-nav">
             <i class="el-icon-back webview-nav__item" :class="{'disable': !canBack}" @click="navBack"></i>
             <i class="el-icon-right webview-nav__item" :class="{'disable': !canForward}" @click="navForward"></i>
             <i class="el-icon-refresh-right webview-nav__item" @click="navReload" title="刷新"></i>
             <i class="el-icon-house webview-nav__item" @click="navHome" title="回到主页"></i>
-            <el-input 
-                v-model="urlInput" 
-                class="webview-nav__input"
-                @change="urlInputChange"
-            >
-            </el-input>
+            <el-input v-model="urlInput" class="webview-nav__input" @change="urlInputChange" />
             <i class="el-icon-star-off webview-nav__item" title="收藏" @click="navStar"></i>
             <i class="el-icon-monitor webview-nav__item" @click="navOpenInBrowser" title="用默认浏览器打开"></i>
             <i class="el-icon-copy-document webview-nav__item" @click="navCopyLink" title="复制链接地址"></i>
@@ -34,10 +29,11 @@
                 <span class="netError__code">ERR_CONNECTION_REFUSED</span>
             </div>
         </div>
-    </div>
+    </Layout>
 </template>
 
 <script>
+import Layout from '../../components/Layout';
 import { inject, onActivated, ref, computed } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import NProgress from 'nprogress';
@@ -45,6 +41,9 @@ import 'nprogress/nprogress.css';
 import { shell, clipboard } from 'electron';
 import { useStore } from 'vuex';
 export default {
+    components: {
+        Layout
+    },
     setup() {
         NProgress.configure({ showSpinner: false, parent: '.tabs-content' });
         const Message = inject('message');
@@ -219,8 +218,6 @@ export default {
 .webview-container {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
 }
 .webview-content {
     flex-grow: 1;

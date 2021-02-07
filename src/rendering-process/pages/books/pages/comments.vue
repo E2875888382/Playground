@@ -32,6 +32,7 @@ export default {
             const res  = await booksComment(route.params.booksId, page.value, 20);
 
             page.value++;
+            // 根据total判断是否全部加载完
             if (res.total && comments.value.length >= res.total) loadEnd.value = true;
             comments.value = [...comments.value, ...(res?.reviews || [])];
         };

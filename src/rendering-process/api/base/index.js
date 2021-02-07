@@ -1,6 +1,8 @@
  /**
  * @description node的request模块请求
  */
+import { ElMessage } from 'element-plus';
+
 const request = require('request');
 const paramsParse = params=> {
     let res = '?';
@@ -11,7 +13,7 @@ const paramsParse = params=> {
     return res.slice(0, res.length - 1);
 };
 
-export const get = ({ url: baseUrl, params = {} })=> {
+export const get = ({ url: baseUrl, params = {}, apiName= '' })=> {
     const url = baseUrl + paramsParse(params);
 
     return new Promise(resolve=> {
@@ -19,6 +21,15 @@ export const get = ({ url: baseUrl, params = {} })=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
+                // 调用失败消息提示
+                ElMessage({
+                    showClose: true,
+                    type: 'error',
+                    message: `${apiName}接口请求失败`,
+                    duration: 2000,
+                    offset: 200,
+                    center: true
+                });
                 resolve({
                     code: 500,
                     err: err
@@ -28,7 +39,7 @@ export const get = ({ url: baseUrl, params = {} })=> {
     });
 }
 
-export const post = ({ url, data })=> {
+export const post = ({ url, data, apiName= '' })=> {
     return new Promise(resolve=> {
         request({
             methods: 'post',
@@ -42,6 +53,15 @@ export const post = ({ url, data })=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
+                // 调用失败消息提示
+                ElMessage({
+                    showClose: true,
+                    type: 'error',
+                    message: `${apiName}接口请求失败`,
+                    duration: 2000,
+                    offset: 200,
+                    center: true
+                });
                 resolve({
                     code: 500,
                     err: err

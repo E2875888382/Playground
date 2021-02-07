@@ -6,6 +6,7 @@ const path = require('path');
 const icon = path.join(__dirname, '../src/rendering-process/assets/img/icon.png');
 
 export const initIpcManager = (win)=> {
+
     // 根据url下载图片
     ipcMain.on('saveImg', (event, filePath, imgSrc) => {
         const writeStream = fs.createWriteStream(filePath);
@@ -18,8 +19,11 @@ export const initIpcManager = (win)=> {
             event.sender.send('saveImg-reply', '保存失败', err);
         })
     });
-    // 监听自定义titleBar事件
+
+    // 最小化
     ipcMain.on('min', () => win.minimize());
+
+    // 最大化
     ipcMain.on('max', () => {
         if (win.isMaximized()) {
             win.unmaximize();
@@ -27,8 +31,11 @@ export const initIpcManager = (win)=> {
         }
         win.maximize();
     });
+
+    // 打开console控制台
     ipcMain.on('developer', () => win.webContents.openDevTools());
-    // 点击关闭最小化到托盘
+
+    // 最小化到托盘
     ipcMain.on('close', () => {
         const trayMenu = [
             {

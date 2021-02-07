@@ -1,7 +1,7 @@
 <template>
     <div 
         class="layout-container"
-        :class="customClass"
+        :class="[customClass, { 'layout-container_flex':flex }]"
         :style="{
             background: background || '#f5f5f5'
         }"
@@ -13,8 +13,15 @@
 <script>
 export default {
     props: {
+        // 背景
         background: String,
-        customClass: String
+        // 自定义class
+        customClass: String,
+        // flex布局
+        flex: {
+            type: Boolean,
+            default: false
+        }
     },
 }
 </script>
@@ -23,5 +30,8 @@ export default {
 .layout-container {
     width: 100%;
     height: 100%;
+}
+.layout-container_flex {
+    display: flex;
 }
 </style>

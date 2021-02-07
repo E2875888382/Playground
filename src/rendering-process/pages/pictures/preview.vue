@@ -1,5 +1,5 @@
 <template>
-    <div class="pictures-preview">
+    <Layout customClass="pictures-preview">
         <div class="preview-box" tabindex="0" @keydown="handleKeyDown">
             <div class="preview-arrow_left" @click="switchImg(true)" :class="{'preview-arrow_active':index}">
                 <i class="el-icon-arrow-left"></i>
@@ -27,15 +27,19 @@
             />
         </div>
         <div class="preview-nav" @click="back">返回</div>
-    </div>
+    </Layout>
 </template>
 
 <script>
+import Layout from '../../components/Layout';
 import { computed, inject, onActivated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { remote, ipcRenderer } from 'electron';
 export default {
+    components: {
+        Layout
+    },
     setup() {
         const Message = inject('message');
         const scaleLevel = ref(1);
@@ -186,8 +190,6 @@ export default {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
     box-sizing: border-box;
     padding-top: 10px;
 }

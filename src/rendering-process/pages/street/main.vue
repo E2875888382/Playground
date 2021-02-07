@@ -1,5 +1,5 @@
 <template>
-    <div class="bbs-container">
+    <Layout :flex="true">
         <div class="bbs-newsList" v-infinite-scroll="getList">
             <div 
                 class="newsList__item" 
@@ -17,14 +17,18 @@
             <el-empty description=" " v-else></el-empty>
         </div>
         <el-backtop target=".bbs-newsContent"></el-backtop>
-    </div>
+    </Layout>
 </template>
 
 <script>
+import Layout from '../../components/Layout';
 import { ref, onMounted, inject } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 export default {
+    components: {
+        Layout
+    },
     setup() {
         const {newsList, newsDetail} = inject('api').street;
         const store = useStore();
@@ -122,11 +126,6 @@ a {
 <style lang="less" scoped>
 @newsListWidth: 312px;
 .el-empty {
-    height: 100%;
-}
-.bbs-container {
-    display: flex;
-    width: 100%;
     height: 100%;
 }
 .bbs-newsList {

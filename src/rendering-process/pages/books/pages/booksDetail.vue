@@ -90,8 +90,6 @@ export default {
             comments.value = await booksComment(booksId);
             recommends.value = await booksRecommend(booksId);
         };
-        const numFormat = num=> num > 9999 ? `${Math.round(Math.floor(num/1000)/10)}万` : num;
-        const wordFormat = num=> num > 9999 ? `${Math.round(174920/1000)/10}万` : num;
 
         onActivated(()=> {
             from.value = route.params.from;
@@ -100,8 +98,8 @@ export default {
         return {
             booksIfo,
             comments,
-            numFormat,
-            wordFormat,
+            numFormat: inject('wordFormat'),
+            wordFormat: inject('hotFormat'),
             timeFormat: inject('timeFormat'),
             back,
             from,

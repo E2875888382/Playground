@@ -20,8 +20,8 @@ import TitleBar from '../components/TitleBar';
 import api from '../api/manager';
 import { useRoute, useRouter } from 'vue-router';
 import { computed, provide } from 'vue';
-import { ElLoading, ElMessage  } from 'element-plus';
-import { timeFormat } from '../assets/js/utils';
+import { ElLoading, ElMessage } from 'element-plus';
+import { timeFormat, wordFormat, hotFormat } from '../assets/js/utils';
 import { useStore } from 'vuex';
 export default {
     components: {
@@ -54,6 +54,10 @@ export default {
         provide('getStaticsImg', src=> `http://statics.zhuishushenqi.com${src}`);
         // 格式化相对日期
         provide('timeFormat', timeFormat);
+        // 格式化书籍字数
+        provide('wordFormat', wordFormat);
+        // 格式化书籍人气
+        provide('hotFormat', hotFormat);
 
         return {
             backgroundImg,

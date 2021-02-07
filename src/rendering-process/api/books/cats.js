@@ -3,7 +3,8 @@ import {get} from '../base';
 // 大分类和小分类
 export const booksCats = async()=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/cats/lv2'
+        url: 'http://api.zhuishushenqi.com/cats/lv2',
+        apiName: '书籍大小分类'
     })
 }
 
@@ -18,6 +19,7 @@ export const booksCatsDetail = async({gender, type, major, minor, start, limit =
             minor: encodeURIComponent(minor),
             start,
             limit
-        }
+        },
+        apiName: '书籍分类详细'
     })
 }

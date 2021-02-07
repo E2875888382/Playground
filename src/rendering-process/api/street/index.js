@@ -8,7 +8,8 @@ export const newsList = async page=> {
         params: {
             start: page,
             num: 20
-        }
+        },
+        apiName: '新闻列表'
     });
 
     return res.code === 200 ? res : mock.newsListMock();
@@ -19,7 +20,8 @@ export const newsDetail = async (docid)=> {
         url: 'https://v1.alapi.cn/api/new/detail',
         params: {
             docid: docid
-        }
+        },
+        apiName: '新闻详情'
     });
 
     return res.code === 200 ? res : mock.newsDetailMock();

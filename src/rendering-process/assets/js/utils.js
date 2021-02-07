@@ -16,3 +16,9 @@ export const timeFormat = time=> {
         }
     }
 };
+
+// 格式化书籍总字数
+export const wordFormat = num=> num > 9999 ? `${Math.round(Math.floor(num / 1000) / 10)}万` : num;
+
+// 格式化书籍总人气
+export const hotFormat = num=> num > 9999 ? `${Math.round(num / 1000) / 10}万` : num;

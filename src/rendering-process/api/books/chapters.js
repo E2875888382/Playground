@@ -7,7 +7,8 @@ export const booksSource = async booksId=> {
         params: {
             view: 'summary',
             book: booksId
-        }
+        },
+        apiName: '小说源'
     })
 }
 
@@ -17,13 +18,15 @@ export const booksChapters = async sourceId=> {
         url: `http://api.zhuishushenqi.com/atoc/${sourceId}`,
         params: {
             view: 'chapters'
-        }
+        },
+        apiName: '书籍章节'
     })
 }
 
 // 获取章节内容
 export const booksChaptersContent = async chapterlink=> {
     return get({
-        url: `http://chapterup.zhuishushenqi.com/chapter/${encodeURIComponent(chapterlink)}`
+        url: `http://chapterup.zhuishushenqi.com/chapter/${encodeURIComponent(chapterlink)}`,
+        apiName: '书籍章节内容'
     })
 }
