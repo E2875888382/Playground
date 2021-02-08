@@ -27,25 +27,69 @@
                 <el-image :src="loginCode"/>
             </div>
             <template #footer>
-                <p class="login-dialog__footer">请使用微信扫一扫以登录</p>
+                <p class="login-dialog__footer">请使用网易云扫一扫以登录</p>
             </template>
         </el-dialog>
     </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useStore } from 'vuex';
 export default {
     setup() {
+        const loginStatus = ref(false);
+        const loginCode = ref('');
+        const { getQrCode, getQrCodeImg, checkQrCodeStatus, getLoginStatus } = inject('api').login;
         const dialogVisible = ref(false);
         const store = useStore();
+        const Message = inject('message');
+        // 生成二维码
+        const createQrcode = async()=> {
+            const qrcode = await getQrCode();
+            const key = qrcode.data?.unikey;
+            const img = await getQrCodeImg(key);
+
+            loginCode.value = img.data?.qrimg || '';
+            const timer = setInterval(async ()=> {
+                const statusRes = await checkQrCodeStatus(key);
+
+                if (statusRes.code === 800) {
+                    clearInterval(timer);
+                    createQrcode();
+                    Message({
+                        message: '二维码已过期，请重新扫码',
+                        type: 'info',
+                        offset: 200,
+                        duration: 1000
+                    });
+                } else if (statusRes.code === 803) {
+                    clearInterval(timer);
+                    // 将cookie写入请求头
+                    const res = await getLoginStatus(statusRes.cookie);
+
+                    console.log('登录状态：', res);
+                    if (res.data?.code === 200) {
+                        Message({
+                            message: '登录成功',
+                            type: 'success',
+                            offset: 200,
+                            duration: 1000
+                        });
+                        dialogVisible.value = false;
+                        loginStatus.value = true;
+                    }
+                }
+            }, 3000);
+        };
         const showLoginDialog = ()=> {
+            if (loginStatus.value) return;
+            createQrcode();
             dialogVisible.value = true;
         };
 
         return {
-            loginCode: require('../assets/img/login.jpg'),
+            loginCode: loginCode,
             dialogVisible,
             showLoginDialog,
             avatar: computed(()=> store.state.user.avatar),

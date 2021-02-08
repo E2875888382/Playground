@@ -13,11 +13,17 @@ const paramsParse = params=> {
     return res.slice(0, res.length - 1);
 };
 
-export const get = ({ url: baseUrl, params = {}, apiName= '' })=> {
+export const get = ({ url: baseUrl, params = {}, apiName= '', cookie= '' })=> {
     const url = baseUrl + paramsParse(params);
+    const options = {
+        url: url,
+        headers: {
+            'Cookie': cookie
+        }
+    };
 
     return new Promise(resolve=> {
-        request(url, (err, response, body)=> {
+        request(options, (err, response, body)=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
@@ -39,7 +45,7 @@ export const get = ({ url: baseUrl, params = {}, apiName= '' })=> {
     });
 }
 
-export const post = ({ url, data, apiName= '' })=> {
+export const post = ({ url, data, apiName= '', cookie= '' })=> {
     return new Promise(resolve=> {
         request({
             methods: 'post',
@@ -47,6 +53,7 @@ export const post = ({ url, data, apiName= '' })=> {
             json: true,
             headers: {
                 "content-type": "application/json",
+                'Cookie': cookie
             },
             body: JSON.stringify(data)
         }, (err, response, body)=> {
