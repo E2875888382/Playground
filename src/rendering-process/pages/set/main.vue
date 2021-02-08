@@ -12,7 +12,7 @@
             <el-tab-pane label="账号设置">
                 <div class="pane-container">
                     <el-avatar :src="avatar" shape="circle" :size="100"/>
-                    <p>Elric</p>
+                    <p>{{nickname}}</p>
                     <el-button>退出登录</el-button>
                 </div>
             </el-tab-pane>
@@ -34,7 +34,8 @@ export default {
 
         return {
             logo,
-            avatar: computed(()=> store.state.user.avatar)
+            avatar: computed(()=> store.state.user.avatar),
+            nickname: computed(()=> store.state.user.nickname)
         }
     }
 }

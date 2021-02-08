@@ -68,7 +68,6 @@ export default {
                     // 将cookie写入请求头
                     const res = await getLoginStatus(statusRes.cookie);
 
-                    console.log('登录状态：', res);
                     if (res.data?.code === 200) {
                         Message({
                             message: '登录成功',
@@ -78,6 +77,10 @@ export default {
                         });
                         dialogVisible.value = false;
                         loginStatus.value = true;
+                        const { profile } = res.data;
+                        console.log('登录状态：', res);
+                        store.commit('user/updateAvatar', profile.avatarUrl);
+                        store.commit('user/updateNickName', profile.nickname);
                     }
                 }
             }, 3000);
