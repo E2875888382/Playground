@@ -9,12 +9,12 @@
                 :to="tab.path" 
                 v-for="(tab, index) in tabs"
                 :key="index"
-                :class="[`el-icon-${tab.icon}`, 'tabs__item']"
+                :class="['iconfont', `${tab.icon}`, 'tabs__item']"
             >
             </router-link>
         </div>
         <div class="side-bar__options">
-            <router-link exact to="/set" class="el-icon-setting options__item"></router-link>
+            <router-link exact to="/set" class="iconfont icon-shezhi options__item"></router-link>
         </div>
         <el-dialog
             title="Playground"
@@ -154,6 +154,7 @@ export default {
     flex-grow: 1;
     width: 80px;
     .tabs__item {
+        .flex-center;
         -webkit-app-region: no-drag;
         width: @tabs-item-size;
         height: @tabs-item-size;
@@ -165,6 +166,12 @@ export default {
         &:hover {
             opacity: 0.6;
         }
+        &:nth-of-type(1) {
+            font-size: 23px;
+        }
+        &:nth-of-type(3) {
+            font-size: 33px;
+        }
     }
     .router-link-active, .active-tab{
         opacity: 0.6;
@@ -174,6 +181,7 @@ export default {
 .side-bar__options {
     width: 80px;
     .options__item {
+        .flex-center;
         -webkit-app-region: no-drag;
         width: @tabs-item-size;
         height: @tabs-item-size;

@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/bbs'
+            redirect: '/music'
         },
         {
             path: '/bbs',
@@ -100,9 +100,9 @@ const router = createRouter({
             component: ()=> import('../pages/pictures/preview.vue')
         },
         {
-            path: '/media',
-            name: 'media',
-            component: ()=> import('../pages/media/main.vue')
+            path: '/music',
+            name: 'music',
+            component: ()=> import('../pages/music/main.vue')
         },
         {
             path: '/set',

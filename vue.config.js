@@ -27,6 +27,7 @@ module.exports = {
             patterns: [
                 path.resolve(__dirname, './src/rendering-process/assets/css/common.less'),
                 path.resolve(__dirname, './src/rendering-process/assets/css/color.less'),
+                path.resolve(__dirname, './src/rendering-process/assets/css/font.less')
             ]
         }
     }
