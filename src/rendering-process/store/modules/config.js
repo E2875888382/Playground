@@ -21,21 +21,16 @@ const state = {
             icon: 'icon-tubiao1shuxiaoshuo',
             path: '/books'
         },
-        // {
-        //     name: 'chat',
-        //     icon: 'icon-liaotian',
-        //     path: '/chat'
-        // },
         {
             name: 'music',
             icon: 'icon-yinle_2',
             path: '/music'
         },
-        // {
-        //     name: 'collection',
-        //     icon: 'icon-shoucang',
-        //     path: '/collection'
-        // }
+        {
+            name: 'collection',
+            icon: 'icon-shoucang',
+            path: '/collection'
+        }
     ],
     titleBars: [
         {
@@ -69,7 +64,6 @@ const state = {
         booksSearch: '搜索',
         webview: '浏览器',
         books: '看书',
-        chat: '聊天',
         music: '音乐',
         pictures: '壁纸',
         collection: '收藏',

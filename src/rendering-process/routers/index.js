@@ -80,11 +80,6 @@ const router = createRouter({
             ]
         },
         {
-            path: '/chat',
-            name: 'chat',
-            component: ()=> import('../pages/chat/main.vue')
-        },
-        {
             path: '/collection',
             name: 'collection',
             component: ()=> import('../pages/collection/main.vue')

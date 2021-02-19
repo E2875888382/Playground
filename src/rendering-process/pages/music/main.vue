@@ -2,6 +2,15 @@
     <Layout :flex="true" customClass="music-layout">
         <div class="music-content">
             <SideBar />
+            <div class="music-page">
+                <div class="music-page__content">
+                    <router-view v-slot="{ Component }">
+                        <keep-alive>
+                            <component :is="Component" />
+                        </keep-alive>
+                    </router-view>
+                </div>
+            </div>
         </div>
         <PlayBar />
     </Layout>
@@ -23,11 +32,25 @@ export default {
 <style lang="less" scoped>
 .music-content {
     flex-grow: 1;
+    display: flex;
     width: 100%;
     height: calc(100% - 90px);
     background-color: #fff;
 }
 .music-layout {
     flex-wrap: wrap;
+}
+.music-page {
+    height: 100%;
+    flex-grow: 1;
+    background-color: #fff;
+    .overfloScroll;
+}
+.music-page__content {
+    min-height: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: auto;
+    background-color: red;
 }
 </style>
