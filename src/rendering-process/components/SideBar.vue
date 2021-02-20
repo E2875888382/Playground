@@ -38,9 +38,9 @@ import { computed, inject, ref } from 'vue';
 import { useStore } from 'vuex';
 export default {
     setup() {
-        const loginStatus = ref(false);
+        const loginStatus = computed(()=> store.state.user.cookie.length > 0);
         const loginCode = ref('');
-        const { getQrCode, getQrCodeImg, checkQrCodeStatus, getLoginStatus } = inject('api').login;
+        const { getQrCode, getQrCodeImg, checkQrCodeStatus, getLoginStatus, getSubcount } = inject('api').login;
         const dialogVisible = ref(false);
         const store = useStore();
         const Message = inject('message');
@@ -66,7 +66,8 @@ export default {
                 } else if (statusRes.code === 803) {
                     clearInterval(timer);
                     // 将cookie写入请求头
-                    const res = await getLoginStatus(statusRes.cookie);
+                    store.commit('user/updateCookie', statusRes.cookie);
+                    const res = await getLoginStatus();
 
                     if (res.data?.code === 200) {
                         Message({
@@ -76,11 +77,13 @@ export default {
                             duration: 1000
                         });
                         dialogVisible.value = false;
-                        loginStatus.value = true;
                         const { profile } = res.data;
                         console.log('登录状态：', res);
                         store.commit('user/updateAvatar', profile.avatarUrl);
                         store.commit('user/updateNickName', profile.nickname);
+                        const subcount = await getSubcount();
+
+                        console.log('用户歌单：', subcount);
                     }
                 }
             }, 3000);

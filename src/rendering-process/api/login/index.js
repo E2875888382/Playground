@@ -1,9 +1,11 @@
 import { get } from '../base';
 
+const baseServe = 'http://139.9.230.159:3000';
+
 // 获取二维码code
 export const getQrCode = ()=> {
     return get({
-        url: 'http://139.9.230.159:3000/login/qr/key',
+        url: `${baseServe}/login/qr/key`,
         params: {
             timerstamp: Date.now()
         }
@@ -13,7 +15,7 @@ export const getQrCode = ()=> {
 // 获取二维码
 export const getQrCodeImg = key=> {
     return get({
-        url: 'http://139.9.230.159:3000/login/qr/create',
+        url: `${baseServe}/login/qr/create`,
         params: {
             key: key,
             qrimg: true,
@@ -25,7 +27,7 @@ export const getQrCodeImg = key=> {
 // 获取扫码状态
 export const checkQrCodeStatus = key=> {
     return get({
-        url: 'http://139.9.230.159:3000/login/qr/check',
+        url: `${baseServe}/login/qr/check`,
         params: {
             key: key,
             timerstamp: Date.now()
@@ -33,12 +35,22 @@ export const checkQrCodeStatus = key=> {
     })
 };
 
-export const getLoginStatus = cookie=> {
+// 检查登录状态
+export const getLoginStatus = ()=> {
     return get({
-        url: 'http://139.9.230.159:3000/login/status',
+        url: `${baseServe}/login/status`,
         params: {
             timerstamp: Date.now()
-        },
-        cookie: cookie
+        }
     })
-}
+};
+
+// 获取用户信息 , 歌单，收藏，mv, dj 数量
+export const getSubcount = ()=> {
+    return get({
+        url: `${baseServe}/user/subcount`,
+        params: {
+            timerstamp: Date.now()
+        }
+    })
+};

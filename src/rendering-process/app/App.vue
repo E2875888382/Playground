@@ -38,7 +38,7 @@ export default {
                 background: backgroundImg.value,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                height: `calc(100% - ${['webview', 'preview', 'pictures', 'music'].includes(route.name) ? '30px' : '78px'})`
+                height: `calc(100% - ${route.meta.needSearch ? '78px' : '30px'})`
             }
         });
 

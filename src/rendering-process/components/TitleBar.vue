@@ -27,7 +27,7 @@ export default {
         const store = useStore();
         const route = useRoute();
         const showSearch = computed(()=> {
-            return !['webview', 'preview', 'pictures', 'music'].includes(route.name);
+            return route.meta.needSearch;
         });
         const containerHeight = computed(()=> {
             return showSearch.value ? {height: '78px'} : {};

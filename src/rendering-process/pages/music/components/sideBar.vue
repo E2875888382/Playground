@@ -4,7 +4,7 @@
             <div 
                 v-for="item in musicFindMenu" :key="item.id"
                 :class="['sidebar-find__item', {'sidebar-find__item_active': activeIndex === item.id}]" 
-                @click="handleChoose(item.id)"
+                @click="handleChoose(item.id, item.path)"
             >
                 <span>{{item.title}}</span>
             </div>
@@ -14,7 +14,7 @@
             <div 
                 v-for="item in musicMineMenu" :key="item.id"
                 :class="['sidebar-mine__item', {'sidebar-mine__item_active': activeIndex === item.id}]"
-                @click="handleChoose(item.id)"
+                @click="handleChoose(item.id, item.path)"
             >
                 <span class="iconfont" :class="item.icon"></span>{{item.title}}
             </div>
@@ -31,7 +31,7 @@
                 <div
                     v-for="item in playListCreate" :key="item.id"
                     :class="['sidebar-playlist_create__item', {'sidebar-playlist_create__item_active': activeIndex === item.id}]"
-                    @click="handleChoose(item.id)"
+                    @click="handleChoose(item.id, item.path)"
                 >
                     <span class="iconfont icon-bofangduilie"></span>
                     <span class="playlist__title">{{item.title}}</span>
@@ -50,7 +50,7 @@
                 <div 
                     v-for="item in playListStar" :key="item.id"
                     :class="['sidebar-playlist_star__item', {'sidebar-playlist_star__item_active': activeIndex === item.id}]"
-                    @click="handleChoose(item.id)"
+                    @click="handleChoose(item.id, item.path)"
                 >
                     <span class="iconfont icon-bofangduilie"></span>
                     <span class="playlist__title">{{item.title}}</span>
@@ -62,85 +62,103 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     setup() {
         const musicFindMenu = [
             {
                 id: 'find-0',
-                title: '发现音乐'
+                title: '发现音乐',
+                path: '/music/find'
             },
             {
                 id: 'find-1',
-                title: '视频'
+                title: '视频',
+                path: '/music/media'
             },
             {
                 id: 'find-2',
-                title: '朋友'
+                title: '朋友',
+                path: '/music/dynamic'
             },
             {
                 id: 'find-3',
-                title: '私人FM'
+                title: '私人FM',
+                path: '/music/fm'
             }
         ];
         const musicMineMenu = [
             {
                 id: 'mine-0',
                 title: '本地音乐',
-                icon: 'icon-yinle'
+                icon: 'icon-yinle',
+                path: '/music/local'
             },
             {
                 id: 'mine-1',
                 title: '下载管理',
-                icon: 'icon-xiazai1'
+                icon: 'icon-xiazai1',
+                path: '/music/download'
             },
             {
                 id: 'mine-2',
                 title: '我的音乐云盘',
-                icon: 'icon-yunpan'
+                icon: 'icon-yunpan',
+                path: '/music/cloud'
             },
             {
                 id: 'mine-3',
                 title: '我的收藏',
-                icon: 'icon-wodeshoucang'
+                icon: 'icon-wodeshoucang',
+                path: '/music/star'
             }
-        ]
+        ];
+        const router = useRouter();
         const activeIndex = ref('find-0');
         const showPlayListCreate = ref(false);
         const showPlayListStar = ref(false);
         const playListCreate = ref([
             {
                 id: 'create-0',
-                title: '英文歌'
+                title: '英文歌',
+                path: '/music/find'
             },
             {
                 id: 'create-1',
-                title: 'ElricTang的2020年度歌单'
+                title: 'ElricTang的2020年度歌单',
+                path: '/music/find'
             }
         ]);
         const playListStar = ref([
             {
                 id: 'star-0',
-                title: '今天从《贝多芬的悲伤》听起|私人雷达'
+                title: '今天从《贝多芬的悲伤》听起|私人雷达',
+                path: '/music/find'
             },
             {
                 id: 'star-1',
-                title: '六月的雨，仙剑的梦'
+                title: '六月的雨，仙剑的梦',
+                path: '/music/find'
             },
             {
                 id: 'star-2',
-                title: '精选百首经典纯音乐·看书学习小憩独处放松'
+                title: '精选百首经典纯音乐·看书学习小憩独处放松',
+                path: '/music/find'
             },
             {
                 id: 'star-3',
-                title: '怀旧 | 闲暇细数90后的回忆杀'
+                title: '怀旧 | 闲暇细数90后的回忆杀',
+                path: '/music/find'
             },
             {
                 id: 'star-4',
-                title: '100首经典英文歌曲排行榜'
+                title: '100首经典英文歌曲排行榜',
+                path: '/music/find'
             },
             {
                 id: 'star-5',
-                title: '百首良曲|刷（抄）作业必备燃曲'
+                title: '百首良曲|刷（抄）作业必备燃曲',
+                path: '/music/find'
             }
         ]);
 
@@ -152,8 +170,9 @@ export default {
             playListStar,
             showPlayListCreate,
             showPlayListStar,
-            handleChoose: index=> {
+            handleChoose: (index, path)=> {
                 activeIndex.value = index;
+                router.push(path);
             }
         }
     }
@@ -166,23 +185,7 @@ export default {
     height: 100%;
     border-right: 1px solid #ddd;
     padding: 0 20px 0 14px;
-    overflow-y: scroll;
-    &:hover {
-        &::-webkit-scrollbar-thumb {
-            background-color: #dcdfe6;
-        }
-    }
-    &::-webkit-scrollbar {
-        width: 8px;
-    }
-    &::-webkit-scrollbar-track{
-        background-color: transparent;
-        border-radius: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: transparent;
-    }
+    .customScroll;
 }
 .sidebar-find {
     padding-top: 15px;

@@ -25,11 +25,6 @@ const state = {
             name: 'music',
             icon: 'icon-yinle_2',
             path: '/music'
-        },
-        {
-            name: 'collection',
-            icon: 'icon-shoucang',
-            path: '/collection'
         }
     ],
     titleBars: [
@@ -66,7 +61,6 @@ const state = {
         books: '看书',
         music: '音乐',
         pictures: '壁纸',
-        collection: '收藏',
         set: '设置'
     },
     readMode: 'eyecare',

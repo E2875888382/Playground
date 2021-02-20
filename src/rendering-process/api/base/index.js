@@ -2,6 +2,7 @@
  * @description node的request模块请求
  */
 import { ElMessage } from 'element-plus';
+import store from '../../store';
 
 const request = require('request');
 const paramsParse = params=> {
@@ -13,12 +14,12 @@ const paramsParse = params=> {
     return res.slice(0, res.length - 1);
 };
 
-export const get = ({ url: baseUrl, params = {}, apiName= '', cookie= '' })=> {
+export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
     const url = baseUrl + paramsParse(params);
     const options = {
         url: url,
         headers: {
-            'Cookie': cookie
+            'Cookie': store.state.user.cookie
         }
     };
 
@@ -45,7 +46,7 @@ export const get = ({ url: baseUrl, params = {}, apiName= '', cookie= '' })=> {
     });
 }
 
-export const post = ({ url, data, apiName= '', cookie= '' })=> {
+export const post = ({ url, data, apiName= ''})=> {
     return new Promise(resolve=> {
         request({
             methods: 'post',
@@ -53,7 +54,7 @@ export const post = ({ url, data, apiName= '', cookie= '' })=> {
             json: true,
             headers: {
                 "content-type": "application/json",
-                'Cookie': cookie
+                'Cookie': store.state.user.cookie
             },
             body: JSON.stringify(data)
         }, (err, response, body)=> {

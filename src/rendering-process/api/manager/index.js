@@ -8,6 +8,7 @@ import * as street from '../street';
 import * as webview from '../link';
 import * as pictures from '../pictures';
 import * as login from '../login';
+import * as musicFind from '../music/find';
 
 // 全局管理api，通过provide注入
 export default {
@@ -20,5 +21,8 @@ export default {
     booksSearch,
     webview,
     pictures,
-    login
+    login,
+    music: {
+        find: musicFind
+    }
 }

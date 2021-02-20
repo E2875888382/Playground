@@ -25,7 +25,7 @@ export default {
         Layout,
         SideBar,
         PlayBar
-    },
+    }
 }
 </script>
 
@@ -44,13 +44,11 @@ export default {
     height: 100%;
     flex-grow: 1;
     background-color: #fff;
-    .overfloScroll;
+    .customScroll;
 }
 .music-page__content {
-    min-height: 100%;
     max-width: 1200px;
     padding: 0 20px;
     margin: auto;
-    background-color: red;
 }
 </style>
