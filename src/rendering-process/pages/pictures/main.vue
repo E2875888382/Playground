@@ -58,7 +58,7 @@ export default {
     width: 100%;
     height: 100%;
     padding: 0 5px;
-    .overfloScroll;
+    .overflowScroll;
     .pictures__item {
         flex-grow: 1;
         height: 180px;

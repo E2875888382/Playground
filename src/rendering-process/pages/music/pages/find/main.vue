@@ -1,10 +1,12 @@
 <template>
     <div class="find-container">
-        <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item v-for="item in tabs" :key="item.index" :index="item.index">
-                <span>{{item.title}}</span>
-            </el-menu-item>
-        </el-menu>
+        <el-affix :offset="30" :z-index="5">
+            <el-menu default-active="1" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                <el-menu-item v-for="item in tabs" :key="item.index" :index="item.index">
+                    <span>{{item.title}}</span>
+                </el-menu-item>
+            </el-menu>
+        </el-affix>
         <keep-alive>
             <component :is="component" />
         </keep-alive>
@@ -13,8 +15,8 @@
 
 <script>
 import { ref } from 'vue';
-import Home from './components/home';
-import PlayList from './components/playList';
+import Home from './pages/home';
+import PlayList from './pages/playList';
 export default {
     components: {
         'Home': Home,
@@ -69,13 +71,12 @@ export default {
 
 <style lang="less" scoped>
 .find-container {
+    &:deep(.el-affix) {
+        width: 100% !important;
+    }
     .el-menu.el-menu--horizontal {
-        position: fixed;
-        left: 356px;
-        width: calc(100% - 360px);
-        padding-top: 10px;
+        padding: 10px 10px;
         background-color: #fff;
-        z-index: 5;
         border: none;
     }
     .el-menu-item {

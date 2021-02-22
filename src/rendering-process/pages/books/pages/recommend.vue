@@ -41,6 +41,6 @@ export default {
     height: calc(100% - 150px);
     width: 100%;
     margin-top: 10px;
-    .overfloScroll;
+    .overflowScroll;
 }
 </style>

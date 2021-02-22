@@ -181,6 +181,7 @@ export default {
 
 <style lang="less" scoped>
 .music-sidebar {
+    flex-shrink: 0;
     width: 220px;
     height: 100%;
     border-right: 1px solid #ddd;

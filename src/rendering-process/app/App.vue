@@ -21,7 +21,7 @@ import api from '../api/manager';
 import { useRoute, useRouter } from 'vue-router';
 import { computed, provide } from 'vue';
 import { ElLoading, ElMessage } from 'element-plus';
-import { timeFormat, wordFormat, hotFormat } from '../assets/js/utils';
+import { timeFormat, wordFormat, hotFormat, numFormat } from '../assets/js/utils';
 import { useStore } from 'vuex';
 export default {
     components: {
@@ -58,6 +58,8 @@ export default {
         provide('wordFormat', wordFormat);
         // 格式化书籍人气
         provide('hotFormat', hotFormat);
+        // 通用格式
+        provide('numFormat', numFormat);
 
         return {
             backgroundImg,

@@ -59,7 +59,7 @@ export default {
     width: @booksshelfWidth;
     height: 100%;
     background-color: #f0efee;
-    .overfloScroll;
+    .overflowScroll;
     &::after {
         content: '';
         flex: 0 0 @bookshelfItemWdith;
@@ -85,7 +85,7 @@ export default {
     position: relative;
     flex-grow: 1;
     height: 100%;
-    .overfloScroll;
+    .overflowScroll;
     .booksContent__main {
         height: 100%;
         width: 90%;

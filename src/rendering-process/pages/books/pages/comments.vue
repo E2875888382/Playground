@@ -63,7 +63,7 @@ export default {
     width: 100%;
     height: calc(100% - 90px);
     padding: 20px 0;
-    .overfloScroll;
+    .overflowScroll;
 }
 .books-comments__loadEnd {
     margin: 0;

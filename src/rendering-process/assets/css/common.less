@@ -1,9 +1,18 @@
 // 隐藏滑动条
-.overfloScroll {
+.overflowScroll {
     overflow: auto;
     &::-webkit-scrollbar {
         display: none;
     }
+}
+// 最多展示两行
+.font-overflow {
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
 }
 // 自定义滑动条
 .customScroll {

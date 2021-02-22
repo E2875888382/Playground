@@ -24,7 +24,8 @@ import {
     ElAutocomplete,
     ElDialog,
     ElMenu,
-    ElMenuItem
+    ElMenuItem,
+    ElAffix
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -60,5 +61,6 @@ app
 .use(ElDialog)
 .use(ElMenu)
 .use(ElMenuItem)
+.use(ElAffix)
 .use(store);
 app.mount('#app');

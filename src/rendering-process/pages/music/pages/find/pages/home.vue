@@ -1,23 +1,21 @@
 <template>
-    <div class="home">
-        <el-carousel :interval="4000" type="card" height="255px" :autoplay="false">
-            <el-carousel-item v-for="item in data.banners" :key="item.imageUrl">
-                <el-image class="carousel-item__img" :src="item.imageUrl" alt="" fit="fit">
-                    <template #placeholder>
-                        <div class="image-slot">
-                            <i class="el-icon-picture-outline"></i>
-                        </div>
-                    </template>
-                </el-image>
-            </el-carousel-item>
-        </el-carousel>
+    <div class="home" v-if="ready">
+        <Banners :banners="data.banners"/>
+        <RecommendPlayList :list="data.playlist"/>
     </div>
 </template>
 
 <script>
 import { inject, onMounted, ref } from 'vue';
+import Banners from '../components/home/Banners';
+import RecommendPlayList from '../components/home/RecommendPlayList';
 export default {
+    components: {
+        Banners,
+        RecommendPlayList
+    },
     setup() {
+        const ready = ref(false);
         const data = ref({});
         const { find: {
             getBanner,
@@ -53,23 +51,18 @@ export default {
                     mv,
                     dj
                 };
+                ready.value = true;
+                console.log('发现页数据：', data.value);
             })
         })
         return {
-            data
+            data,
+            ready
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-.home {
-    padding-top: 80px;
-    &:deep(.el-image__inner) {
-        border-radius: 10px;
-    }
-}
-.carousel-item__img {
-    height: 100%;
-}
+
 </style>

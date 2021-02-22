@@ -22,3 +22,6 @@ export const wordFormat = num=> num > 9999 ? `${Math.round(Math.floor(num / 1000
 
 // 格式化书籍总人气
 export const hotFormat = num=> num > 9999 ? `${Math.round(num / 1000) / 10}万` : num;
+
+// 音乐播放量format
+export const numFormat = (num, base)=> num > base ? `${Math.round(num / 10000)}万` : num;

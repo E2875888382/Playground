@@ -100,7 +100,7 @@ export default {
     height: calc(100% - 67px);
     width: 100%;
     margin-top: 20px;
-    .overfloScroll;
+    .overflowScroll;
 }
 .el-icon-top {
     color: #f56c6c;

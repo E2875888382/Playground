@@ -132,7 +132,7 @@ export default {
     }
     &:deep(.el-tabs__content) {
         height: 100%;
-        .overfloScroll;
+        .overflowScroll;
     }
 }
 .books-ranking__tabs {

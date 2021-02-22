@@ -94,7 +94,7 @@ export default {
 }
 .books-chapters__content {
     height: calc(100% - 55px);
-    .overfloScroll;
+    .overflowScroll;
 }
 .books-chapters__header {
     display: flex;

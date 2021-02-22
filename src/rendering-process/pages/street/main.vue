@@ -133,7 +133,7 @@ a {
     width: @newsListWidth;
     height: 100%;
     background-color: #f0efee;
-    .overfloScroll;
+    .overflowScroll;
 }
 .newsList__item {
     display: flex;
@@ -155,18 +155,13 @@ a {
     width: 225px;
     font-size: 18px;
     line-height: 27px;
-    text-overflow: ellipsis;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
+    .font-overflow;
     color: #333333c4;
 }
 .bbs-newsContent {
     flex-grow: 1;
     height: 100%;
-    .overfloScroll;
+    .overflowScroll;
     .newsContent__main {
         width: 80%;
         padding: 0 60px;

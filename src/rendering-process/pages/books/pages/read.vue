@@ -191,7 +191,7 @@ export default {
     white-space: pre-line;
     color: #5c5d58;
     user-select: none;
-    .overfloScroll;
+    .overflowScroll;
     &:deep(.book-read__content-title) {
         font-size: 30px;
         font-weight: bold;
@@ -249,7 +249,7 @@ export default {
     height: 100%;
     background-color: #FFF;
     opacity: 1;
-    .overfloScroll;
+    .overflowScroll;
 }
 .book-read__chapters-item {
     height: 75px;
