@@ -1,7 +1,11 @@
 <template>
     <div class="home" v-if="ready">
-        <Banners :banners="data.banners"/>
+        <Banners :list="data.banners"/>
         <RecommendPlayList :list="data.playlist"/>
+        <PrivateContent :list="data.privateContent"/>
+        <NewSong :list="data.newSong"/>
+        <Mv :list="data.mv"/>
+        <Dj :list="data.dj"/>
     </div>
 </template>
 
@@ -9,10 +13,18 @@
 import { inject, onMounted, ref } from 'vue';
 import Banners from '../components/home/Banners';
 import RecommendPlayList from '../components/home/RecommendPlayList';
+import PrivateContent from '../components/home/PrivateContent';
+import NewSong from '../components/home/NewSong';
+import Mv from '../components/home/Mv';
+import Dj from '../components/home/Dj';
 export default {
     components: {
         Banners,
-        RecommendPlayList
+        RecommendPlayList,
+        PrivateContent,
+        NewSong,
+        Mv,
+        Dj
     },
     setup() {
         const ready = ref(false);
@@ -52,7 +64,6 @@ export default {
                     dj
                 };
                 ready.value = true;
-                console.log('发现页数据：', data.value);
             })
         })
         return {

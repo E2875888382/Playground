@@ -24,6 +24,7 @@ export const getNewSong = ()=> {
     return get({
         url: `${baseServe}/personalized/newsong`,
         params: {
+            limit: 20,
             timerstamp: Date.now()
         }
     })

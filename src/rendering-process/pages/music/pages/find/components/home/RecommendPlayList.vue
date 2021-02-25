@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { inject } from 'vue'
+import { inject } from 'vue';
 export default {
     props: {
         list: Array

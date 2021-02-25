@@ -1,6 +1,6 @@
 <template>
     <el-carousel :interval="4000" type="card" height="255px" :initial-index="2">
-        <el-carousel-item v-for="item in banners" :key="item.imageUrl">
+        <el-carousel-item v-for="item in list" :key="item.imageUrl">
             <div class="carousel-item">
                 <el-image class="carousel-item__img" :src="item.imageUrl" alt="" fit="fit">
                     <template #placeholder>
@@ -20,7 +20,7 @@
 <script>
 export default {
     props: {
-        banners: Array
+        list: Array
     }
 }
 </script>
