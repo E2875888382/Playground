@@ -22,6 +22,7 @@
             width="350px"
             custom-class="login-dialog"
             :close-on-click-modal="false"
+            :destroy-on-close="true"
         >
             <div class="login-dialog__content">
                 <el-image :src="loginCode"/>

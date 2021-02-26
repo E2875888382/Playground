@@ -1,11 +1,13 @@
 <template>
     <div class="home" v-if="ready">
         <Banners :list="data.banners"/>
-        <RecommendPlayList :list="data.playlist"/>
-        <PrivateContent :list="data.privateContent"/>
-        <NewSong :list="data.newSong"/>
-        <Mv :list="data.mv"/>
-        <Dj :list="data.dj"/>
+        <transition-group name="component-list">
+            <component 
+                v-for="component in componentsList" :key="component.title" 
+                :is="component.component" :list="data[component.data]"
+            />
+        </transition-group>
+        <DragController :list="componentsList" @sort="handleSort"/>
     </div>
 </template>
 
@@ -17,6 +19,7 @@ import PrivateContent from '../components/home/PrivateContent';
 import NewSong from '../components/home/NewSong';
 import Mv from '../components/home/Mv';
 import Dj from '../components/home/Dj';
+import DragController from '../components/home/DragController';
 export default {
     components: {
         Banners,
@@ -24,11 +27,39 @@ export default {
         PrivateContent,
         NewSong,
         Mv,
-        Dj
+        Dj,
+        DragController
     },
     setup() {
         const ready = ref(false);
         const data = ref({});
+        const componentsList = ref([
+            {
+                title: '推荐歌单',
+                component: 'RecommendPlayList',
+                data: 'playlist'
+            },
+            {
+                title: '独家放送',
+                component: 'PrivateContent',
+                data: 'privateContent'
+            },
+            {
+                title: '最新音乐',
+                component: 'NewSong',
+                data: 'newSong'
+            },
+            {
+                title: '推荐MV',
+                component: 'Mv',
+                data: 'mv'
+            },
+            {
+                title: '主播电台',
+                component: 'Dj',
+                data: 'dj'
+            }
+        ]);
         const { find: {
             getBanner,
             getPrivateContent,
@@ -37,6 +68,9 @@ export default {
             getPersonalizedMV,
             getDjHot
         }} = inject('api').music;
+        const handleSort = list=> {
+            componentsList.value = list;
+        };
 
         onMounted(async ()=> {
             Promise.all([
@@ -68,12 +102,16 @@ export default {
         })
         return {
             data,
-            ready
+            ready,
+            componentsList,
+            handleSort
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
-
+.component-list-move {
+    transition: transform 1s;
+}
 </style>
