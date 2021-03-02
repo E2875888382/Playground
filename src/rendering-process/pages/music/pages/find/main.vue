@@ -71,6 +71,9 @@ export default {
 
 <style lang="less" scoped>
 .find-container {
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: auto;
     &:deep(.el-affix) {
         width: 100% !important;
     }

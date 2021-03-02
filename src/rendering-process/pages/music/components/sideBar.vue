@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 export default {
     setup() {
         const musicFindMenu = [
@@ -117,50 +118,31 @@ export default {
         const activeIndex = ref('find-0');
         const showPlayListCreate = ref(false);
         const showPlayListStar = ref(false);
-        const playListCreate = ref([
-            {
-                id: 'create-0',
-                title: '英文歌',
-                path: '/music/find'
-            },
-            {
-                id: 'create-1',
-                title: 'ElricTang的2020年度歌单',
-                path: '/music/find'
-            }
-        ]);
-        const playListStar = ref([
-            {
-                id: 'star-0',
-                title: '今天从《贝多芬的悲伤》听起|私人雷达',
-                path: '/music/find'
-            },
-            {
-                id: 'star-1',
-                title: '六月的雨，仙剑的梦',
-                path: '/music/find'
-            },
-            {
-                id: 'star-2',
-                title: '精选百首经典纯音乐·看书学习小憩独处放松',
-                path: '/music/find'
-            },
-            {
-                id: 'star-3',
-                title: '怀旧 | 闲暇细数90后的回忆杀',
-                path: '/music/find'
-            },
-            {
-                id: 'star-4',
-                title: '100首经典英文歌曲排行榜',
-                path: '/music/find'
-            },
-            {
-                id: 'star-5',
-                title: '百首良曲|刷（抄）作业必备燃曲',
-                path: '/music/find'
-            }
-        ]);
+        const store = useStore();
+        const playListCreate = computed(()=> {
+            const source = store.state.user.playList.filter(item=> item.subscribed === false);
+
+            return source.map(item=> {
+                return {
+                    source: item,
+                    id: 'create-' + item.id,
+                    path: `/music/playlist/${item.id}`,
+                    title: item.name
+                }
+            });
+        });
+        const playListStar = computed(()=> {
+            const source = store.state.user.playList.filter(item=> item.subscribed === true);
+
+            return source.map(item=> {
+                return {
+                    source: item,
+                    id: 'star-' + item.id,
+                    path: `/music/playlist/${item.id}`,
+                    title: item.name
+                }
+            });
+        });
 
         return {
             musicFindMenu,

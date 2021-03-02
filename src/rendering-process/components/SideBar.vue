@@ -42,6 +42,7 @@ export default {
         const loginStatus = computed(()=> store.state.user.cookie.length > 0);
         const loginCode = ref('');
         const { getQrCode, getQrCodeImg, checkQrCodeStatus, getLoginStatus, getSubcount } = inject('api').login;
+        const { getUserPlaylist } = inject('api').music.user;
         const dialogVisible = ref(false);
         const store = useStore();
         const Message = inject('message');
@@ -78,13 +79,15 @@ export default {
                             duration: 1000
                         });
                         dialogVisible.value = false;
-                        const { profile } = res.data;
+                        const { profile, account } = res.data;
                         console.log('登录状态：', res);
                         store.commit('user/updateAvatar', profile.avatarUrl);
                         store.commit('user/updateNickName', profile.nickname);
                         const subcount = await getSubcount();
+                        const playList = await getUserPlaylist(account.id);
 
-                        console.log('用户歌单：', subcount);
+                        store.commit('user/updatePlayList', playList.playlist);
+                        console.log('用户歌单：', subcount, playList);
                     }
                 }
             }, 3000);

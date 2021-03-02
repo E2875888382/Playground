@@ -12,7 +12,8 @@ const state = {
         {
             cover: 'http://img.1391.com/api/v1/bookcenter/cover/1/3387088/3387088_368c1a79dccf420d8a343009fd954d29.jpg/'
         }
-    ]
+    ],
+    playList: []
 };
 const mutations = {
     updateNickName(state, nickname) {
@@ -23,6 +24,9 @@ const mutations = {
     },
     updateCookie(state, cookie) {
         state.cookie = cookie;
+    },
+    updatePlayList(state, playList) {
+        state.playList = playList;
     }
 };
 

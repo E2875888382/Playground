@@ -6,7 +6,7 @@ export const getBanner = ()=> {
     return get({
         url: `${baseServe}/banner`,
         params: {
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
@@ -15,7 +15,7 @@ export const getPrivateContent = ()=> {
     return get({
         url: `${baseServe}/personalized/privatecontent`,
         params: {
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
@@ -25,7 +25,7 @@ export const getNewSong = ()=> {
         url: `${baseServe}/personalized/newsong`,
         params: {
             limit: 20,
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
@@ -34,7 +34,7 @@ export const getRecommendPlaylist = ()=> {
     return get({
         url: `${baseServe}/personalized`,
         params: {
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
@@ -43,7 +43,7 @@ export const getPersonalizedMV = ()=> {
     return get({
         url: `${baseServe}/personalized/mv`,
         params: {
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
@@ -52,7 +52,17 @@ export const getDjHot = ()=> {
     return get({
         url: `${baseServe}/dj/hot`,
         params: {
-            timerstamp: Date.now()
+            timestamp: Date.now()
         }
     })
 };
+
+export const getPlaylist = id=> {
+    return get({
+        url: `${baseServe}/playlist/detail`,
+        params: {
+            id,
+            timestamp: Date.now()
+        }
+    })
+}

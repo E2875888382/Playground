@@ -9,6 +9,7 @@ import * as webview from '../link';
 import * as pictures from '../pictures';
 import * as login from '../login';
 import * as musicFind from '../music/find';
+import * as musicUser from '../music/user';
 
 // 全局管理api，通过provide注入
 export default {
@@ -23,6 +24,7 @@ export default {
     pictures,
     login,
     music: {
-        find: musicFind
+        find: musicFind,
+        user: musicUser
     }
 }

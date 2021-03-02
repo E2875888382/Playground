@@ -181,6 +181,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: 'playlist/:id',
+                    name: 'musicPlaylist',
+                    component: ()=> import('../pages/music/pages/playlist/main.vue'),
+                    meta: {
+                        needSearch: false
+                    }
+                },
+                {
                     path: 'cloud',
                     name: 'musicCloud',
                     component: ()=> import('../pages/music/pages/cloud/main.vue'),
