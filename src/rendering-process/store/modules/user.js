@@ -24,6 +24,7 @@ const mutations = {
     },
     updateCookie(state, cookie) {
         state.cookie = cookie;
+        localStorage.setItem('cookie', cookie);
     },
     updatePlayList(state, playList) {
         state.playList = playList;

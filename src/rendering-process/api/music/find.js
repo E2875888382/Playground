@@ -65,4 +65,13 @@ export const getPlaylist = id=> {
             timestamp: Date.now()
         }
     })
-}
+};
+
+export const getSongDetail = ids=> {
+    return get({
+        url: `${baseServe}/song/detail`,
+        params: {
+            ids: ids.join(',')
+        }
+    })
+};

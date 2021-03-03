@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data.code && data.code === 200">
+    <div class="playlist-container" v-if="data.code && data.code === 200">
         <div class="playlist-header">
             <el-image class="playlist__cover" :src="data.playlist.coverImgUrl + '?param=230y230'" alt="" fit="fit">
                 <template #placeholder>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <el-tabs v-model="activeName" @tab-click="handleTabClick">
-            <el-tab-pane label="歌曲列表" name="first"><List :list="data.privileges" /></el-tab-pane>
+            <el-tab-pane label="歌曲列表" name="first"><List :list="songs" /></el-tab-pane>
             <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second"><Comments /></el-tab-pane>
             <el-tab-pane label="收藏者" name="third"><Collectors /></el-tab-pane>
         </el-tabs>
@@ -65,13 +65,18 @@ export default {
     },
     setup() {
         const activeName = ref('first');
+        const songs = ref([]);
         const data = ref({});
         const route = useRoute();
-        const { getPlaylist } = inject('api').music.find;
+        const { getPlaylist, getSongDetail } = inject('api').music.find;
         const getPlaylistDetail = async id=> {
             const res = await getPlaylist(id);
 
             data.value = res;
+            const songsRes = await getSongDetail(res.privileges.map(item=> item.id));
+
+            songs.value = songsRes?.songs;
+            console.log('songs', songs.value);
             console.log('歌单详情：', data.value);
         };
         const getDate = time=> {
@@ -121,13 +126,17 @@ export default {
             handleDownloadAll,
             handleShare,
             handleTabClick,
-            numFormat
+            numFormat,
+            songs
         }
     }
 }
 </script>
 
 <style lang="less" scoped>
+.playlist-container {
+    max-width: 100%;
+}
 .align-center {
     display: flex;
     align-items: center;
@@ -209,7 +218,10 @@ export default {
     }
 }
 .el-tabs {
-    padding: 0 40px;
+    max-width: 100%;
+    &:deep(.el-tabs__header) {
+        padding-left: 40px;
+    }
     &:deep(.el-tabs__nav-wrap::after) {
         display: none;
     }
@@ -227,7 +239,5 @@ export default {
         height: 4px;
         background-color: red;
     }
-    
-    
 }
 </style>

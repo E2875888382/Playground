@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { computed, inject, ref } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 export default {
     setup() {
@@ -46,6 +46,28 @@ export default {
         const dialogVisible = ref(false);
         const store = useStore();
         const Message = inject('message');
+        const getLoginMsg = async ()=> {
+            const res = await getLoginStatus();
+
+            if (res.data?.code === 200 && res.data.profile && res.data.account) {
+                Message({
+                    message: '登录成功',
+                    type: 'success',
+                    offset: 200,
+                    duration: 1000
+                });
+                dialogVisible.value = false;
+                const { profile, account } = res.data;
+                console.log('登录状态：', res);
+                store.commit('user/updateAvatar', profile.avatarUrl);
+                store.commit('user/updateNickName', profile.nickname);
+                const subcount = await getSubcount();
+                const playList = await getUserPlaylist(account.id);
+
+                store.commit('user/updatePlayList', playList.playlist);
+                console.log('用户歌单：', subcount, playList);
+            }
+        };
         // 生成二维码
         const createQrcode = async()=> {
             const qrcode = await getQrCode();
@@ -69,26 +91,7 @@ export default {
                     clearInterval(timer);
                     // 将cookie写入请求头
                     store.commit('user/updateCookie', statusRes.cookie);
-                    const res = await getLoginStatus();
-
-                    if (res.data?.code === 200) {
-                        Message({
-                            message: '登录成功',
-                            type: 'success',
-                            offset: 200,
-                            duration: 1000
-                        });
-                        dialogVisible.value = false;
-                        const { profile, account } = res.data;
-                        console.log('登录状态：', res);
-                        store.commit('user/updateAvatar', profile.avatarUrl);
-                        store.commit('user/updateNickName', profile.nickname);
-                        const subcount = await getSubcount();
-                        const playList = await getUserPlaylist(account.id);
-
-                        store.commit('user/updatePlayList', playList.playlist);
-                        console.log('用户歌单：', subcount, playList);
-                    }
+                    getLoginMsg();
                 }
             }, 3000);
         };
@@ -98,8 +101,14 @@ export default {
             dialogVisible.value = true;
         };
 
+        onMounted(()=> {
+            const cookie = localStorage.getItem('cookie');
+
+            cookie && store.commit('user/updateCookie', cookie);
+            getLoginMsg();
+        });
         return {
-            loginCode: loginCode,
+            loginCode,
             dialogVisible,
             showLoginDialog,
             avatar: computed(()=> store.state.user.avatar),

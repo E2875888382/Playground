@@ -13,13 +13,14 @@ const paramsParse = params=> {
     }
     return res.slice(0, res.length - 1);
 };
+const cookie = localStorage.getItem('cookie');
 
 export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
     const url = baseUrl + paramsParse(params);
     const options = {
         url: url,
         headers: {
-            'Cookie': store.state.user.cookie
+            'Cookie': store.state.user.cookie || cookie
         }
     };
 
@@ -54,7 +55,7 @@ export const post = ({ url, data, apiName= ''})=> {
             json: true,
             headers: {
                 "content-type": "application/json",
-                'Cookie': store.state.user.cookie
+                'Cookie': store.state.user.cookie || cookie
             },
             body: JSON.stringify(data)
         }, (err, response, body)=> {
