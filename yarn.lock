@@ -3756,10 +3756,10 @@ electron@^9.0.0:
     "@types/node" "^12.0.12"
     extract-zip "^1.0.3"
 
-element-plus@^1.0.1-beta.27:
-  version "1.0.1-beta.27"
-  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.1-beta.27.tgz?cache=0&sync_timestamp=1611590663126&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.1-beta.27.tgz#f7ea863e2a85f40d0bfccd9a3f778c883a844802"
-  integrity sha1-9+qGPiqF9A0L/M2aP3eMiDqESAI=
+element-plus@^1.0.2-beta.33:
+  version "1.0.2-beta.33"
+  resolved "https://registry.npm.taobao.org/element-plus/download/element-plus-1.0.2-beta.33.tgz?cache=0&sync_timestamp=1614747373010&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-plus%2Fdownload%2Felement-plus-1.0.2-beta.33.tgz#0e924c8872dbc14e916ed5d6452d9799b04d4c60"
+  integrity sha1-DpJMiHLbwU6RbtXWRS2XmbBNTGA=
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"
@@ -9527,6 +9527,7 @@ vue-hot-reload-api@^2.3.0:
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
 
 "vue-loader-v16@npm:vue-loader@^16.1.0", vue-loader@^16.1.2:
+  name vue-loader-v16
   version "16.1.2"
   resolved "https://registry.npm.taobao.org/vue-loader/download/vue-loader-16.1.2.tgz?cache=0&sync_timestamp=1608188009078&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-loader%2Fdownload%2Fvue-loader-16.1.2.tgz#5c03b6c50d2a5f983c7ceba15c50d78ca2b298f4"
   integrity sha1-XAO2xQ0qX5g8fOuhXFDXjKKymPQ=

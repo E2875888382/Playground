@@ -33,7 +33,7 @@
                     <div class="volume__content"></div>
                 </div>
             </div>
-            <div class="controller__list">
+            <div class="controller__list" @click="togglePlayList">
                 <span class="iconfont icon-bofangliebiao"></span>
             </div>
         </div>
@@ -42,7 +42,12 @@
 
 <script>
 export default {
-
+    emits: ['togglePlayList'],
+    setup(props, context) {
+        return {
+            togglePlayList: ()=> context.emit('togglePlayList')
+        }
+    }
 }
 </script>
 
@@ -173,6 +178,7 @@ export default {
         justify-content: flex-start;
         height: 100%;
         width: 52px;
+        cursor: pointer;
     }
     .icon-bofangliebiao {
         font-size: 22px;

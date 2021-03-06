@@ -9,8 +9,9 @@
                     </keep-alive>
                 </router-view>
             </div>
+            <PlayList :show="showPlayList" />
         </div>
-        <PlayBar />
+        <PlayBar @togglePlayList="showPlayList = !showPlayList"/>
     </Layout>
 </template>
 
@@ -18,17 +19,28 @@
 import Layout from '../../components/Layout';
 import SideBar from './components/sideBar';
 import PlayBar from './components/playBar';
+import PlayList from './components/playList';
+import { ref } from 'vue';
 export default {
     components: {
         Layout,
         SideBar,
-        PlayBar
+        PlayBar,
+        PlayList
+    },
+    setup() {
+        const showPlayList = ref(false);
+
+        return {
+            showPlayList
+        }
     }
 }
 </script>
 
 <style lang="less" scoped>
 .music-content {
+    position: relative;
     flex-grow: 1;
     display: flex;
     width: 100%;

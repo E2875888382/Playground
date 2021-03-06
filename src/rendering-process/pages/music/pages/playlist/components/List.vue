@@ -1,6 +1,6 @@
 <template>
     <div class="list-container">
-        <el-table :data="list" stripe style="width: 99%" >
+        <el-table :data="list" stripe style="width: 99%" @row-contextmenu="openMenu">
             <el-table-column label="音乐标题" class-name="music__title" header-align="center" sortable sort-by="name">
                 <template #default="scope">
                     <span class="light music__index">{{zero(scope.$index + 1)}}</span>
@@ -26,11 +26,13 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
 export default {
     props: {
         list: Array
     },
     setup() {
+        const store = useStore();
         const getAuthors = arr=> {
             return arr.map(item=> item.name).join('/');
         };
@@ -42,11 +44,15 @@ export default {
 
             return `${zero(m)}:${zero(s)}`;
         };
+        const openMenu = row=> {
+            store.commit('music/addToPlaylist', row);
+        };
 
         return {
             getAuthors,
             getTime,
-            zero
+            zero,
+            openMenu
         }
     }
 }

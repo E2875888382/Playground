@@ -37,22 +37,34 @@
                         下载全部
                     </el-button>
                 </div>
+                <p class="playlist__tags" v-if="data.playlist.tags.length">标签 : {{joinArr(data.playlist.tags)}}</p>
                 <p class="playlist__count">
                     <span>歌曲 : {{numFormat(data.playlist.trackCount)}}</span>
                     <span>播放 : {{numFormat(data.playlist.playCount)}}</span>
                 </p>
+                <p class="playlist__description" v-if="data.playlist.description">简介 : {{data.playlist.description}}</p>
             </div>
         </div>
-        <el-tabs v-model="activeName" @tab-click="handleTabClick">
-            <el-tab-pane label="歌曲列表" name="first"><List :list="songs" /></el-tab-pane>
-            <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second"><Comments /></el-tab-pane>
-            <el-tab-pane label="收藏者" name="third"><Collectors /></el-tab-pane>
-        </el-tabs>
+        <div style="position:relative">
+            <el-tabs v-model="activeName" @tab-click="handleTabClick">
+                <el-tab-pane label="歌曲列表" name="first"><List :list="songsFilter" /></el-tab-pane>
+                <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second"><Comments /></el-tab-pane>
+                <el-tab-pane label="收藏者" name="third"><Collectors /></el-tab-pane>
+            </el-tabs>
+            <el-input
+                v-show="activeName === 'first'"
+                placeholder="搜索歌单音乐"
+                suffix-icon="el-icon-search"
+                v-model="search"
+                :clearable="true"
+                @input="searchMusic"
+            />
+        </div>
     </div>
 </template>
 
 <script>
-import { inject, onActivated, ref } from 'vue';
+import { computed, inject, onActivated, ref } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import List from './components/List';
 import Comments from './components/Comments';
@@ -64,16 +76,18 @@ export default {
         Collectors
     },
     setup() {
+        const search = ref('');
         const activeName = ref('first');
         const songs = ref([]);
         const data = ref({});
         const route = useRoute();
         const { getPlaylist, getSongDetail } = inject('api').music.find;
+        const joinArr = arr=> arr.join('／');
         const getPlaylistDetail = async id=> {
             const res = await getPlaylist(id);
 
             data.value = res;
-            const songsRes = await getSongDetail(res.privileges.map(item=> item.id));
+            const songsRes = await getSongDetail(res.playlist.trackIds.map(item=> item.id));
 
             songs.value = songsRes?.songs;
             console.log('songs', songs.value);
@@ -105,6 +119,12 @@ export default {
         const numFormat = n=> {
             return +n > 10000 ? Math.floor(n / 10000) + '万' : n;
         };
+        const searchMusic = val=> {
+            search.value = val;
+        };
+        const songsFilter = computed(()=> {
+            return songs.value.filter(item=> item.name.includes(search.value));
+        });
 
 
         onActivated(()=> {
@@ -118,6 +138,9 @@ export default {
             }
         })
         return {
+            searchMusic,
+            search,
+            joinArr,
             data,
             activeName,
             getDate,
@@ -127,7 +150,8 @@ export default {
             handleShare,
             handleTabClick,
             numFormat,
-            songs
+            songs,
+            songsFilter
         }
     }
 }
@@ -153,6 +177,7 @@ export default {
     }
 }
 .playlist__cover {
+    flex-shrink: 0;
     border-radius: 5px;
     border: 1px solid #ebeef5;
 }
@@ -181,6 +206,7 @@ export default {
     color: #606266;
 }
 .playlist__btns {
+    margin-bottom: 16px;
     .el-button {
         padding: 7px 20px;
         border-radius: 70px;
@@ -238,6 +264,36 @@ export default {
     &:deep(.el-tabs__active-bar) {
         height: 4px;
         background-color: red;
+    }
+}
+.playlist__tags,
+.playlist__description,
+.playlist__count {
+    margin: 5px 0;
+    font-weight: 345;
+}
+.playlist__description {
+    .font-overflow;
+    -webkit-line-clamp: 1;
+}
+.el-input {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    width: 238px;
+    &:deep(.el-input__inner) {
+        height: 30px;
+        border: none;
+        border-radius: 50px;
+        line-height: 30px;
+        color: #333;
+        background-color:#f5f5f594;
+        &:focus {
+            background: #FFF;
+        }
+    }
+    &:deep(.el-input__suffix) {
+        .flex-center;
     }
 }
 </style>
