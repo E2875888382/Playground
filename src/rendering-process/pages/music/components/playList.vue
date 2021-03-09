@@ -1,24 +1,77 @@
 <template>
     <div class="playlist-drawer" v-if="show">
-        <div v-for="(item, index) in playlist" :key="index">
-            {{item.name}}
-        </div>
+        <Switch :list="['播放列表', '历史记录']" v-model:activeId="activeId"/>
+        <el-table :data="playlist" stripe style="width: 100%" v-show="!activeId" height="calc(100% - 75px)" empty-text=" ">
+            <el-table-column :label="'总'+ playlist.length +'首'" class-name="music__title">
+                <template #default="scope">
+                    <span class="black">{{scope.row.name}}</span>
+                    <span class="light" v-if="scope.row.alia.length">{{' ('+ scope.row.alia.join('/') + ') '}}</span>
+                    <span v-if="scope.row.mv" class="icon-mv">MV<i class="iconfont icon-Playerplay"></i></span>
+                </template>
+            </el-table-column>
+            <el-table-column label="歌手" width="140">
+                <template #default="scope">
+                    {{getAuthors(scope.row.ar)}}
+                </template>
+            </el-table-column>
+            <el-table-column label="时长" width="100">
+                <template #default="scope">
+                    {{getTime(scope.row.dt)}}
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-table :data="playlist" stripe style="width: 100%" v-show="activeId" height="calc(100% - 75px)" empty-text=" ">
+            <el-table-column :label="'总'+ playlist.length +'首'" class-name="music__title">
+                <template #default="scope">
+                    <span class="black">{{scope.row.name}}</span>
+                    <span class="light" v-if="scope.row.alia.length">{{' ('+ scope.row.alia.join('/') + ') '}}</span>
+                    <span v-if="scope.row.mv" class="icon-mv">MV<i class="iconfont icon-Playerplay"></i></span>
+                </template>
+            </el-table-column>
+            <el-table-column label="歌手" width="140">
+                <template #default="scope">
+                    {{getAuthors(scope.row.ar)}}
+                </template>
+            </el-table-column>
+            <el-table-column label="时间" width="100">
+                <template #default="scope">
+                    {{getAuthors(scope.row.ar)}}
+                </template>
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import Switch from '../components/switch';
 export default {
+    components: {
+        Switch
+    },
     props: {
         show: Boolean
     },
     setup() {
+        const activeId = ref(0);
         const store = useStore();
         const playlist = computed(()=> store.state.music.playlist);
+        const zero = n=> n < 10 ? '0' + n : n;
+        const getTime = dt=> {
+            const source = Math.floor(dt / 1000);
+            const m = Math.floor(source / 60);
+            const s = source % 60;
+
+            return `${zero(m)}:${zero(s)}`;
+        };
 
         return {
-            playlist
+            activeId,
+            playlist,
+            getTime,
+            zero,
+            getAuthors: arr=> arr.map(item=> item.name).join('/')
         }
     }
 }
@@ -31,7 +84,40 @@ export default {
     right: 0;
     height: 100%;
     width: 525px;
+    box-shadow: -2px 0px 4px #ddd;
     background-color: #fff;
     z-index: 6;
+}
+.light {
+    color: #c0c4cc9c;
+}
+.black {
+    color: #333;
+}
+.music__title {
+    padding-left: 15px;
+}
+.el-table .cell {
+    font-weight: 400;
+    font-size: 16px;
+    color: #606266d6;
+    .font-overflow;
+    -webkit-line-clamp: 1;
+}
+.el-table__body-wrapper {
+    .customScroll;
+}
+.icon-mv {
+    padding-left: 2px;
+    margin-left: 5px;
+    font-size: 12px;
+    line-height: 15px;
+    color: red;
+    border: 1px solid red;
+    border-radius: 4px;
+    .icon-Playerplay {
+        font-size: 12px;
+        line-height: 18px;
+    }
 }
 </style>

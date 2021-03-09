@@ -2,7 +2,7 @@
     <Layout :flex="true" customClass="music-layout">
         <div class="music-content">
             <SideBar />
-            <div class="music-page">
+            <div class="music-page" @click="showPlayList = false">
                 <router-view v-slot="{ Component }">
                     <keep-alive>
                         <component :is="Component" />
