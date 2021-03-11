@@ -1,7 +1,7 @@
 <template>
     <div class="play-sidebar">
-        <Des />
-        <Controller />
+        <Des :music="currentMusic"/>
+        <Controller :music="currentMusic"/>
         <Volume @togglePlayList="togglePlayList"/>
     </div>
 </template>
@@ -10,6 +10,8 @@
 import Volume from './playBarVolume';
 import Controller from './playBarController';
 import Des from './playBarDes';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 export default {
     components: {
         Volume,
@@ -18,7 +20,15 @@ export default {
     },
     emits: ['togglePlayList'],
     setup(props, context) {
+        const store = useStore();
+        const currentMusic = computed(()=> {
+            const index = store.state.music.currentMusicIndex;
+
+            return store.state.music.playlist[index];
+        });
+
         return {
+            currentMusic,
             togglePlayList: ()=> context.emit('togglePlayList')
         }
     }

@@ -16,11 +16,19 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useStore } from 'vuex';
 export default {
     emits: ['togglePlayList'],
     setup(props, context) {
         const volume = ref(20);
+        const store = useStore();
+
+        watch(volume, (newVal, oldVal)=> {
+            if (newVal !== oldVal) {
+                store.commit('music/updateVolume', newVal);
+            }
+        });
 
         return {
             volume,

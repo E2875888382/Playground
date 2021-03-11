@@ -46,14 +46,14 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 import { useStore } from 'vuex';
-import { remote } from 'electron';
 export default {
     props: {
         list: Array
     },
     setup() {
-        const { Menu } = remote;
+        const menu = inject('menu');
         const store = useStore();
         const getAuthors = arr=> arr.map(item=> item.name).join('/');
         const zero = n=> n < 10 ? '0' + n : n;
@@ -65,7 +65,7 @@ export default {
             return `${zero(m)}:${zero(s)}`;
         };
         const openMenu = row=> {
-            const menu = Menu.buildFromTemplate([
+            menu([
                 {
                     label: '播放',
                     click() {
@@ -91,9 +91,6 @@ export default {
                     }
                 }
             ]);
-
-            Menu.setApplicationMenu(menu);
-            menu.popup();
         };
 
         return {

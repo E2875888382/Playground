@@ -23,12 +23,14 @@ import { computed, provide } from 'vue';
 import { ElLoading, ElMessage } from 'element-plus';
 import { timeFormat, wordFormat, hotFormat, numFormat } from '../assets/js/utils';
 import { useStore } from 'vuex';
+import { remote } from 'electron';
 export default {
     components: {
         'side-bar': SideBar,
         'title-bar': TitleBar
     },
     setup() {
+        const { Menu } = remote;
         const router = useRouter();
         const store = useStore();
         const route = useRoute();
@@ -60,6 +62,13 @@ export default {
         provide('hotFormat', hotFormat);
         // 通用格式
         provide('numFormat', numFormat);
+        // menu
+        provide('menu', config=> {
+            const menu = Menu.buildFromTemplate(config);
+
+            Menu.setApplicationMenu(menu);
+            menu.popup();
+        });
 
         return {
             backgroundImg,

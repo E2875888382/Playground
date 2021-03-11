@@ -41,6 +41,7 @@ export default {
         Layout
     },
     setup() {
+        const menu = inject('menu');
         const Message = inject('message');
         const scaleLevel = ref(1);
         const index = ref(0);
@@ -104,65 +105,62 @@ export default {
                 console.log('保存对话框错误:', err);
             })
         };
-        const { Menu } = remote;
-        const menu = Menu.buildFromTemplate([
-            {
-                label: '设置为壁纸',
-                click() {
-                    store.commit('config/updateBackground', `linear-gradient(0deg,#f5f5f5b3,#f5f5f5b3), url('${currentImg.value.img_1024_768}')`);
-                }
-            },
-            {
-                label: '设置为浏览器壁纸',
-                click() {
-                    store.commit('config/updateBrowserBackground', currentImg.value.img_1024_768);
-                }
-            },
-            {
-                label: '保存',
-                submenu: [
-                    {
-                        label: '1024_768',
-                        click() {
-                            save('img_1024_768')
-                        }
-                    },
-                    {
-                        label: '1280_800',
-                        click() {
-                            save('img_1280_800')
-                        }
-                    },
-                    {
-                        label: '1280_1024',
-                        click() {
-                            save('img_1280_1024')
-                        }
-                    },
-                    {
-                        label: '1366_768',
-                        click() {
-                            save('img_1366_768')
-                        }
-                    },
-                    {
-                        label: '1440_900',
-                        click() {
-                            save('img_1440_900')
-                        }
-                    },
-                    {
-                        label: '1600_900',
-                        click() {
-                            save('img_1600_900')
-                        }
-                    }
-                ]
-            }
-        ]);
-        Menu.setApplicationMenu(menu);
         const handleContextMenu = ()=> {
-            menu.popup();
+            menu([
+                {
+                    label: '设置为壁纸',
+                    click() {
+                        store.commit('config/updateBackground', `linear-gradient(0deg,#f5f5f5b3,#f5f5f5b3), url('${currentImg.value.img_1024_768}')`);
+                    }
+                },
+                {
+                    label: '设置为浏览器壁纸',
+                    click() {
+                        store.commit('config/updateBrowserBackground', currentImg.value.img_1024_768);
+                    }
+                },
+                {
+                    label: '保存',
+                    submenu: [
+                        {
+                            label: '1024_768',
+                            click() {
+                                save('img_1024_768')
+                            }
+                        },
+                        {
+                            label: '1280_800',
+                            click() {
+                                save('img_1280_800')
+                            }
+                        },
+                        {
+                            label: '1280_1024',
+                            click() {
+                                save('img_1280_1024')
+                            }
+                        },
+                        {
+                            label: '1366_768',
+                            click() {
+                                save('img_1366_768')
+                            }
+                        },
+                        {
+                            label: '1440_900',
+                            click() {
+                                save('img_1440_900')
+                            }
+                        },
+                        {
+                            label: '1600_900',
+                            click() {
+                                save('img_1600_900')
+                            }
+                        }
+                    ]
+                }
+            ]);
         };
 
         onActivated(()=> {

@@ -18,15 +18,22 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 export default {
-    setup() {
+    props: {
+        music: Object
+    },
+    setup(props) {
         const playPercent = ref(20);
         const playModes = ['suijibofang', 'danquxunhuan', 'liebiaoxunhuan', 'shunxubofang'];
         const playModeIndex = ref(0);
         const changeMode = ()=> {
             playModeIndex.value >= 3 ? playModeIndex.value = 0 : playModeIndex.value += 1 ;
         };
+
+        watchEffect(()=> {
+            console.log('播放这首歌：', props.music);
+        })
 
         return {
             playPercent,
