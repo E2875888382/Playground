@@ -8,15 +8,17 @@
             <span class="disable-select">词</span>
         </div>
         <div class="play-controller__progress">
-            <span class="progress__rate disable-select">00.03</span>
+            <span class="progress__rate disable-select">{{getTime(playSecond*1000)}}</span>
             <div class="progress__container">
                 <el-slider v-model="playPercent" :show-tooltip="false"></el-slider>
             </div>
-            <span class="progress__time disable-select">04.23</span>
+            <span class="progress__time disable-select">{{getTime(music.dt)}}</span>
         </div>
         <audio 
             ref="musicAudio"
             :volume="volume"
+            @ended="handleEnded"
+            @timeupdate="handleUpdateTime"
         />
     </div>
 </template>
@@ -29,12 +31,13 @@ export default {
         music: Object
     },
     setup(props) {
+        const playSecond = ref(0);
         const pause = ref(true);
         const store = useStore();
         const volume = computed(()=> +store.state.music.volume / 100);
         const { getSongUrl } = inject('api').music.find;
         const musicAudio = ref(null);
-        const playPercent = ref(20);
+        const playPercent = ref(0);
         const playModes = ['suijibofang', 'danquxunhuan', 'liebiaoxunhuan', 'shunxubofang'];
         const playModeIndex = ref(0);
         const changeMode = ()=> {
@@ -49,6 +52,25 @@ export default {
             musicAudio.value.pause();
             pause.value = true;
         };
+        const handleEnded = ()=> {
+            musicAudio.value.pause();
+            pause.value = true;
+        };
+        const handleUpdateTime = e=> {
+            const current = e.target.currentTime;
+            const total = props.music.dt / 1000;
+
+            playSecond.value = current;
+            playPercent.value = (current / total) * 100 ;
+        };
+        const zero = n=> n < 10 ? '0' + n : n;
+        const getTime = dt=> {
+            const source = Math.floor(dt / 1000);
+            const m = Math.floor(source / 60);
+            const s = source % 60;
+
+            return `${zero(m)}:${zero(s)}`;
+        };
 
         watchEffect(async ()=> {
             if (props.music && props.music.id && musicAudio.value) {
@@ -61,6 +83,7 @@ export default {
         })
 
         return {
+            playSecond,
             pause,
             volume,
             musicAudio,
@@ -68,7 +91,10 @@ export default {
             playModeIndex,
             changeMode,
             playModes,
-            handlePause
+            handlePause,
+            handleEnded,
+            handleUpdateTime,
+            getTime
         }
     }
 }
