@@ -3,7 +3,7 @@
         <div class="play-controller__btns">
             <span class="iconfont" @click="changeMode" :class="'icon-'+ playModes[playModeIndex]"></span>
             <span class="iconfont icon-1_music83"></span>
-            <span class="iconfont icon-1_music94"></span>
+            <span class="iconfont playIcon" :class="[ pause ? 'icon-1_music94' : 'icon-bofangzhong' ]" @click="handlePause"></span>
             <span class="iconfont icon-1_music82"></span>
             <span class="disable-select">词</span>
         </div>
@@ -14,32 +14,61 @@
             </div>
             <span class="progress__time disable-select">04.23</span>
         </div>
+        <audio 
+            ref="musicAudio"
+            :volume="volume"
+        />
     </div>
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue';
+import { computed, inject, ref, watchEffect } from 'vue';
+import { useStore } from 'vuex';
 export default {
     props: {
         music: Object
     },
     setup(props) {
+        const pause = ref(true);
+        const store = useStore();
+        const volume = computed(()=> +store.state.music.volume / 100);
+        const { getSongUrl } = inject('api').music.find;
+        const musicAudio = ref(null);
         const playPercent = ref(20);
         const playModes = ['suijibofang', 'danquxunhuan', 'liebiaoxunhuan', 'shunxubofang'];
         const playModeIndex = ref(0);
         const changeMode = ()=> {
             playModeIndex.value >= 3 ? playModeIndex.value = 0 : playModeIndex.value += 1 ;
         };
+        const handlePause = ()=> {
+            if (musicAudio.value.paused) {
+                musicAudio.value.play();
+                pause.value = false;
+                return;
+            }
+            musicAudio.value.pause();
+            pause.value = true;
+        };
 
-        watchEffect(()=> {
-            console.log('播放这首歌：', props.music);
+        watchEffect(async ()=> {
+            if (props.music && props.music.id && musicAudio.value) {
+                const src = await getSongUrl(props.music.id);
+
+                musicAudio.value.src = (src.data[0] && src.data[0].url) || '';
+                musicAudio.value.play();
+                pause.value = false;
+            }
         })
 
         return {
+            pause,
+            volume,
+            musicAudio,
             playPercent,
             playModeIndex,
             changeMode,
-            playModes
+            playModes,
+            handlePause
         }
     }
 }
@@ -59,13 +88,16 @@ export default {
             width: 60px;
             font-size: 25px;
             cursor: pointer;
-            &:nth-of-type(3) {
-                width: 85px;
-                font-size: 40px;
-            }
             &:nth-last-of-type(1) {
                 font-size: 18px;
             }
+        }
+        .playIcon {
+            width: 85px;
+            font-size: 40px;
+        }
+        .playIcon.icon-bofangzhong {
+            font-size: 37px;
         }
     }
     &__progress {

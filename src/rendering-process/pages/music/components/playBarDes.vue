@@ -1,7 +1,7 @@
 <template>
     <div class="play-current">
         <div class="avatar-box" @mouseenter="avatarHover = true" @mouseleave="avatarHover = false">
-            <el-avatar shape="square" :size="60" :src="music.al.picUrl || staticPic"></el-avatar>
+            <el-avatar shape="square" :size="60" :src="music.al.picUrl ? music.al.picUrl + '?param=60y60' : staticPic"></el-avatar>
             <div class="avatar__mask" v-show="avatarHover">
                 <i class="iconfont icon-jiantoujinggao icon_right_top"></i>
                 <i class="iconfont icon-jiantoujinggao icon_left_bottom"></i>

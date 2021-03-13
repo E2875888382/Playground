@@ -75,3 +75,12 @@ export const getSongDetail = ids=> {
         }
     })
 };
+
+export const getSongUrl = id=> {
+    return get({
+        url: `${baseServe}/song/url`,
+        params: {
+            id: id
+        }
+    })
+}
