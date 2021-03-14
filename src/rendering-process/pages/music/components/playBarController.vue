@@ -10,7 +10,11 @@
         <div class="play-controller__progress">
             <span class="progress__rate disable-select">{{getTime(playSecond*1000)}}</span>
             <div class="progress__container">
-                <el-slider v-model="playPercent" :show-tooltip="false"></el-slider>
+                <el-slider 
+                    v-model="playPercent" 
+                    :show-tooltip="false"
+                    @change="handleSliderChange"
+                ></el-slider>
             </div>
             <span class="progress__time disable-select">{{getTime(music.dt)}}</span>
         </div>
@@ -28,7 +32,14 @@ import { computed, inject, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 export default {
     props: {
-        music: Object
+        music: {
+            type: Object,
+            default: ()=> {
+                return {
+                    dt: 0
+                }
+            }
+        }
     },
     setup(props) {
         const playSecond = ref(0);
@@ -61,7 +72,7 @@ export default {
             const total = props.music.dt / 1000;
 
             playSecond.value = current;
-            playPercent.value = (current / total) * 100 ;
+            playPercent.value = (current / total) * 100;
         };
         const zero = n=> n < 10 ? '0' + n : n;
         const getTime = dt=> {
@@ -70,6 +81,13 @@ export default {
             const s = source % 60;
 
             return `${zero(m)}:${zero(s)}`;
+        };
+        const handleSliderChange = percent=> {
+            const seekSecond = props.music.dt * percent / (100 * 1000);
+
+            musicAudio.value.currentTime = seekSecond;
+            playSecond.value = seekSecond;
+            playPercent.value = percent;
         };
 
         watchEffect(async ()=> {
@@ -94,7 +112,8 @@ export default {
             handlePause,
             handleEnded,
             handleUpdateTime,
-            getTime
+            getTime,
+            handleSliderChange
         }
     }
 }
