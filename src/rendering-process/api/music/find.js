@@ -83,4 +83,13 @@ export const getSongUrl = id=> {
             id: id
         }
     })
-}
+};
+
+export const getSongLyric = id=> {
+    return get({
+        url: `${baseServe}/lyric`,
+        params: {
+            id: id
+        }
+    })
+};
