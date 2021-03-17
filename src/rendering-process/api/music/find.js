@@ -2,6 +2,7 @@ import { get } from '../base';
 
 const baseServe = 'http://139.9.230.159:3000';
 
+// 获取发现页banner
 export const getBanner = ()=> {
     return get({
         url: `${baseServe}/banner`,
@@ -11,6 +12,7 @@ export const getBanner = ()=> {
     })
 };
 
+// 发现页推荐内容
 export const getPrivateContent = ()=> {
     return get({
         url: `${baseServe}/personalized/privatecontent`,
@@ -20,6 +22,7 @@ export const getPrivateContent = ()=> {
     })
 };
 
+// 发现页最新歌曲
 export const getNewSong = ()=> {
     return get({
         url: `${baseServe}/personalized/newsong`,
@@ -30,6 +33,7 @@ export const getNewSong = ()=> {
     })
 };
 
+// 发现页推荐歌单
 export const getRecommendPlaylist = ()=> {
     return get({
         url: `${baseServe}/personalized`,
@@ -39,6 +43,7 @@ export const getRecommendPlaylist = ()=> {
     })
 };
 
+// 发现页推荐MV
 export const getPersonalizedMV = ()=> {
     return get({
         url: `${baseServe}/personalized/mv`,
@@ -48,6 +53,7 @@ export const getPersonalizedMV = ()=> {
     })
 };
 
+// 发现页热门Dj
 export const getDjHot = ()=> {
     return get({
         url: `${baseServe}/dj/hot`,
@@ -57,6 +63,7 @@ export const getDjHot = ()=> {
     })
 };
 
+// 获取歌单
 export const getPlaylist = id=> {
     return get({
         url: `${baseServe}/playlist/detail`,
@@ -67,6 +74,7 @@ export const getPlaylist = id=> {
     })
 };
 
+// 获取歌曲详情
 export const getSongDetail = ids=> {
     return get({
         url: `${baseServe}/song/detail`,
@@ -76,6 +84,7 @@ export const getSongDetail = ids=> {
     })
 };
 
+// 获取歌曲播放链接
 export const getSongUrl = id=> {
     return get({
         url: `${baseServe}/song/url`,
@@ -85,6 +94,7 @@ export const getSongUrl = id=> {
     })
 };
 
+// 获取歌词
 export const getSongLyric = id=> {
     return get({
         url: `${baseServe}/lyric`,

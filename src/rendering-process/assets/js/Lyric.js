@@ -1,16 +1,13 @@
 /**
+ * 歌词解析器
  * https://github.com/ustbhuangyi/lyric-parser
  */
-const TIME_REG_WY = /\[(\d{2,}):(\d{2})(\.|:)(\d{1,3})?\]/g
-
-const STATE_PAUSE = 0
-const STATE_PLAYING = 1
-
-function noop() {
-}
+const TIME_REG_WY = /\[(\d{2,}):(\d{2})(\.|:)(\d{1,3})?\]/g;
+const STATE_PAUSE = 0;
+const STATE_PLAYING = 1;
 
 export default class Lyric {
-    constructor(lrc, hanlder = noop, delay = 0) {
+    constructor(lrc, hanlder = ()=> {}, delay = 0) {
         this.lrc = lrc
         this.lines = []
         this.handler = hanlder

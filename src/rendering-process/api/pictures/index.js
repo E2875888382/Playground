@@ -13,4 +13,4 @@ export const getPictures = page=> {
         },
         apiName: '壁纸'
     })
-}
+};

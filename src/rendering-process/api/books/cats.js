@@ -6,7 +6,7 @@ export const booksCats = async()=> {
         url: 'http://api.zhuishushenqi.com/cats/lv2',
         apiName: '书籍大小分类'
     })
-}
+};
 
 // 获取分类细分
 export const booksCatsDetail = async({gender, type, major, minor, start, limit = 20})=> {
@@ -22,4 +22,4 @@ export const booksCatsDetail = async({gender, type, major, minor, start, limit =
         },
         apiName: '书籍分类详细'
     })
-}
+};

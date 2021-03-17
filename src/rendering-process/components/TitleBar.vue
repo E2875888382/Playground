@@ -1,3 +1,6 @@
+<!--
+    @description 顶部自定义操作栏
+-->
 <template>
     <div class="title-bar-container" :style="containerHeight">
         <Search v-show="showSearch"/>

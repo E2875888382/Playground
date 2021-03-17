@@ -1,3 +1,6 @@
+/**
+ * 新闻接口mock数据
+ */
 export default {
     newsListMock() {
         return Promise.resolve({

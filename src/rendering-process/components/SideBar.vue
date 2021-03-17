@@ -1,3 +1,6 @@
+<!--
+    @description 左侧边栏
+-->
 <template>
     <div class="side-bar">
         <div class="side-bar__avatar">

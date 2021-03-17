@@ -13,7 +13,7 @@ export const newsList = async page=> {
     });
 
     return res.code === 200 ? res : mock.newsListMock();
-}
+};
 
 export const newsDetail = async (docid)=> {
     const res = await get({
@@ -25,4 +25,4 @@ export const newsDetail = async (docid)=> {
     });
 
     return res.code === 200 ? res : mock.newsDetailMock();
-}
+};

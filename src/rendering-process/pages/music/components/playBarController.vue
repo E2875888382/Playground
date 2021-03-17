@@ -9,7 +9,7 @@
                 @click="handlePause"
             ></span>
             <span class="iconfont icon-1_music82"></span>
-            <span class="disable-select">词</span>
+            <span class="disable-select" @click="toggleLyric">词</span>
         </div>
         <div class="play-controller__progress">
             <span class="progress__rate disable-select">{{getTime(playSecond*1000)}}</span>
@@ -28,6 +28,7 @@
             :volume="volume"
             @ended="handleEnded"
             @timeupdate="handleUpdateTime"
+            preload="auto"
         />
     </div>
 </template>
@@ -35,6 +36,8 @@
 <script>
 import { computed, inject, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
+import { ipcRenderer } from 'electron';
+import Lyric from '../../../assets/js/Lyric';
 export default {
     props: {
         music: {
@@ -47,6 +50,10 @@ export default {
         }
     },
     setup(props) {
+        // 歌词 object
+        const lyricObj = ref({});
+        // 展示歌词
+        const showLyric = ref(false);
         // 歌词
         const lyric = ref({});
         // 播放时间 (s)
@@ -76,15 +83,21 @@ export default {
             if (musicAudio.value.paused) {
                 musicAudio.value.play();
                 pause.value = false;
+                // 由暂停状态重新播放，同步歌词位置
+                lyricObj.value.seek && lyricObj.value.seek(playSecond.value * 1000);
                 return;
             }
             musicAudio.value.pause();
             pause.value = true;
+            // 暂停，定住歌词
+            lyricObj.value.stop && lyricObj.value.stop();
         };
         // 播放完毕
         const handleEnded = ()=> {
             musicAudio.value.pause();
             pause.value = true;
+            // 播放完毕，定住歌词
+            lyricObj.value.stop && lyricObj.value.stop();
         };
         // 更新播放信息
         const handleUpdateTime = e=> {
@@ -112,17 +125,41 @@ export default {
             musicAudio.value.currentTime = seekSecond;
             playSecond.value = seekSecond;
             playPercent.value = percent;
+            // 快进歌词到相应位置
+            lyricObj.value.seek && lyricObj.value.seek(playSecond.value * 1000);
+            if (pause.value && lyricObj.value.stop) {
+                // 暂停情况下定住歌词
+                lyricObj.value.stop();
+            }
+        };
+        const toggleLyric = ()=> {
+            showLyric.value = !showLyric.value;
+            ipcRenderer.send(showLyric.value ? 'openLyric' : 'closeLyric');
         };
 
         watchEffect(async ()=> {
             if (props.music && props.music.id && musicAudio.value) {
                 const src = await getSongUrl(props.music.id);
-                const lyric = await getSongLyric(props.music.id);
+                const lyricRes = await getSongLyric(props.music.id);
 
-                console.log('歌词', lyric);
+                // 设置下方的小标题
+                document.title = props.music.name + ' - ' + props.music.ar.map(item=> item.name).join('/');
+                let lyric = '';
+                if (lyricRes.nolyric) {
+                    lyric = '[00:00.000] 暂无歌词';
+                } else {
+                    lyric = (lyricRes.lrc && lyricRes.lrc.lyric) || '[00:00.000] 纯音乐';
+                }
                 musicAudio.value.src = (src.data[0] && src.data[0].url) || '';
                 musicAudio.value.play();
                 pause.value = false;
+                lyricObj.value.stop && lyricObj.value.stop();
+                lyricObj.value = new Lyric(lyric, ({txt})=> {
+                    store.commit('music/updateLyric', txt);
+                });
+
+                lyricObj.value.play();
+                lyricObj.value.seek(0);
             }
         })
 
@@ -141,7 +178,8 @@ export default {
             getTime,
             handleSliderChange,
             lyric,
-            bufferedPercent
+            bufferedPercent,
+            toggleLyric
         }
     }
 }

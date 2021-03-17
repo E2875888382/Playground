@@ -1,8 +1,8 @@
 <template>
     <div class="app-container">
-        <side-bar />
+        <side-bar v-if="!isLyric"/>
         <div class="tabs-container">
-            <title-bar />
+            <title-bar v-if="!isLyric"/>
             <div class="tabs-content" :style="tabsContentStyle">
                 <router-view v-slot="{ Component }">
                     <keep-alive>
@@ -43,6 +43,8 @@ export default {
                 height: `calc(100% - ${route.meta.needSearch ? '78px' : '30px'})`
             }
         });
+        // 歌词窗口下将其他公共组件隐藏
+        const isLyric = computed(()=> route.name === 'lyric');
 
         // 全局消息提醒
         provide('message', options=> ElMessage(options));
@@ -72,7 +74,8 @@ export default {
 
         return {
             backgroundImg,
-            tabsContentStyle
+            tabsContentStyle,
+            isLyric
         }
     }
 }

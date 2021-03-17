@@ -6,7 +6,7 @@ export const booksDetail = async booksId=> {
         url: `http://api.zhuishushenqi.com/book/${booksId}`,
         apiName: '书籍信息'
     })
-}
+};
 
 // 获取5条短评
 export const booksComment = async (booksId, page = 0, limit = 5)=> {
@@ -19,7 +19,7 @@ export const booksComment = async (booksId, page = 0, limit = 5)=> {
         },
         apiName: '书籍短评'
     })
-}
+};
 
 // 同类书籍推荐
 export const booksRecommend = async booksId=> {
@@ -27,4 +27,4 @@ export const booksRecommend = async booksId=> {
         url: `http://api.zhuishushenqi.com/book/${booksId}/recommend`,
         apiName: '书籍推荐'
     })
-}
+};

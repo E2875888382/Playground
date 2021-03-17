@@ -1,3 +1,6 @@
+/**
+ * @description 主进程的事件处理
+ */
 import { ipcMain, Menu, Tray, app } from 'electron';
 
 const fs = require('fs');
@@ -5,7 +8,13 @@ const request = require('request');
 const path = require('path');
 const icon = path.join(__dirname, '../src/rendering-process/assets/img/icon.png');
 
-export const initIpcManager = (win)=> {
+export const initIpcManager = (win, lyric)=> {
+
+    // 弹出歌词
+    ipcMain.on('openLyric', ()=> lyric.show());
+
+    // 关闭歌词
+    ipcMain.on('closeLyric', ()=> lyric.hide());
 
     // 根据url下载图片
     ipcMain.on('saveImg', (event, filePath, imgSrc) => {
@@ -32,7 +41,7 @@ export const initIpcManager = (win)=> {
         win.maximize();
     });
 
-    // 打开console控制台
+    // 打开控制台
     ipcMain.on('developer', () => win.webContents.openDevTools());
 
     // 最小化到托盘

@@ -6,7 +6,7 @@ export const booksRankingClass = ()=> {
         url: 'http://api.zhuishushenqi.com/ranking/gender',
         apiName: '排行榜分类'
     })
-}
+};
 
 // 排行榜具体内容
 export const booksRankingDetail = rankingId=> {
@@ -14,4 +14,4 @@ export const booksRankingDetail = rankingId=> {
         url: `http://api.zhuishushenqi.com/ranking/${rankingId}`,
         apiName: '排行榜'
     })
-}
+};

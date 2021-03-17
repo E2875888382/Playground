@@ -1,3 +1,6 @@
+<!--
+    @description 头部搜索组件
+-->
 <template>
     <div class="search-container">
         <div class="search-input">

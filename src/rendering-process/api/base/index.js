@@ -1,4 +1,4 @@
- /**
+/**
  * @description node的request模块请求
  */
 import { ElMessage } from 'element-plus';
@@ -15,6 +15,7 @@ const paramsParse = params=> {
 };
 const cookie = localStorage.getItem('cookie');
 
+// apiName 方便接口错误调试
 export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
     const url = baseUrl + paramsParse(params);
     const options = {
@@ -47,6 +48,7 @@ export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
     });
 }
 
+// apiName 方便接口错误调试
 export const post = ({ url, data, apiName= ''})=> {
     return new Promise(resolve=> {
         request({

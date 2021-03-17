@@ -1,3 +1,6 @@
+<!--
+    @description 公共布局组件
+-->
 <template>
     <div 
         class="layout-container"

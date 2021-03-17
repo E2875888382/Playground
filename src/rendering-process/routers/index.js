@@ -9,6 +9,14 @@ const router = createRouter({
             redirect: '/music'
         },
         {
+            path: '/lyric',
+            name: 'lyric',
+            component: ()=> import('../pages/music/components/Lyric.vue'),
+            meta: {
+                needSearch: false
+            }
+        },
+        {
             path: '/bbs',
             name: 'bbs',
             component: ()=> import('../pages/street/main.vue'),
