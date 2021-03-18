@@ -12,7 +12,10 @@
                                 </div>
                             </template>
                         </el-image>
-                        <span class="mv-item__num"><i class="iconfont icon-bofang"></i>{{format(item.playCount, 100000)}}</span>
+                        <span class="mv-item__num">
+                            <i class="iconfont icon-bofang"></i>
+                            {{format(item.playCount, 100000)}}
+                        </span>
                     </div>
                     <p class="mv-item__desc">{{item.name}}</p>
                     <p class="mv-item__author">{{getArtists(item.artists)}}</p>

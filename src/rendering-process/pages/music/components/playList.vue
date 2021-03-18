@@ -77,14 +77,7 @@ export default {
         const playlist = computed(()=> store.state.music.playlist);
         const history = computed(()=> store.state.music.history);
         const currentMusicIndex = computed(()=> store.state.music.currentMusicIndex);
-        const zero = n=> n < 10 ? '0' + n : n;
-        const getTime = dt=> {
-            const source = Math.floor(dt / 1000);
-            const m = Math.floor(source / 60);
-            const s = source % 60;
-
-            return `${zero(m)}:${zero(s)}`;
-        };
+        const getTime = inject('msFormat');
         const openMenu = row=> {
             menu([
                 {
@@ -125,7 +118,6 @@ export default {
             playlist,
             history,
             getTime,
-            zero,
             openMenu,
             openHistoryMenu,
             currentMusicIndex,

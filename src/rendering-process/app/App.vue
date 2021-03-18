@@ -21,13 +21,20 @@ import api from '../api/manager';
 import { useRoute, useRouter } from 'vue-router';
 import { computed, provide } from 'vue';
 import { ElLoading, ElMessage } from 'element-plus';
-import { timeFormat, wordFormat, hotFormat, numFormat } from '../assets/js/utils';
+import { 
+    timeFormat,
+    wordFormat,
+    hotFormat,
+    numFormat,
+    zeroNum,
+    msFormat
+} from '../assets/js/utils';
 import { useStore } from 'vuex';
 import { remote } from 'electron';
 export default {
     components: {
         'side-bar': SideBar,
-        'title-bar': TitleBar
+        'title-bar': TitleBar,
     },
     setup() {
         const { Menu } = remote;
@@ -71,6 +78,10 @@ export default {
             Menu.setApplicationMenu(menu);
             menu.popup();
         });
+        // 补零
+        provide('zeroNum', zeroNum);
+        // ms 格式化为 m : s
+        provide('msFormat', msFormat);
 
         return {
             backgroundImg,

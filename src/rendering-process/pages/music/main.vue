@@ -10,6 +10,7 @@
                 </router-view>
             </div>
             <PlayList :show="showPlayList" />
+            <PlayPanel />
         </div>
         <PlayBar @togglePlayList="showPlayList = !showPlayList"/>
     </Layout>
@@ -20,13 +21,15 @@ import Layout from '../../components/Layout';
 import SideBar from './components/sideBar';
 import PlayBar from './components/playBar';
 import PlayList from './components/playList';
+import PlayPanel from './components/playPanel';
 import { ref } from 'vue';
 export default {
     components: {
         Layout,
         SideBar,
         PlayBar,
-        PlayList
+        PlayList,
+        PlayPanel
     },
     setup() {
         const showPlayList = ref(false);

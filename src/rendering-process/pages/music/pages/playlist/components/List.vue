@@ -1,6 +1,12 @@
 <template>
     <div class="list-container">
-        <el-table :data="list" stripe style="width: 99%" @row-contextmenu="openMenu" empty-text=" ">
+        <el-table 
+            :data="list"
+            stripe
+            style="width: 99%"
+            @row-contextmenu="openMenu"
+            empty-text=" "
+        >
             <el-table-column 
                 label="音乐标题" 
                 class-name="music__title" 
@@ -13,8 +19,12 @@
                     <i class="iconfont icon-1_music89 icon__like"></i>
                     <i class="iconfont icon-xiazai1 icon__download"></i>
                     <span class="black">{{scope.row.name}}</span>
-                    <span class="light" v-if="scope.row.alia.length">{{'('+ scope.row.alia.join('/') + ')'}}</span>
-                    <span v-if="scope.row.mv" class="icon-mv">MV<i class="iconfont icon-Playerplay"></i></span>
+                    <span class="light" v-if="scope.row.alia.length">
+                        {{'('+ scope.row.alia.join('/') + ')'}}
+                    </span>
+                    <span v-if="scope.row.mv" class="icon-mv">
+                        MV<i class="iconfont icon-Playerplay"></i>
+                    </span>
                 </template>
             </el-table-column>
             <el-table-column 
@@ -56,20 +66,16 @@ export default {
         const menu = inject('menu');
         const store = useStore();
         const getAuthors = arr=> arr.map(item=> item.name).join('/');
-        const zero = n=> n < 10 ? '0' + n : n;
-        const getTime = dt=> {
-            const source = Math.floor(dt / 1000);
-            const m = Math.floor(source / 60);
-            const s = source % 60;
-
-            return `${zero(m)}:${zero(s)}`;
-        };
+        const zero = inject('zeroNum');
+        const getTime = inject('msFormat');
         const openMenu = row=> {
             menu([
                 {
                     label: '播放',
                     click() {
-                        
+                        store.commit('music/addToPlaylist', row);
+                        store.commit('music/updateCurrentMusicIndex', row);
+                        store.commit('music/addToHistory', row);
                     }
                 },
                 {

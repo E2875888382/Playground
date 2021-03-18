@@ -14,7 +14,7 @@
                 </div>
                 <p class="list-item__name">每日推荐</p>
             </div>
-            <div class="list-item" v-for="item in list.slice(0, 9)" :key="item.id">
+            <div class="list-item" v-for="item in list.slice(0, 9)" :key="item.id" @click="toPlaylist(item.id)">
                 <div class="list-item_content">
                     <el-image class="list-item__img" :src="item.picUrl" alt="" fit="fit">
                         <template #placeholder>
@@ -36,12 +36,17 @@
 
 <script>
 import { inject } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     props: {
         list: Array
     },
     setup() {
+        const router = useRouter();
+        const toPlaylist = id=> router.push(`/music/playlist/${id}`);
+
         return {
+            toPlaylist,
             date: new Date().getDate(),
             format: inject('numFormat')
         }
@@ -69,8 +74,9 @@ export default {
     }
     cursor: pointer;
     &:hover {
-        .list-item__icon{
-            animation: iconShow 1s ease forwards;
+        .list-item__icon {
+            opacity: 1;
+            animation: iconShow 4s ease-in forwards;
         }
         .list-item__tips {
             transform: translateY(0);

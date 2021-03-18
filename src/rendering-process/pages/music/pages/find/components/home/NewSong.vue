@@ -18,7 +18,9 @@
                 <div class="newSong-item__content">
                     <p class="newSong-item__des">{{item.name}}</p>
                     <p class="newSong-item__des">
-                        <span v-if="item.song.mvid" class="newSong-item__tag">MV<i class="iconfont icon-Playerplay"></i></span>
+                        <span v-if="item.song.mvid" class="newSong-item__tag">
+                            MV<i class="iconfont icon-Playerplay"></i>
+                        </span>
                         <span class="newSong-item__artists">{{getArtists(item.song.artists)}}</span>
                     </p>
                 </div>

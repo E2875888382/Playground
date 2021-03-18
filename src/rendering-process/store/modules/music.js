@@ -7,8 +7,16 @@ const state = {
     currentMusicIndex: -1,
     // 音量
     volume: 0,
-    // 当前歌词
-    lyricLine: '听见好时光'
+    // 当前歌曲的全部歌词
+    allLyric: '',
+    // 当前那一行歌词
+    lyricLine: '听见好时光',
+    // 当前那一个歌词的index
+    lyricIndex: 0,
+    // 全屏播放
+    fullSreen: false,
+    // 暂停播放
+    pause: true
 };
 const mutations = {
     // 更新歌单
@@ -59,9 +67,25 @@ const mutations = {
     updateVolume(state, volume) {
         state.volume = volume;
     },
-    // 更新当前歌词
+    // 更新当前那一行歌词
     updateLyric(state, lyricLine) {
         state.lyricLine = lyricLine;
+    },
+    // 更新当前那一行歌词的index
+    updateLyricIndex(state, lyricIndex) {
+        state.lyricIndex = lyricIndex;
+    },
+    // 是否全屏模式
+    updateFullSreen(state, fullSreen) {
+        state.fullSreen = fullSreen;
+    },
+    // 是否暂停播放
+    updatePause(state, pause) {
+        state.pause = pause;
+    },
+    // 更新全部歌词
+    updateAllLyric(state, allLyric) {
+        state.allLyric = allLyric;
     }
 };
 

@@ -9,7 +9,7 @@
                 @click="handlePause"
             ></span>
             <span class="iconfont icon-1_music82"></span>
-            <span class="disable-select" @click="toggleLyric">词</span>
+            <span class="disable-select" :class="{'lyric_active':showLyric}" @click="toggleLyric">词</span>
         </div>
         <div class="play-controller__progress">
             <span class="progress__rate disable-select">{{getTime(playSecond*1000)}}</span>
@@ -50,6 +50,7 @@ export default {
         }
     },
     setup(props) {
+        const store = useStore();
         // 歌词 object
         const lyricObj = ref({});
         // 展示歌词
@@ -59,8 +60,7 @@ export default {
         // 播放时间 (s)
         const playSecond = ref(0);
         // 是否暂停
-        const pause = ref(true);
-        const store = useStore();
+        const pause = computed(()=> store.state.music.pause);
         // 音量
         const volume = computed(()=> +store.state.music.volume / 100);
         const { getSongUrl, getSongLyric } = inject('api').music.find;
@@ -82,20 +82,20 @@ export default {
         const handlePause = ()=> {
             if (musicAudio.value.paused) {
                 musicAudio.value.play();
-                pause.value = false;
+                store.commit('music/updatePause', false);
                 // 由暂停状态重新播放，同步歌词位置
                 lyricObj.value.seek && lyricObj.value.seek(playSecond.value * 1000);
                 return;
             }
             musicAudio.value.pause();
-            pause.value = true;
+            store.commit('music/updatePause', true);
             // 暂停，定住歌词
             lyricObj.value.stop && lyricObj.value.stop();
         };
         // 播放完毕
         const handleEnded = ()=> {
             musicAudio.value.pause();
-            pause.value = true;
+            store.commit('music/updatePause', true);
             // 播放完毕，定住歌词
             lyricObj.value.stop && lyricObj.value.stop();
         };
@@ -104,19 +104,15 @@ export default {
             const current = e.target.currentTime;
             const total = props.music.dt / 1000;
             const timeRanges = musicAudio.value.buffered;
-            const buffered = timeRanges.length > 0 ? timeRanges.end(timeRanges.length - 1) : 0; // 缓冲(s)
+            // 已缓冲的时间（s）
+            const buffered = timeRanges.length > 0 ? timeRanges.end(timeRanges.length - 1) : 0;
 
+            // 缓冲百分比
             bufferedPercent.value = (buffered / total) * 100;
+            // 当前播放时间（s）
             playSecond.value = current;
+            // 当前播放百分比
             playPercent.value = (current / total) * 100;
-        };
-        const zero = n=> n < 10 ? '0' + n : n;
-        const getTime = dt=> {
-            const source = Math.floor(dt / 1000);
-            const m = Math.floor(source / 60);
-            const s = source % 60;
-
-            return `${zero(m)}:${zero(s)}`;
         };
         // 进度条滑动
         const handleSliderChange = percent=> {
@@ -144,26 +140,36 @@ export default {
 
                 // 设置下方的小标题
                 document.title = props.music.name + ' - ' + props.music.ar.map(item=> item.name).join('/');
+                // 获取歌词
                 let lyric = '';
+
                 if (lyricRes.nolyric) {
                     lyric = '[00:00.000] 暂无歌词';
                 } else {
                     lyric = (lyricRes.lrc && lyricRes.lrc.lyric) || '[00:00.000] 纯音乐';
                 }
+                // 加载音乐资源
                 musicAudio.value.src = (src.data[0] && src.data[0].url) || '';
-                musicAudio.value.play();
-                pause.value = false;
-                lyricObj.value.stop && lyricObj.value.stop();
-                lyricObj.value = new Lyric(lyric, ({txt})=> {
-                    store.commit('music/updateLyric', txt);
-                });
+                store.commit('music/updatePause', false);
+                store.commit('music/updateAllLyric', lyric);
 
+                // 重置歌词对象
+                lyricObj.value.stop && lyricObj.value.stop();
+                lyricObj.value = new Lyric(lyric, ({txt, lineNum})=> {
+                    store.commit('music/updateLyric', txt);
+                    store.commit('music/updateLyricIndex', lineNum);
+                });
+                // 开始滚动歌词
                 lyricObj.value.play();
+                // 歌词进度置为0
                 lyricObj.value.seek(0);
+                // 开始播放audio
+                musicAudio.value.play();
             }
         })
 
         return {
+            showLyric,
             playSecond,
             pause,
             volume,
@@ -175,7 +181,7 @@ export default {
             handlePause,
             handleEnded,
             handleUpdateTime,
-            getTime,
+            getTime: inject('msFormat'),
             handleSliderChange,
             lyric,
             bufferedPercent,
@@ -246,5 +252,8 @@ export default {
             margin: 0;
         }
     }
+}
+.lyric_active {
+    color: #ff4e4e;
 }
 </style>

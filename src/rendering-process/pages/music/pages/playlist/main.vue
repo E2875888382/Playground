@@ -47,9 +47,15 @@
         </div>
         <div style="position:relative">
             <el-tabs v-model="activeName" @tab-click="handleTabClick">
-                <el-tab-pane label="歌曲列表" name="first"><List :list="songsFilter" /></el-tab-pane>
-                <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second"><Comments /></el-tab-pane>
-                <el-tab-pane label="收藏者" name="third"><Collectors /></el-tab-pane>
+                <el-tab-pane label="歌曲列表" name="first">
+                    <List :list="songsFilter" />
+                </el-tab-pane>
+                <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second">
+                    <Comments />
+                </el-tab-pane>
+                <el-tab-pane label="收藏者" name="third">
+                    <Collectors />
+                </el-tab-pane>
             </el-tabs>
             <el-input
                 v-show="activeName === 'first'"
@@ -178,6 +184,7 @@ export default {
 }
 .playlist__cover {
     flex-shrink: 0;
+    height: 230px;
     border-radius: 5px;
     border: 1px solid #ebeef5;
 }

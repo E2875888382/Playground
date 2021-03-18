@@ -1,10 +1,10 @@
 <template>
     <div class="play-current">
-        <div class="avatar-box" @mouseenter="avatarHover = true" @mouseleave="avatarHover = false">
+        <div class="avatar-box" @mouseenter="avatarHover = true" @mouseleave="avatarHover = false" @click="togglePlayPanel">
             <el-avatar shape="square" :size="60" :src="music.al.picUrl ? music.al.picUrl + '?param=60y60' : staticPic"></el-avatar>
             <div class="avatar__mask" v-show="avatarHover">
-                <i class="iconfont icon-jiantoujinggao icon_right_top"></i>
-                <i class="iconfont icon-jiantoujinggao icon_left_bottom"></i>
+                <i class="iconfont icon-jiantoujinggao" :class="[fullScreen ? 'icon_right_top_reverse' : 'icon_right_top']"></i>
+                <i class="iconfont icon-jiantoujinggao" :class="[fullScreen ? 'icon_left_bottom_reverse' : 'icon_left_bottom']"></i>
             </div>
         </div>
         <div class="play-current__des">
@@ -19,6 +19,7 @@
 
 <script>
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 export default {
     props: {
         music: {
@@ -33,13 +34,20 @@ export default {
         }
     },
     setup() {
+        const store = useStore();
+        const fullScreen = ref(false);
         const getAuthors = arr=> arr.map(item=> item.name).join('/');
         const avatarHover = ref(false);
 
         return {
             avatarHover,
             getAuthors,
-            staticPic: require('../../../assets/img/defaultMusic.jpg')
+            staticPic: require('../../../assets/img/defaultMusic.jpg'),
+            togglePlayPanel: ()=> {
+                fullScreen.value = !fullScreen.value;
+                store.commit('music/updateFullSreen', fullScreen.value);
+            },
+            fullScreen
         }
     }
 }
@@ -115,10 +123,22 @@ export default {
     top: 0;
     transform: rotate(130deg);
 }
+.icon_right_top_reverse {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotate(-47deg);
+}
 .icon_left_bottom {
     position: absolute;
     bottom: 0;
     left: 0;
     transform: rotate(-49deg);
+}
+.icon_left_bottom_reverse {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: rotate(-224deg);
 }
 </style>

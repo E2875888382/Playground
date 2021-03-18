@@ -25,3 +25,15 @@ export const hotFormat = num=> num > 9999 ? `${Math.round(num / 1000) / 10}万` 
 
 // 音乐播放量format
 export const numFormat = (num, base)=> num > base ? `${Math.round(num / 10000)}万` : num;
+
+// 前置补零
+export const zeroNum = n=> n < 10 ? '0' + n : n;
+
+// ms 格式化为 m : s
+export const msFormat = dt=> {
+    const source = Math.floor(dt / 1000);
+    const m = Math.floor(source / 60);
+    const s = source % 60;
+
+    return `${zeroNum(m)}:${zeroNum(s)}`;
+};
