@@ -4,7 +4,7 @@ const state = {
     // 播放列表
     history: [],
     // 当前歌曲在播放列表中的索引
-    currentMusicIndex: -1,
+    currentMusicIndex: 0,
     // 音量
     volume: 0,
     // 当前歌曲的全部歌词

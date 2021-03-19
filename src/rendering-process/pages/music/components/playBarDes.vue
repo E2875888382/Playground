@@ -44,6 +44,7 @@ export default {
             getAuthors,
             staticPic: require('../../../assets/img/defaultMusic.jpg'),
             togglePlayPanel: ()=> {
+                if (store.state.music.playlist.length === 0) return;
                 fullScreen.value = !fullScreen.value;
                 store.commit('music/updateFullSreen', fullScreen.value);
             },
