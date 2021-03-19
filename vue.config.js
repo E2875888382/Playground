@@ -15,7 +15,7 @@ module.exports = {
             })
     },
     configureWebpack: config => {
-        config.entry.app = './src/rendering-process/main.js'
+        config.entry.app = './src/rendering-process/main.ts'
     },
     pluginOptions: {
         electronBuilder: {
