@@ -1,6 +1,6 @@
 import { get } from '../base';
 
-export const getPictures = page=> {
+export const getPictures = (page:number)=> {
     return get({
         url: 'http://wallpaper.apc.360.cn/index.php',
         params: {

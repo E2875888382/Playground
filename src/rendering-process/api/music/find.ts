@@ -64,7 +64,7 @@ export const getDjHot = ()=> {
 };
 
 // 获取歌单
-export const getPlaylist = id=> {
+export const getPlaylist = (id:number)=> {
     return get({
         url: `${baseServe}/playlist/detail`,
         params: {
@@ -75,7 +75,7 @@ export const getPlaylist = id=> {
 };
 
 // 获取歌曲详情
-export const getSongDetail = ids=> {
+export const getSongDetail = (ids:number[])=> {
     return get({
         url: `${baseServe}/song/detail`,
         params: {
@@ -85,7 +85,7 @@ export const getSongDetail = ids=> {
 };
 
 // 获取歌曲播放链接
-export const getSongUrl = id=> {
+export const getSongUrl = (id:number)=> {
     return get({
         url: `${baseServe}/song/url`,
         params: {
@@ -95,7 +95,7 @@ export const getSongUrl = id=> {
 };
 
 // 获取歌词
-export const getSongLyric = id=> {
+export const getSongLyric = (id:number)=> {
     return get({
         url: `${baseServe}/lyric`,
         params: {

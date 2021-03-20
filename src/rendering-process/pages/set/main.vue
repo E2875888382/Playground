@@ -20,11 +20,11 @@
     </Layout>
 </template>
 
-<script>
-import Layout from '../../components/Layout';
-import { computed } from 'vue';
+<script lang="ts">
+import Layout from '../../components/Layout.vue';
+import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
-export default {
+export default defineComponent({
     components: {
         Layout
     },
@@ -43,7 +43,7 @@ export default {
             }
         }
     }
-}
+})
 </script>
 
 <style lang="less" scoped>
