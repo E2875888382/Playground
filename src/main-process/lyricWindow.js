@@ -14,7 +14,7 @@ export default async function() {
         show: false,
         frame: false,
         x: x,
-        y: y + height / 2 + 400,
+        y: y + height / 2 + 200,
         fullscreenable: false,
         minimizable: false,
         maximizable: false,

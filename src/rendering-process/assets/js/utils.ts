@@ -1,5 +1,5 @@
 // 计算相对时间
-export const timeFormat = time=> {
+export const timeFormat = (time:number)=> {
     const timeNum = (Date.now() - (+new Date(time))) / 1000;
     const timeList = [
         { diff: 60 * 60 * 24 * 30 * 12, str: '年前'},
@@ -18,19 +18,19 @@ export const timeFormat = time=> {
 };
 
 // 格式化书籍总字数
-export const wordFormat = num=> num > 9999 ? `${Math.round(Math.floor(num / 1000) / 10)}万` : num;
+export const wordFormat = (num:number)=> num > 9999 ? `${Math.round(Math.floor(num / 1000) / 10)}万` : num;
 
 // 格式化书籍总人气
-export const hotFormat = num=> num > 9999 ? `${Math.round(num / 1000) / 10}万` : num;
+export const hotFormat = (num:number)=> num > 9999 ? `${Math.round(num / 1000) / 10}万` : num;
 
 // 音乐播放量format
-export const numFormat = (num, base)=> num > base ? `${Math.round(num / 10000)}万` : num;
+export const numFormat = (num:number, base:number)=> num > base ? `${Math.round(num / 10000)}万` : num;
 
 // 前置补零
-export const zeroNum = n=> n < 10 ? '0' + n : n;
+export const zeroNum = (n:number)=> n < 10 ? '0' + n : n;
 
 // ms 格式化为 m : s
-export const msFormat = dt=> {
+export const msFormat = (dt:number)=> {
     const source = Math.floor(dt / 1000);
     const m = Math.floor(source / 60);
     const s = source % 60;

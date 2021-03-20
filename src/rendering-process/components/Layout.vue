@@ -13,8 +13,9 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         // 背景
         background: String,
@@ -25,8 +26,8 @@ export default {
             type: Boolean,
             default: false
         }
-    },
-}
+    }
+})
 </script>
 
 <style lang="less" scoped>

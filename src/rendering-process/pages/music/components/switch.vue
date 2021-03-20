@@ -10,14 +10,15 @@
     </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         list: Array,
         activeId: Number
     },
     setup(props, context) {
-        const changeTab = index=> {
+        const changeTab = (index:number)=> {
             context.emit('update:activeId', index);
         };
 
@@ -25,7 +26,7 @@ export default {
             changeTab
         }
     }
-}
+})
 </script>
 
 <style lang="less" scoped>
