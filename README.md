@@ -35,7 +35,6 @@
 - [ ] 用户设置页
 - [ ] 小说书架
 - [ ] 小说书签
-- [ ] join TypeScript
 - ...
 
 ## Project screenshots
