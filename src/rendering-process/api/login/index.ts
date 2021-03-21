@@ -13,7 +13,7 @@ export const getQrCode = ()=> {
 };
 
 // 获取二维码
-export const getQrCodeImg = key=> {
+export const getQrCodeImg = (key:number|string)=> {
     return get({
         url: `${baseServe}/login/qr/create`,
         params: {
@@ -25,7 +25,7 @@ export const getQrCodeImg = key=> {
 };
 
 // 获取扫码状态
-export const checkQrCodeStatus = key=> {
+export const checkQrCodeStatus = (key:number|string)=> {
     return get({
         url: `${baseServe}/login/qr/check`,
         params: {
