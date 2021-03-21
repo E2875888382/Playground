@@ -62,7 +62,7 @@ export default {
         // 跳转书籍详情页
         provide('toBooksDetail', (booksId, from='')=> router.push({name: 'booksDetail', params: {booksId, from}}));
         // 获取静态图片资源
-        provide('getStaticsImg', src=> `http://statics.zhuishushenqi.com${src}`);
+        provide('getStaticsImg', src=> process.env.VUE_APP_BOOKS_STATICS_URL + src);
         // 格式化相对日期
         provide('timeFormat', timeFormat);
         // 格式化书籍字数

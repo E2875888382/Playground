@@ -1,6 +1,6 @@
 import { get } from '../base';
 
-const baseServe = 'http://139.9.230.159:3000';
+const baseServe = process.env.VUE_APP_MUSIC_URL;
 
 // 获取用户歌单
 export const getUserPlaylist = (uid:number)=> {

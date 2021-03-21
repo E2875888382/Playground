@@ -2,7 +2,7 @@ import { get } from '../base';
 
 export const getPictures = (page:number)=> {
     return get({
-        url: 'http://wallpaper.apc.360.cn/index.php',
+        url: process.env.VUE_APP_PICTURE_URL,
         params: {
             c: 'WallPaper',
             a: 'getAppsByOrder',
