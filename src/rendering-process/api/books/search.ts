@@ -1,25 +1,27 @@
 import {get} from '../base';
 
+const baseUrl = process.env.VUE_APP_BOOKS_URL;
+
 // 搜索热词
-export const searchHotwords = async()=> {
+export const searchHotwords = ()=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/book/search-hotwords',
+        url: `${baseUrl}/book/search-hotwords`,
         apiName: '搜索热词'
     })
 };
 
 // 热门搜索
-export const hotWords = async()=> {
+export const hotWords = ()=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/book/hot-word',
+        url: `${baseUrl}/book/hot-word`,
         apiName: '热门搜索'
     })
 };
 
 // 搜索补全
-export const autoComplete = async (query:string)=> {
+export const autoComplete = (query:string)=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/book/auto-complete',
+        url: `${baseUrl}/book/auto-complete`,
         params: {
             query: encodeURIComponent(query)
         },
@@ -28,9 +30,9 @@ export const autoComplete = async (query:string)=> {
 };
 
 // 模糊搜索
-export const searchByTitle = async (query:string)=> {
+export const searchByTitle = (query:string)=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/book/fuzzy-search',
+        url: `${baseUrl}/book/fuzzy-search`,
         params: {
             query: encodeURIComponent(query)
         },
@@ -39,9 +41,9 @@ export const searchByTitle = async (query:string)=> {
 };
 
 // 根据作者名模糊搜索, 怎么搜都是空数组，醉了
-export const searchByAuthor = async (author:string)=> {
+export const searchByAuthor = (author:string)=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/book/accurate-search',
+        url: `${baseUrl}/book/accurate-search`,
         params: {
             author: encodeURIComponent(author)
         },

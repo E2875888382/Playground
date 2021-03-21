@@ -1,17 +1,19 @@
 import {get} from '../base';
 
+const baseUrl = process.env.VUE_APP_BOOKS_URL;
+
 // 获取书籍信息
-export const booksDetail = async (booksId:number|string)=> {
+export const booksDetail = (booksId:number|string)=> {
     return get({
-        url: `http://api.zhuishushenqi.com/book/${booksId}`,
+        url: `${baseUrl}/book/${booksId}`,
         apiName: '书籍信息'
     })
 };
 
 // 获取5条短评
-export const booksComment = async (booksId:number|string, page = 0, limit = 5)=> {
+export const booksComment = (booksId:number|string, page = 0, limit = 5)=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/post/review/by-book',
+        url: `${baseUrl}/post/review/by-book`,
         params: {
             book: booksId,
             start: page,
@@ -22,9 +24,9 @@ export const booksComment = async (booksId:number|string, page = 0, limit = 5)=>
 };
 
 // 同类书籍推荐
-export const booksRecommend = async (booksId:number|string)=> {
+export const booksRecommend = (booksId:number|string)=> {
     return get({
-        url: `http://api.zhuishushenqi.com/book/${booksId}/recommend`,
+        url: `${baseUrl}/book/${booksId}/recommend`,
         apiName: '书籍推荐'
     })
 };

@@ -1,9 +1,11 @@
 import {get} from '../base';
 
+const baseUrl = process.env.VUE_APP_BOOKS_URL;
+
 // 获取小说源
-export const booksSource = async (booksId:number|string)=> {
+export const booksSource = (booksId:number|string)=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/atoc',
+        url: `${baseUrl}/atoc`,
         params: {
             view: 'summary',
             book: booksId
@@ -13,9 +15,9 @@ export const booksSource = async (booksId:number|string)=> {
 };
 
 // 根据源id获取章节
-export const booksChapters = async (sourceId:number|string)=> {
+export const booksChapters = (sourceId:number|string)=> {
     return get({
-        url: `http://api.zhuishushenqi.com/atoc/${sourceId}`,
+        url: `${baseUrl}/atoc/${sourceId}`,
         params: {
             view: 'chapters'
         },
@@ -24,7 +26,7 @@ export const booksChapters = async (sourceId:number|string)=> {
 };
 
 // 获取章节内容
-export const booksChaptersContent = async (chapterlink:string)=> {
+export const booksChaptersContent = (chapterlink:string)=> {
     return get({
         url: `http://chapterup.zhuishushenqi.com/chapter/${encodeURIComponent(chapterlink)}`,
         apiName: '书籍章节内容'

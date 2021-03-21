@@ -1,9 +1,11 @@
 import {get} from '../base';
 
+const baseUrl = process.env.VUE_APP_BOOKS_URL;
+
 // 大分类和小分类
-export const booksCats = async()=> {
+export const booksCats = ()=> {
     return get({
-        url: 'http://api.zhuishushenqi.com/cats/lv2',
+        url: `${baseUrl}/cats/lv2`,
         apiName: '书籍大小分类'
     })
 };
@@ -18,9 +20,9 @@ interface Categories {
 }
 
 // 获取分类细分
-export const booksCatsDetail = async({gender, type, major, minor, start, limit = 20}:Categories)=> {
+export const booksCatsDetail = ({gender, type, major, minor, start, limit = 20}:Categories)=> {
     return get({
-        url: 'https://api.zhuishushenqi.com/book/by-categories',
+        url: `${baseUrl}/book/by-categories`,
         params: {
             gender,
             type,
