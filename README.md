@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/static/v1?label=component&message=element+plus&color=green" />
   <img src="https://img.shields.io/static/v1?label=electron&message=9.0&color=green" />
   <img src="https://img.shields.io/static/v1?label=style&message=less&color=green">
+  <img src="https://img.shields.io/static/v1?label=typescript&color=green">
 </p>
 
 ## Project target
