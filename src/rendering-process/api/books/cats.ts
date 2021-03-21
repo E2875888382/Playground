@@ -8,8 +8,17 @@ export const booksCats = async()=> {
     })
 };
 
+interface Categories {
+    gender: string,
+    type: string,
+    major: string,
+    minor: string,
+    start?: number,
+    limit?: number
+}
+
 // 获取分类细分
-export const booksCatsDetail = async({gender, type, major, minor, start, limit = 20})=> {
+export const booksCatsDetail = async({gender, type, major, minor, start, limit = 20}:Categories)=> {
     return get({
         url: 'https://api.zhuishushenqi.com/book/by-categories',
         params: {

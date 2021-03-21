@@ -1,7 +1,7 @@
 import {get} from '../base';
 
 // 获取小说源
-export const booksSource = async booksId=> {
+export const booksSource = async (booksId:number|string)=> {
     return get({
         url: 'http://api.zhuishushenqi.com/atoc',
         params: {
@@ -13,7 +13,7 @@ export const booksSource = async booksId=> {
 };
 
 // 根据源id获取章节
-export const booksChapters = async sourceId=> {
+export const booksChapters = async (sourceId:number|string)=> {
     return get({
         url: `http://api.zhuishushenqi.com/atoc/${sourceId}`,
         params: {
@@ -24,7 +24,7 @@ export const booksChapters = async sourceId=> {
 };
 
 // 获取章节内容
-export const booksChaptersContent = async chapterlink=> {
+export const booksChaptersContent = async (chapterlink:string)=> {
     return get({
         url: `http://chapterup.zhuishushenqi.com/chapter/${encodeURIComponent(chapterlink)}`,
         apiName: '书籍章节内容'

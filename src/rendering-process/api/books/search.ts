@@ -17,7 +17,7 @@ export const hotWords = async()=> {
 };
 
 // 搜索补全
-export const autoComplete = async query=> {
+export const autoComplete = async (query:string)=> {
     return get({
         url: 'http://api.zhuishushenqi.com/book/auto-complete',
         params: {
@@ -28,7 +28,7 @@ export const autoComplete = async query=> {
 };
 
 // 模糊搜索
-export const searchByTitle = async query=> {
+export const searchByTitle = async (query:string)=> {
     return get({
         url: 'http://api.zhuishushenqi.com/book/fuzzy-search',
         params: {
@@ -39,7 +39,7 @@ export const searchByTitle = async query=> {
 };
 
 // 根据作者名模糊搜索, 怎么搜都是空数组，醉了
-export const searchByAuthor = async author=> {
+export const searchByAuthor = async (author:string)=> {
     return get({
         url: 'http://api.zhuishushenqi.com/book/accurate-search',
         params: {

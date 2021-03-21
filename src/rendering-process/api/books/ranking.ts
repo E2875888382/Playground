@@ -9,7 +9,7 @@ export const booksRankingClass = ()=> {
 };
 
 // 排行榜具体内容
-export const booksRankingDetail = rankingId=> {
+export const booksRankingDetail = (rankingId:number|string)=> {
     return get({
         url: `http://api.zhuishushenqi.com/ranking/${rankingId}`,
         apiName: '排行榜'
