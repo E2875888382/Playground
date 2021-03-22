@@ -2,10 +2,9 @@
  * @description node的request模块请求
  */
 import { ElMessage } from 'element-plus';
-import store from '../../store';
+import request from 'request';
 
-const request = require('request');
-const paramsParse = params=> {
+const paramsParse = (params:IParams)=> {
     let res = '?';
 
     for (const [key, val] of Object.entries(params)) {
@@ -16,17 +15,17 @@ const paramsParse = params=> {
 const cookie = localStorage.getItem('cookie');
 
 // apiName 方便接口错误调试
-export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
+export const get = ({ url: baseUrl, params = {}, apiName= ''}:IGetParams)=> {
     const url = baseUrl + paramsParse(params);
     const options = {
         url: url,
         headers: {
-            'Cookie': store.state.user.cookie || cookie
+            'Cookie': cookie
         }
     };
 
     return new Promise(resolve=> {
-        request(options, (err, response, body)=> {
+        request(options, (err:any, response:any, body:any)=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {
@@ -49,7 +48,7 @@ export const get = ({ url: baseUrl, params = {}, apiName= ''})=> {
 }
 
 // apiName 方便接口错误调试
-export const post = ({ url, data, apiName= ''})=> {
+export const post = ({ url, data, apiName= ''}:IPostParams)=> {
     return new Promise(resolve=> {
         request({
             methods: 'post',
@@ -57,10 +56,10 @@ export const post = ({ url, data, apiName= ''})=> {
             json: true,
             headers: {
                 "content-type": "application/json",
-                'Cookie': store.state.user.cookie || cookie
+                'Cookie': cookie
             },
             body: JSON.stringify(data)
-        }, (err, response, body)=> {
+        }, (err:any, response:any, body:any)=> {
             if (!err && response.statusCode == 200) { 
                 resolve(JSON.parse(body));
             } else {

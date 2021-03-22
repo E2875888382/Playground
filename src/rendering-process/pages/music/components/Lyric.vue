@@ -25,7 +25,8 @@ export default {
 <style lang="less">
 .app-container,
 .tabs-container,
-.tabs-content
+.tabs-content,
+.lyric-content
 {
     background: transparent !important;
     background-color: transparent;

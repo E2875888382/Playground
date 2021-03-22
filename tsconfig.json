@@ -21,7 +21,8 @@
             "esnext",
             "dom",
             "dom.iterable",
-            "scripthost"
+            "scripthost",
+            "ES6"
         ],
         "outDir": "./"
     },

@@ -46,7 +46,7 @@
             </div>
         </div>
         <div style="position:relative">
-            <el-tabs v-model="activeName" @tab-click="handleTabClick">
+            <el-tabs v-model="activeName">
                 <el-tab-pane label="歌曲列表" name="first">
                     <List :list="songsFilter" />
                 </el-tab-pane>
@@ -97,7 +97,6 @@ export default {
 
             songs.value = songsRes?.songs;
             console.log('songs', songs.value);
-            console.log('歌单详情：', data.value);
         };
         const getDate = time=> {
             const date = new Date(time);
@@ -118,9 +117,6 @@ export default {
         };
         const handleDownloadAll = ()=> {
             console.log('下载全部');
-        };
-        const handleTabClick = (tab, event)=> {
-            console.log(tab, event);
         };
         const numFormat = n=> {
             return +n > 10000 ? Math.floor(n / 10000) + '万' : n;
@@ -154,7 +150,6 @@ export default {
             handlePlayAll,
             handleDownloadAll,
             handleShare,
-            handleTabClick,
             numFormat,
             songs,
             songsFilter

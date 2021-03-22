@@ -89,8 +89,7 @@ export default class Lyric {
     _playRest() {
         let line = this.lines[this.curNum]
         let delay = line.time < 0 ? 0 : line.time - (+new Date() - this.startStamp) + this.delay
-        // console.log(delay)
-        // delay = delay + 1000
+
         this.timer = setTimeout(() => {
             this._callHandler(this.curNum++)
             if (this.curNum < this.lines.length && this.state === STATE_PLAYING) {

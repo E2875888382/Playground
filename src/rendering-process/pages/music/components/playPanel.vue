@@ -1,26 +1,28 @@
 <template>
     <transition name="playPanel">
-        <div class="playPanel-container" v-if="show">
+        <div class="playPanel-container" v-if="state.show">
             <div class="playPanel__content">
                 <section class="des-box">
-                    <div class="des__avatar" :class="[pause? 'des__avatar_pause':'des__avatar_play']">
+                    <div class="des__avatar" :class="[state.pause? 'des__avatar_pause':'des__avatar_play']">
                         <el-avatar 
                             :size="270" 
-                            :src="currentMusic.al ? currentMusic.al.picUrl + '?param=270y270' : staticPic"
+                            :src="state.currentMusic.al ? state.currentMusic.al.picUrl + '?param=270y270' : staticPic"
                         ></el-avatar>
                     </div>
                     <div class="des__content">
-                        <h1 class="music__name">{{currentMusic.name}}</h1>
+                        <h1 class="music__name">{{state.currentMusic.name}}</h1>
                         <p>
-                            <span class="music__des">专辑：{{currentMusic.al.name}}</span>
-                            <span class="music__des">歌手：{{getAuthors(currentMusic.ar)}}</span>
+                            <span class="music__des">专辑：{{state.currentMusic.al.name}}</span>
+                            <span class="music__des">歌手：{{getAuthors(state.currentMusic.ar)}}</span>
                         </p>
-                        <div class="lyric-box">
-                            <p 
-                                class="lyric-line" 
-                                :class="{'lyric-line_active' : currentIndex === index}" 
-                                v-for="(lyricLine, index) in AllLyric" :key="index"
-                            >{{lyricLine}}</p>
+                        <div class="lyric-box__wrapper">
+                            <div class="lyric-box" ref="lyricBox">
+                                <p 
+                                    class="lyric-line" 
+                                    :class="{'lyric-line_active' : currentIndex === index}" 
+                                    v-for="(lyricLine, index) in state.AllLyric" :key="index"
+                                >{{lyricLine}}</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -31,30 +33,33 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 export default {
     setup() {
-        const getAuthors = arr=> arr.map(item=> item.name).join('/');
-        const pause = computed(()=> store.state.music.pause);
+        const lyricBox = ref(null);
         const store = useStore();
-        const show = computed(()=> store.state.music.fullSreen);
-        const currentMusic = computed(()=> {
-            const index = store.state.music.currentMusicIndex;
+        const state = reactive({
+            show: computed(()=> store.state.music.fullSreen),
+            pause: computed(()=> store.state.music.pause),
+            AllLyric: computed(()=> store.state.music.allLyric.replace(/\[.*?\]/g, '').split('\n')),
+            currentMusic: computed(()=> {
+                const index = store.state.music.currentMusicIndex;
 
-            return store.state.music.playlist[index];
+                return store.state.music.playlist[index];
+            })
         });
         const currentIndex = computed(()=> store.state.music.lyricIndex);
-        const AllLyric = computed(()=> store.state.music.allLyric.replace(/\[.*?\]/g, '').split('\n'));
 
+        watch(currentIndex, (newVal)=> {
+            lyricBox.value && (lyricBox.value.scrollTop = 32 * (newVal - 1));
+        })
         return {
-            AllLyric,
-            show,
-            pause,
-            currentMusic,
+            state,
+            lyricBox,
             currentIndex,
             staticPic: require('../../../assets/img/defaultMusic.jpg'),
-            getAuthors
+            getAuthors: arr=> arr.map(item=> item.name).join('/')
         }
     }
 }
@@ -71,7 +76,7 @@ export default {
     z-index: 5;
     background: #fff;
     transform-origin: left bottom;
-    transition: all .2s ease-out;
+    animation: panelShow .2s linear 0s ;
 }
 .playPanel-enter-active,
 .playPanel-leave-active {
@@ -148,6 +153,27 @@ export default {
     color: #999;
     font-size: 16px;
 }
+.lyric-box__wrapper {
+    position: relative;
+    &::after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-image: linear-gradient(#ffffff5e, #ffffff);
+    }
+    &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-image: linear-gradient(#ffffff, #ffffff5e);
+    }
+}
 .lyric-box {
     .customScroll;
     height: 445px;
@@ -170,6 +196,16 @@ export default {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+@keyframes panelShow {
+    0% {
+        opacity: 0;
+        transform: scale(0.16, 0.08);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 </style>

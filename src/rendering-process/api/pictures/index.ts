@@ -2,7 +2,7 @@ import { get } from '../base';
 
 export const getPictures = (page:number)=> {
     return get({
-        url: process.env.VUE_APP_PICTURE_URL,
+        url: process.env.VUE_APP_PICTURE_URL as string,
         params: {
             c: 'WallPaper',
             a: 'getAppsByOrder',

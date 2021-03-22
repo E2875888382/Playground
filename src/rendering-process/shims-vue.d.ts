@@ -3,3 +3,7 @@ declare module '*.vue' {
     const componentOptions: ComponentOptions;
     export default componentOptions;
 }
+declare module 'element-plus';
+declare module 'electron';
+declare module 'request';
+declare module 'vuex';

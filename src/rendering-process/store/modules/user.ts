@@ -1,3 +1,14 @@
+interface IUserState {
+    cookie: string;
+    nickname: string;
+    avatar: string;
+    bookshelf: Array<IBookshelfItem>;
+    playList: Array<any>;
+}
+interface IBookshelfItem {
+    cover: string
+}
+
 const state = {
     cookie: '',
     nickname: '未登录',
@@ -16,17 +27,17 @@ const state = {
     playList: []
 };
 const mutations = {
-    updateNickName(state, nickname) {
+    updateNickName(state: IUserState, nickname:string) {
         state.nickname = nickname;
     },
-    updateAvatar(state, avatar) {
+    updateAvatar(state: IUserState, avatar:string) {
         state.avatar = avatar;
     },
-    updateCookie(state, cookie) {
+    updateCookie(state: IUserState, cookie:string) {
         state.cookie = cookie;
         localStorage.setItem('cookie', cookie);
     },
-    updatePlayList(state, playList) {
+    updatePlayList(state: IUserState, playList:Array<any>) {
         state.playList = playList;
     }
 };

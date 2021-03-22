@@ -1,3 +1,11 @@
+interface IBookState {
+    [propsName: string]: any;
+}
+interface IBook {
+    booksId: string | number;
+    chapters: Array<any>;
+}
+
 const state = {
     book: {
         booksId: '',
@@ -5,10 +13,10 @@ const state = {
     }
 };
 const mutations = {
-    updateBook(state, book) {
+    updateBook(state: IBookState, book: IBook) {
         state.book = book;
     },
-    resetBook(state) {
+    resetBook(state: IBookState) {
         state.book = {booksId: '', chapters: []};
     }
 };

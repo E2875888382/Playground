@@ -15,10 +15,10 @@
     </div>
 </template>
 
-<script>
-import { ref, watch } from 'vue'
+<script lang="ts">
+import { ref, watch, defineComponent } from 'vue'
 import { useStore } from 'vuex';
-export default {
+export default defineComponent({
     emits: ['togglePlayList'],
     setup(props, context) {
         const volume = ref(20);
@@ -35,7 +35,7 @@ export default {
             togglePlayList: ()=> context.emit('togglePlayList')
         }
     }
-}
+})
 </script>
 
 <style lang="less" scoped>

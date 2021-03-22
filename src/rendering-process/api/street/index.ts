@@ -5,7 +5,7 @@ const baseUrl = process.env.VUE_APP_NEWS_URL;
 
 // 网易新闻的接口每天只能调100次，请求失败返回mock
 export const newsList = async (page:number)=> {
-    const res = await get({
+    const res:any = await get({
         url: `${baseUrl}/toutiao`,
         params: {
             start: page,
@@ -18,7 +18,7 @@ export const newsList = async (page:number)=> {
 };
 
 export const newsDetail = async (docid:number)=> {
-    const res = await get({
+    const res:any = await get({
         url: `${baseUrl}/detail`,
         params: {
             docid: docid

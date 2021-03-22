@@ -1,3 +1,15 @@
+interface IMusicState {
+    playlist: IMusicList;
+    history: IMusicList;
+    currentMusicIndex: number;
+    volume: number;
+    allLyric: string;
+    lyricLine: string;
+    lyricIndex: number;
+    fullSreen: boolean;
+    pause: boolean;
+}
+
 const state = {
     // 播放列表
     playlist: [],
@@ -20,33 +32,33 @@ const state = {
 };
 const mutations = {
     // 更新歌单
-    updatePlaylist(state, playlist) {
+    updatePlaylist(state: IMusicState, playlist: IMusicList) {
         state.playlist = playlist;
     },
     // 删除歌单某一首歌
-    deleteFromPlayList(state, id) {
+    deleteFromPlayList(state: IMusicState, id: number) {
         state.playlist = state.playlist.filter(item=> item.id !== id);
     },
     // 添加一首歌到歌单
-    addToPlaylist(state, music) {
+    addToPlaylist(state: IMusicState, music: IMusicItem) {
         const map = new Map();
 
         // 根据id去重
         state.playlist = [...state.playlist, music].filter(item=> !map.has(item.id) && map.set(item.id, 1));
     },
     // 从历史记录删除一首歌
-    deleteFromHistory(state, id) {
+    deleteFromHistory(state: IMusicState, id: number) {
         state.history = state.history.filter(item=> item.id !== id);
     },
     // 更新历史记录
-    updateHistory(state, history) {
+    updateHistory(state: IMusicState, history: IMusicList) {
         state.history = history;
     },
     // 添加一首歌到历史记录
-    addToHistory(state, history) {
+    addToHistory(state: IMusicState, history: IMusicItem) {
         const map = new Map();
         const date = new Date();
-        const zero = n=> n < 10 ? '0' + n : n;
+        const zero = (n:number)=> n < 10 ? '0' + n : n;
         const music = {
             ...history,
             playTime: `${date.getFullYear()}-${zero(date.getMonth() + 1)}-${zero(date.getDate())}`
@@ -56,7 +68,7 @@ const mutations = {
         state.history = [...state.history, music].filter(item=> !map.has(item.id) && map.set(item.id, 1));
     },
     // 更新当前播放歌曲的索引
-    updateCurrentMusicIndex(state, music) {
+    updateCurrentMusicIndex(state: IMusicState, music: IMusicItem) {
         state.playlist.map((item, index)=> {
             if (music.id === item.id) {
                 state.currentMusicIndex = index;
@@ -64,27 +76,27 @@ const mutations = {
         });
     },
     // 更新音量
-    updateVolume(state, volume) {
+    updateVolume(state: IMusicState, volume: number) {
         state.volume = volume;
     },
     // 更新当前那一行歌词
-    updateLyric(state, lyricLine) {
+    updateLyric(state: IMusicState, lyricLine: string) {
         state.lyricLine = lyricLine;
     },
     // 更新当前那一行歌词的index
-    updateLyricIndex(state, lyricIndex) {
+    updateLyricIndex(state: IMusicState, lyricIndex: number) {
         state.lyricIndex = lyricIndex;
     },
     // 是否全屏模式
-    updateFullSreen(state, fullSreen) {
+    updateFullSreen(state: IMusicState, fullSreen: boolean) {
         state.fullSreen = fullSreen;
     },
     // 是否暂停播放
-    updatePause(state, pause) {
+    updatePause(state: IMusicState, pause: boolean) {
         state.pause = pause;
     },
     // 更新全部歌词
-    updateAllLyric(state, allLyric) {
+    updateAllLyric(state: IMusicState, allLyric: string) {
         state.allLyric = allLyric;
     }
 };

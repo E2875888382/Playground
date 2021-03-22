@@ -6,13 +6,13 @@
     </div>
 </template>
 
-<script>
-import Volume from './playBarVolume';
-import Controller from './playBarController';
-import Des from './playBarDes';
+<script lang="ts">
+import Volume from './playBarVolume.vue';
+import Controller from './playBarController.vue';
+import Des from './playBarDes.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
-export default {
+import { computed, defineComponent } from 'vue';
+export default defineComponent({
     components: {
         Volume,
         Controller,
@@ -32,7 +32,7 @@ export default {
             togglePlayList: ()=> context.emit('togglePlayList')
         }
     }
-}
+})
 </script>
 
 <style lang="less" scoped>

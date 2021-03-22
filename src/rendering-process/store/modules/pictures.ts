@@ -1,8 +1,12 @@
+interface IPicturesState {
+    pictures: Array<any>;
+}
+
 const state = {
     pictures: []
 };
 const mutations = {
-    updatePictures(state, imgs) {
+    updatePictures(state: IPicturesState, imgs:Array<any>) {
         state.pictures = imgs;
     }
 };
