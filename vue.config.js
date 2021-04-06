@@ -19,7 +19,7 @@ module.exports = {
     },
     pluginOptions: {
         electronBuilder: {
-            mainProcessFile: 'src/main-process/index.js',
+            mainProcessFile: 'src/main-process/index.ts',
             nodeIntegration: true
         },
         'style-resources-loader': {

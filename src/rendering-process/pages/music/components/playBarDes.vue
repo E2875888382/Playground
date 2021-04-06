@@ -79,6 +79,10 @@ export default {
         .font-overflow;
         -webkit-line-clamp: 1;
     }
+    .des__author {
+        font-weight: lighter;
+        font-size: 16px;
+    }
     .iconfont {
         padding-left: 8px;
         font-size: 25px;

@@ -8,7 +8,7 @@ const request = require('request');
 const path = require('path');
 const icon = path.join(__dirname, '../src/rendering-process/assets/img/icon.png');
 
-export const initIpcManager = (win, lyric)=> {
+export const initIpcManager = (win: any, lyric: any)=> {
 
     // 弹出歌词
     ipcMain.on('openLyric', ()=> lyric.show());
@@ -24,7 +24,7 @@ export const initIpcManager = (win, lyric)=> {
         writeStream.on('finish', ()=> {
             event.sender.send('saveImg-reply', '保存成功');
         })
-        writeStream.on('error', err=> {
+        writeStream.on('error', (err: any)=> {
             event.sender.send('saveImg-reply', '保存失败', err);
         })
     });

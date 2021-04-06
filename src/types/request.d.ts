@@ -11,3 +11,5 @@ declare interface IPostParams {
     data?: any;
     apiName?: string;
 }
+
+declare module 'request'
