@@ -5,7 +5,7 @@
             <transition-group name="dj-list">
                 <div class="dj-item" v-for="item in list.slice(0, 6)" :key="item.id">
                     <div class="dj-item__img">
-                        <el-image class="dj-item__imgContent" :src="item.picUrl + '?param=200y200'" alt="" fit="fit">
+                        <el-image class="dj-item__imgContent" :src="item.picUrl + '?param=200y200'" alt="" fit="fit" :lazy="true">
                             <template #placeholder>
                                 <div class="image-slot">
                                     <i class="el-icon-picture-outline"></i>

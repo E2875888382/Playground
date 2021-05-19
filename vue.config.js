@@ -1,7 +1,8 @@
 const path = require('path');
+const resolve = url=> path.resolve(__dirname, url);
 
 module.exports = {
-    chainWebpack: (config) => {
+    chainWebpack: config=> {
         config.module
             .rule('vue')
             .use('vue-loader')
@@ -13,6 +14,11 @@ module.exports = {
                 }
                 return options
             })
+        // 别名
+        config.resolve.alias
+            .set('commonComponents', resolve('./src/rendering-process/components'))
+            .set('commonCss', resolve('./src/rendering-process/assets/css'))
+            .set('commonImgs', resolve('./src/rendering-process/assets/img'))
     },
     configureWebpack: config => {
         config.entry.app = './src/rendering-process/main.ts'
@@ -25,9 +31,9 @@ module.exports = {
         'style-resources-loader': {
             preProcessor: 'less',
             patterns: [
-                path.resolve(__dirname, './src/rendering-process/assets/css/common.less'),
-                path.resolve(__dirname, './src/rendering-process/assets/css/color.less'),
-                path.resolve(__dirname, './src/rendering-process/assets/css/font.less')
+                resolve('./src/rendering-process/assets/css/common.less'),
+                resolve('./src/rendering-process/assets/css/color.less'),
+                resolve('./src/rendering-process/assets/css/font.less')
             ]
         }
     }

@@ -5,7 +5,7 @@
             <transition-group name="mv-list">
                 <div class="mv-item" v-for="item in list.slice(0, 4)" :key="item.id">
                     <div class="mv-item__img">
-                        <el-image class="mv-item__imgContent" :src="item.picUrl" alt="" fit="fit">
+                        <el-image class="mv-item__imgContent" :src="item.picUrl" alt="" fit="fit" :lazy="true">
                             <template #placeholder>
                                 <div class="image-slot">
                                     <i class="el-icon-picture-outline"></i>

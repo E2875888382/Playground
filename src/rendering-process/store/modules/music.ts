@@ -75,6 +75,35 @@ const mutations = {
             }
         });
     },
+    // 切换下一首
+    nextMusic(state: IMusicState) {
+        // 当前的index
+        const currentIndex = state.currentMusicIndex;
+        // 获取下一首歌
+        const next = state.playlist[currentIndex + 1];
+
+        state.currentMusicIndex = next ? currentIndex + 1 : 0;
+    },
+    // 切换上一首
+    preMusic(state: IMusicState) {
+        // 当前的index
+        const currentIndex = state.currentMusicIndex;
+        // 获取上一首歌
+        const next = state.playlist[currentIndex - 1];
+
+        state.currentMusicIndex = next ? currentIndex - 1 : state.playlist.length - 1;
+    },
+    // 随机播放
+    randomSong(state: IMusicState) {
+        // 当前的index
+        const currentIndex = state.currentMusicIndex;
+        // 排除只有一首歌的情况
+        if (state.playlist.length === 1) return;
+        // 在剩下的歌曲里面随便取一首歌
+        const restIndex = [...state.playlist.keys()].filter(index=> index !== currentIndex);
+
+        state.currentMusicIndex = restIndex[Math.floor(Math.random() * restIndex.length)];
+    },
     // 更新音量
     updateVolume(state: IMusicState, volume: number) {
         state.volume = volume;

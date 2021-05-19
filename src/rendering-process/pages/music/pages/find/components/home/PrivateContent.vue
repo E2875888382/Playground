@@ -4,7 +4,7 @@
         <div class="privateContent-container">
             <div class="privateContent-item" v-for="item in list" :key="item.id">
                 <div class="privateContent-item__content">
-                    <el-image class="privateContent-item__img" :src="item.sPicUrl" alt="" fit="fit">
+                    <el-image class="privateContent-item__img" :src="item.sPicUrl" alt="" fit="fit" :lazy="true">
                         <template #placeholder>
                             <div class="image-slot">
                                 <i class="el-icon-picture-outline"></i>

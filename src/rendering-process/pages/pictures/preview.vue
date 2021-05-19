@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Layout from '../../components/Layout';
+import Layout from 'commonComponents/Layout';
 import { computed, inject, onActivated, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';

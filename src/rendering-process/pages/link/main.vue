@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Layout from '../../components/Layout';
+import Layout from 'commonComponents/Layout';
 import { inject, onActivated, ref, computed } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import NProgress from 'nprogress';

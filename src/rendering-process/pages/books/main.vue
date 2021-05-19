@@ -21,7 +21,7 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
-import Layout from '../../components/Layout';
+import Layout from 'commonComponents/Layout';
 export default {
     components: {
         Layout

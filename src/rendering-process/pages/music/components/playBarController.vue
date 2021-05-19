@@ -2,13 +2,13 @@
     <div class="play-controller">
         <div class="play-controller__btns">
             <span class="iconfont" @click="changeMode" :class="'icon-'+ playModes[playModeIndex]"></span>
-            <span class="iconfont icon-1_music83"></span>
+            <span class="iconfont icon-1_music83" @click="preSong"></span>
             <span 
                 class="iconfont playIcon" 
                 :class="[ pause ? 'icon-1_music94' : 'icon-bofangzhong' ]" 
                 @click="handlePause"
             ></span>
-            <span class="iconfont icon-1_music82"></span>
+            <span class="iconfont icon-1_music82" @click="nextSong"></span>
             <span class="disable-select" :class="{'lyric_active':showLyric}" @click="toggleLyric">词</span>
         </div>
         <div class="play-controller__progress">
@@ -78,6 +78,14 @@ export default {
         const changeMode = ()=> {
             playModeIndex.value >= 3 ? playModeIndex.value = 0 : playModeIndex.value += 1 ;
         };
+        // 下一首歌
+        const nextSong = ()=> {
+            store.commit('music/nextMusic');
+        };
+        // 上一首歌
+        const preSong = ()=> {
+            store.commit('music/preMusic');
+        };
         // 暂停播放
         const handlePause = ()=> {
             if (musicAudio.value.paused) {
@@ -92,12 +100,47 @@ export default {
             // 暂停，定住歌词
             lyricObj.value.stop && lyricObj.value.stop();
         };
+        // 重置当前歌曲播放进度
+        const resetCurrentMusic = ()=> {
+            // 开始滚动歌词
+            lyricObj.value.play();
+            // 歌词进度置为0
+            lyricObj.value.seek(0);
+            // 开始播放audio
+            musicAudio.value.play();
+            // 重置播放状态
+            store.commit('music/updatePause', false);
+        };
         // 播放完毕
         const handleEnded = ()=> {
             musicAudio.value.pause();
             store.commit('music/updatePause', true);
             // 播放完毕，定住歌词
             lyricObj.value.stop && lyricObj.value.stop();
+            // 根据不同的播放模式判断接下来的动作
+            switch (playModeIndex.value) {
+                case 0:
+                    // 随机播放
+                    if (store.state.music.playlist === 1) {
+                        // 如果只有一首歌，重置进度
+                        resetCurrentMusic();
+                        return;
+                    }
+                    store.commit('music/randomSong');
+                    break;
+                case 1:
+                    // 单曲循环，重置进度
+                    resetCurrentMusic();
+                    break;
+                case 2:
+                    // 列表循环
+                    nextSong();
+                    break;
+                default:
+                    // 播放下一首
+                    nextSong();
+                    break;
+            }
         };
         // 更新播放信息
         const handleUpdateTime = e=> {
@@ -185,7 +228,9 @@ export default {
             handleSliderChange,
             lyric,
             bufferedPercent,
-            toggleLyric
+            toggleLyric,
+            nextSong,
+            preSong
         }
     }
 }

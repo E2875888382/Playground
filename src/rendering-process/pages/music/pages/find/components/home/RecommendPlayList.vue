@@ -4,7 +4,7 @@
         <div class="list-box">
             <div class="list-item">
                 <div class="list-item_content">
-                    <el-image class="list-item__img list-item__img_daily" :src="list[9].picUrl" alt="" fit="fit"/>
+                    <el-image class="list-item__img list-item__img_daily" :src="list[9].picUrl" alt="" fit="fit" :lazy="true"/>
                     <i class="iconfont icon-rili"></i>
                     <span class="list-item__date">{{date}}</span>
                     <div class="list-item__icon">
@@ -16,7 +16,7 @@
             </div>
             <div class="list-item" v-for="item in list.slice(0, 9)" :key="item.id" @click="toPlaylist(item.id)">
                 <div class="list-item_content">
-                    <el-image class="list-item__img" :src="item.picUrl" alt="" fit="fit">
+                    <el-image class="list-item__img" :src="item.picUrl" alt="" fit="fit" :lazy="true">
                         <template #placeholder>
                             <div class="image-slot">
                                 <i class="el-icon-picture-outline"></i>

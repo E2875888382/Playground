@@ -4,7 +4,7 @@
         <div class="newSong-content">
             <div class="newSong-item" v-for="item in list.slice(0, 12)" :key="item.id">
                 <div class="newSong-item__img">
-                    <el-image class="newSong-item__imgContent" :src="item.picUrl + '?param=60y60'" alt="" fit="fit">
+                    <el-image class="newSong-item__imgContent" :src="item.picUrl + '?param=60y60'" alt="" fit="fit" :lazy="true">
                         <template #placeholder>
                             <div class="image-slot">
                                 <i class="el-icon-picture-outline"></i>

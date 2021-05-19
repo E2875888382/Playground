@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Layout from '../../components/Layout';
+import Layout from 'commonComponents/Layout';
 import SideBar from './components/sideBar';
 import PlayBar from './components/playBar';
 import PlayList from './components/playList';

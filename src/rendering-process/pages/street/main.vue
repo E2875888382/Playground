@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Layout from '../../components/Layout';
+import Layout from 'commonComponents/Layout';
 import { ref, onMounted, inject } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
