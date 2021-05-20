@@ -38,6 +38,158 @@
 - [ ] 小说书签
 - ...
 
+## src dir(`npm run createDirTree`)
+```
+├── main-process
+│   ├── index.ts
+│   ├── ipcManager.ts
+│   ├── lyricWindow.ts
+│   ├── main.d.ts
+│   └── mainWindow.ts
+├── rendering-process
+│   ├── api
+│   │   ├── base
+│   │   │   └── index.ts
+│   │   ├── books
+│   │   │   ├── cats.ts
+│   │   │   ├── chapters.ts
+│   │   │   ├── detail.ts
+│   │   │   ├── index.ts
+│   │   │   ├── ranking.ts
+│   │   │   └── search.ts
+│   │   ├── link
+│   │   │   └── index.ts
+│   │   ├── login
+│   │   │   └── index.ts
+│   │   ├── manager
+│   │   │   └── index.ts
+│   │   ├── mock
+│   │   │   └── index.ts
+│   │   ├── music
+│   │   │   ├── find.ts
+│   │   │   └── user.ts
+│   │   ├── pictures
+│   │   │   └── index.ts
+│   │   └── street
+│   │       └── index.ts
+│   ├── app
+│   │   └── App.vue
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── color.less
+│   │   │   ├── common.less
+│   │   │   └── font.less
+│   │   ├── font
+│   │   │   └── iconfont.ttf
+│   │   ├── img
+│   │   │   ├── defaultMusic.jpg
+│   │   │   ├── icon.png
+│   │   │   ├── record.png
+│   │   │   └── record_dec.png
+│   │   └── js
+│   │       ├── Lyric.js
+│   │       ├── nodeTree.js
+│   │       └── utils.ts
+│   ├── components
+│   │   ├── Layout.vue
+│   │   ├── Search.vue
+│   │   ├── SideBar.vue
+│   │   └── TitleBar.vue
+│   ├── main.ts
+│   ├── pages
+│   │   ├── books
+│   │   │   ├── components
+│   │   │   │   ├── booksList.vue
+│   │   │   │   ├── classCard.vue
+│   │   │   │   ├── commentsList.vue
+│   │   │   │   └── navBar.vue
+│   │   │   ├── main.vue
+│   │   │   └── pages
+│   │   │       ├── booksDetail.vue
+│   │   │       ├── cats.vue
+│   │   │       ├── catsDetail.vue
+│   │   │       ├── chapters.vue
+│   │   │       ├── comments.vue
+│   │   │       ├── index.vue
+│   │   │       ├── ranking.vue
+│   │   │       ├── read.vue
+│   │   │       ├── recommend.vue
+│   │   │       └── search.vue
+│   │   ├── link
+│   │   │   └── main.vue
+│   │   ├── music
+│   │   │   ├── components
+│   │   │   │   ├── Lyric.vue
+│   │   │   │   ├── playBar.vue
+│   │   │   │   ├── playBarController.vue
+│   │   │   │   ├── playBarDes.vue
+│   │   │   │   ├── playBarVolume.vue
+│   │   │   │   ├── playList.vue
+│   │   │   │   ├── playPanel.vue
+│   │   │   │   ├── sideBar.vue
+│   │   │   │   └── switch.vue
+│   │   │   ├── main.vue
+│   │   │   └── pages
+│   │   │       ├── cloud
+│   │   │       │   └── main.vue
+│   │   │       ├── download
+│   │   │       │   └── main.vue
+│   │   │       ├── dynamic
+│   │   │       │   └── main.vue
+│   │   │       ├── find
+│   │   │       │   ├── components
+│   │   │       │   │   ├── home
+│   │   │       │   │   │   ├── Banners.vue
+│   │   │       │   │   │   ├── Dj.vue
+│   │   │       │   │   │   ├── DragController.vue
+│   │   │       │   │   │   ├── Mv.vue
+│   │   │       │   │   │   ├── NewSong.vue
+│   │   │       │   │   │   ├── PrivateContent.vue
+│   │   │       │   │   │   └── RecommendPlayList.vue
+│   │   │       │   │   └── playList
+│   │   │       │   ├── main.vue
+│   │   │       │   └── pages
+│   │   │       │       ├── home.vue
+│   │   │       │       └── playList.vue
+│   │   │       ├── fm
+│   │   │       │   └── main.vue
+│   │   │       ├── local
+│   │   │       │   └── main.vue
+│   │   │       ├── media
+│   │   │       │   └── main.vue
+│   │   │       ├── playlist
+│   │   │       │   ├── components
+│   │   │       │   │   ├── Collectors.vue
+│   │   │       │   │   ├── Comments.vue
+│   │   │       │   │   └── List.vue
+│   │   │       │   └── main.vue
+│   │   │       └── star
+│   │   │           └── main.vue
+│   │   ├── pictures
+│   │   │   ├── main.vue
+│   │   │   └── preview.vue
+│   │   ├── set
+│   │   │   └── main.vue
+│   │   └── street
+│   │       └── main.vue
+│   ├── routers
+│   │   └── index.js
+│   ├── shims-vue.d.ts
+│   └── store
+│       ├── index.ts
+│       ├── modules
+│       │   ├── book.ts
+│       │   ├── config.ts
+│       │   ├── music.ts
+│       │   ├── pictures.ts
+│       │   └── user.ts
+│       └── plugins
+│           └── synchronous.ts
+└── types
+    ├── music.d.ts
+    └── request.d.ts
+```
+
 ## Project screenshots
 ![14.png](https://upload-images.jianshu.io/upload_images/19383585-297251c368e929ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -75,8 +227,8 @@
 
 大部分的请求都是使用的开源接口，包括：
 - 新闻类：网易新闻API，每天有100次的调用限制，调用失败会返回本地mock
-- 小说类：追书神器API，暂时没有限制（本项目仅供学习参考，请勿商用）
-- 壁纸类：360浏览器API，暂时没有限制（本项目仅供学习参考，请勿商用）
+- 小说类：追书神器API（本项目仅供参考，请勿商用）
+- 壁纸类：360浏览器API（本项目仅供参考，请勿商用）
 
 ## About debug
 

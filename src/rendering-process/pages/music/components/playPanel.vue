@@ -58,7 +58,7 @@ export default {
             state,
             lyricBox,
             currentIndex,
-            staticPic: require('../../../assets/img/defaultMusic.jpg'),
+            staticPic: require('commonImgs/defaultMusic.jpg'),
             getAuthors: arr=> arr.map(item=> item.name).join('/')
         }
     }

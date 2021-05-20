@@ -30,7 +30,7 @@ export default defineComponent({
     },
     setup() {
         const store = useStore();
-        const logo = require('../../assets/img/icon.png');
+        const logo = require('commonImgs/icon.png');
 
         return {
             logo,

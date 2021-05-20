@@ -4,22 +4,20 @@
     </div>
 </template>
 
-<script>
-import { computed, watch } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
-export default {
+export default defineComponent({
     setup() {
         const store = useStore();
         const lyricLine = computed(()=> store.state.music.lyricLine);
 
-        watch(lyricLine, (newVal, oldVal)=> {
-            console.log(newVal, oldVal);
-        })
         return {
             lyricLine
         }
     }
-}
+})
 </script>
 
 <style lang="less">

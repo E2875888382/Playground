@@ -37,7 +37,7 @@
 import { computed, inject, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { ipcRenderer } from 'electron';
-import Lyric from '../../../assets/js/Lyric';
+import Lyric from 'commonJs/Lyric';
 export default {
     props: {
         music: {
