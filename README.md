@@ -38,7 +38,8 @@
 - [ ] 小说书签
 - ...
 
-## src dir(`npm run createDirTree`)
+## src dir
+to get dir tree `npm run createDirTree`
 ```
 ├── main-process
 │   ├── index.ts
