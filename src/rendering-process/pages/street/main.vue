@@ -25,6 +25,7 @@ import Layout from 'commonComponents/Layout';
 import { ref, onMounted, inject } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { bodyParser } from './contentParser';
 export default {
     components: {
         Layout
@@ -44,36 +45,13 @@ export default {
             list.value = [...list.value, ...res.data];
             page.value++;
         };
-        const bodyParser = data=> {
-            const {body, img, link, video} = data;
-            const imgMap = {};
-            const videoMap = {};
-            const linkMap = {};
-
-            for (const item of img) imgMap[item.ref] = item;
-            if (video) for (const item of video) videoMap[item.ref] = item;
-            for (const item of link) linkMap[item.ref] = item;
-            return body
-                .replace(/<!--IMG(.*?)-->/g, match=> {
-                    return `<p align="center"><img src="${imgMap[match].src}" width="100%"/></p>`;
-                })
-                .replace(/<!--link(.*?)-->/g, match=> {
-                    const {title, href} = linkMap[match];
-
-                    return `<a data-src="${href}">${title}</a>`;
-                })
-                .replace(/<!--VIDEO(.*?)-->/g, match=> {
-                    return `<video controls src="${videoMap[match].url_m3u8}" poster="${videoMap[match].cover}" width="100%" />`;
-                });
-        };
         const handleClick = async (news)=> {
             active.value = news.docid;
             store.commit('config/updateTitle', {tabs: 'bbs', title: news.title});
             const res = await newsDetail(news.docid);
-            const parsedData = bodyParser(res.data);
 
-            newsContent.value = parsedData;
-            newsRef.value.scrollTop = '0'; // 回弹顶部
+            newsContent.value = bodyParser(res.data);
+            newsRef.value.scrollTop = '0';
         };
         const handleUrl = e=> {
             const src = e.target.innerHTML;

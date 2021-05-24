@@ -1,10 +1,6 @@
- <template>
+<template>
     <Layout :flex="true">
-        <div class="books-bookshelf">
-            <el-card class="bookshelf-item" v-for="(book, index) in bookshelf" :key="index">
-                <img class="bookshelf-item__cover" :src="book.cover">
-            </el-card>
-        </div>
+        <Bookshelf />
         <div class="books-content" :class="customClass">
             <div class="booksContent__main">
                 <router-view v-slot="{ Component }">
@@ -13,7 +9,7 @@
                     </keep-alive>
                 </router-view>
             </div>
-        </div> 
+        </div>
     </Layout>
 </template>
 
@@ -22,9 +18,11 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import Layout from 'commonComponents/Layout';
+import Bookshelf from './components/bookshelf';
 export default {
     components: {
-        Layout
+        Layout,
+        Bookshelf
     },
     setup() {
         const readModes = {
@@ -39,7 +37,6 @@ export default {
         });
 
         return {
-            bookshelf: computed(()=> store.state.user.bookshelf),
             customClass
         }
     }
@@ -47,40 +44,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@booksshelfWidth: 312px;
-@bookshelfItemWdith: 120px;
-@bookshelfItemHeight: 160px;
-.books-bookshelf {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-content: flex-start;
-    flex-shrink: 0;
-    width: @booksshelfWidth;
-    height: 100%;
-    background-color: #f0efee;
-    .overflowScroll;
-    &::after {
-        content: '';
-        flex: 0 0 @bookshelfItemWdith;
-    }
-}
-.bookshelf-item {
-    width: @bookshelfItemWdith;
-    height: @bookshelfItemHeight;
-    margin-top: 20px;
-    padding: 0;
-    cursor: pointer;
-    &:deep(.el-card__body) {
-        height: @bookshelfItemHeight;
-        width: @bookshelfItemWdith;
-        padding: 0;
-    }
-    &__cover {
-        height: @bookshelfItemHeight;
-        width: @bookshelfItemWdith;
-    }
-}
 .books-content {
     position: relative;
     flex-grow: 1;

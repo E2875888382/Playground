@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/music'
+            redirect: '/books'
         },
         {
             path: '/lyric',

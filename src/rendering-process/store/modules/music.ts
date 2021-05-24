@@ -1,15 +1,3 @@
-interface IMusicState {
-    playlist: IMusicList;
-    history: IMusicList;
-    currentMusicIndex: number;
-    volume: number;
-    allLyric: string;
-    lyricLine: string;
-    lyricIndex: number;
-    fullSreen: boolean;
-    pause: boolean;
-}
-
 const state = {
     // 播放列表
     playlist: [],

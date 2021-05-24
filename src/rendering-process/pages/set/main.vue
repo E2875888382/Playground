@@ -31,13 +31,14 @@ export default defineComponent({
     setup() {
         const store = useStore();
         const logo = require('commonImgs/icon.png');
+        const user_default = require('commonImgs/user_default.png');
 
         return {
             logo,
             avatar: computed(()=> store.state.user.avatar),
             nickname: computed(()=> store.state.user.nickname),
             logout: ()=> {
-                store.commit('user/updateAvatar', 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png');
+                store.commit('user/updateAvatar', user_default);
                 store.commit('user/updateNickName', '未登录');
                 store.commit('user/updateCookie', '');
             }

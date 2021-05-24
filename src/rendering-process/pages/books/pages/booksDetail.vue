@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="books-ifo__buttons">
-            <el-button class="books-ifo__button">加入书架</el-button>
-            <el-button class="books-ifo__button" type="danger" @click="back(`booksChapters/${booksIfo._id}`)">开始阅读</el-button>
+            <el-button class="books-ifo__button" @click="addToBookshelf(booksIfo)">加入书架</el-button>
+            <el-button class="books-ifo__button" type="danger" @click="booksIfo.allowFree && back(`booksChapters/${booksIfo._id}`)">开始阅读</el-button>
         </div>
         <p class="books-ifo__vip" v-if="!booksIfo.allowFree">开通vip，免费阅读此书</p>
         <el-divider></el-divider>
@@ -68,9 +68,10 @@
 
 <script>
 import { inject, onActivated, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import navBar from '../components/navBar';
 import commentsList from '../components/commentsList';
+import { useStore } from 'vuex';
 export default {
     components: {
         'nav-bar': navBar,
@@ -82,6 +83,7 @@ export default {
         const booksIfo = ref({});
         const recommends = ref({});
         const route = useRoute();
+        const store = useStore();
         const from = ref('');
         const { booksDetail, booksComment, booksRecommend } = inject('api').booksDetail;
         const back = (path)=> path === '-1' ? router.back(-1) : router.push(`/books/${path}`);
@@ -90,10 +92,23 @@ export default {
             comments.value = await booksComment(booksId);
             recommends.value = await booksRecommend(booksId);
         };
+        const getStaticsImg = inject('getStaticsImg');
+        const addToBookshelf = booksIfo=> {
+            store.commit('user/updateBookshelf', {
+                booksId: booksIfo._id,
+                cover: getStaticsImg(booksIfo.cover)
+            });
+        };
 
         onActivated(()=> {
             from.value = route.params.from;
             getBooksDetail(route.params.booksId);
+        })
+        onBeforeRouteUpdate((to, from)=> {
+            if (to.params.booksId !== from.params.booksId) {
+                from.value = to.params.from;
+                getBooksDetail(to.params.booksId);
+            }
         })
         return {
             booksIfo,
@@ -104,7 +119,8 @@ export default {
             back,
             from,
             recommends,
-            getStaticsImg: inject('getStaticsImg')
+            getStaticsImg,
+            addToBookshelf
         }
     }
 }

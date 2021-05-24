@@ -45,7 +45,6 @@ to get dir tree `npm run createDirTree`
 │   ├── index.ts
 │   ├── ipcManager.ts
 │   ├── lyricWindow.ts
-│   ├── main.d.ts
 │   └── mainWindow.ts
 ├── rendering-process
 │   ├── api
@@ -86,7 +85,8 @@ to get dir tree `npm run createDirTree`
 │   │   │   ├── defaultMusic.jpg
 │   │   │   ├── icon.png
 │   │   │   ├── record.png
-│   │   │   └── record_dec.png
+│   │   │   ├── record_dec.png
+│   │   │   └── user_default.png
 │   │   └── js
 │   │       ├── Lyric.js
 │   │       ├── nodeTree.js
@@ -100,6 +100,7 @@ to get dir tree `npm run createDirTree`
 │   ├── pages
 │   │   ├── books
 │   │   │   ├── components
+│   │   │   │   ├── bookshelf.vue
 │   │   │   │   ├── booksList.vue
 │   │   │   │   ├── classCard.vue
 │   │   │   │   ├── commentsList.vue
@@ -172,10 +173,10 @@ to get dir tree `npm run createDirTree`
 │   │   ├── set
 │   │   │   └── main.vue
 │   │   └── street
+│   │       ├── contentParser.ts
 │   │       └── main.vue
 │   ├── routers
-│   │   └── index.js
-│   ├── shims-vue.d.ts
+│   │   └── index.ts
 │   └── store
 │       ├── index.ts
 │       ├── modules
@@ -187,8 +188,15 @@ to get dir tree `npm run createDirTree`
 │       └── plugins
 │           └── synchronous.ts
 └── types
+    ├── book.d.ts
+    ├── config.d.ts
+    ├── mainWindow.d.ts
     ├── music.d.ts
-    └── request.d.ts
+    ├── news.d.ts
+    ├── picture.d.ts
+    ├── request.d.ts
+    ├── shims-vue.d.ts
+    └── user.d.ts
 ```
 
 ## Project screenshots

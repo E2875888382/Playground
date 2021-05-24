@@ -1,7 +1,3 @@
-interface IPicturesState {
-    pictures: Array<any>;
-}
-
 const state = {
     pictures: []
 };

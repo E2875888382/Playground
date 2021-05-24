@@ -1,11 +1,3 @@
-interface IBookState {
-    [propsName: string]: any;
-}
-interface IBook {
-    booksId: string | number;
-    chapters: Array<any>;
-}
-
 const state = {
     book: {
         booksId: '',

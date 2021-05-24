@@ -1,26 +1,5 @@
 import { ipcRenderer } from 'electron';
 
-interface ITabItem {
-    name: string;
-    icon: string;
-    path: string;
-}
-interface ITitleBarsItemEvent {
-    ():void;
-}
-interface ITitleBarsItem {
-    icon: string;
-    event?: ITitleBarsItemEvent;
-}
-interface IConfigState {
-    tabs: Array<ITabItem>;
-    titleBars: Array<ITitleBarsItem>;
-    title: any;
-    readMode: string;
-    backgroundImg: string;
-    browserBackgroundImg: string
-}
-
 const state = {
     tabs: [
         {
@@ -90,19 +69,19 @@ const state = {
     browserBackgroundImg: ''
 };
 const mutations = {
-    updateTitle(state: IConfigState, {tabs, title}:any) {
+    updateTitle(state: config.IConfigState, {tabs, title}:any) {
         state.title[tabs] = title;
     },
-    updateTabsPath(state: IConfigState, {tabsIndex, path}:any) {
+    updateTabsPath(state: config.IConfigState, {tabsIndex, path}:any) {
         state.tabs[tabsIndex].path = path;
     },
-    updateReadMode(state: IConfigState, mode:string) {
+    updateReadMode(state: config.IConfigState, mode:string) {
         state.readMode = mode;
     },
-    updateBackground(state: IConfigState, style:string) {
+    updateBackground(state: config.IConfigState, style:string) {
         state.backgroundImg = style;
     },
-    updateBrowserBackground(state: IConfigState, style:string) {
+    updateBrowserBackground(state: config.IConfigState, style:string) {
         state.browserBackgroundImg = style;
     }
 };
