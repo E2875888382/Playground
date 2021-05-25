@@ -71,7 +71,6 @@ import { inject, onActivated, ref } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import navBar from '../components/navBar';
 import commentsList from '../components/commentsList';
-import { useStore } from 'vuex';
 export default {
     components: {
         'nav-bar': navBar,
@@ -83,7 +82,6 @@ export default {
         const booksIfo = ref({});
         const recommends = ref({});
         const route = useRoute();
-        const store = useStore();
         const from = ref('');
         const { booksDetail, booksComment, booksRecommend } = inject('api').booksDetail;
         const back = (path)=> path === '-1' ? router.back(-1) : router.push(`/books/${path}`);
@@ -93,12 +91,8 @@ export default {
             recommends.value = await booksRecommend(booksId);
         };
         const getStaticsImg = inject('getStaticsImg');
-        const addToBookshelf = booksIfo=> {
-            store.commit('user/updateBookshelf', {
-                booksId: booksIfo._id,
-                cover: getStaticsImg(booksIfo.cover)
-            });
-        };
+        const addbookshelf = inject('addToBookshelf');
+        const addToBookshelf = booksIfo=> addbookshelf(booksIfo._id, booksIfo.cover);
 
         onActivated(()=> {
             from.value = route.params.from;

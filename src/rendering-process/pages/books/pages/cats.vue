@@ -1,6 +1,6 @@
 <template>
     <div class="books-cats">
-        <nav-bar title="全部分类" @back="back" />
+        <nav-bar title="全部分类" @back="back"/>
         <div class="cats-box" v-for="(value, key) in cats" :key="key">
             <p class="cats_main">{{key}}</p>
             <div class="cats-container">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { inject, onMounted, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import navBar from '../components/navBar';
 export default {
@@ -24,9 +24,9 @@ export default {
     setup() {
         const router = useRouter();
         const cats = ref({});
-        const {booksIndexClass} = inject('api').books;
+        const { booksIndexClass } = inject('api').books;
         const back = ()=> router.push('/books/index');
-        const getCats = async()=> {
+        const getCats = async ()=> {
             const {male, female, press} = await booksIndexClass();
 
             cats.value = {

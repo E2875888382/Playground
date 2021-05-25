@@ -27,9 +27,10 @@
 - [x] 修改壁纸、注入webview背景
 - [x] 壁纸等高瀑布流（接口数据现在是统一宽高，无瀑布效果）
 - [x] 壁纸预览、下载本地
+- [x] 骨架屏 (歌单页, 发现页)
+- [x] 歌单分享
 - [ ] 内置音乐
 - [ ] 新闻搜索
-- [ ] 骨架屏
 - [ ] 应用消息通知
 - [ ] 全局主题
 - [ ] 应用本地状态持久化
@@ -104,6 +105,7 @@ to get dir tree `npm run createDirTree`
 │   │   │   │   ├── booksList.vue
 │   │   │   │   ├── classCard.vue
 │   │   │   │   ├── commentsList.vue
+│   │   │   │   ├── Hotwords.vue
 │   │   │   │   └── navBar.vue
 │   │   │   ├── main.vue
 │   │   │   └── pages
@@ -147,7 +149,8 @@ to get dir tree `npm run createDirTree`
 │   │   │       │   │   │   ├── Mv.vue
 │   │   │       │   │   │   ├── NewSong.vue
 │   │   │       │   │   │   ├── PrivateContent.vue
-│   │   │       │   │   │   └── RecommendPlayList.vue
+│   │   │       │   │   │   ├── RecommendPlayList.vue
+│   │   │       │   │   │   └── Skeleton.jsx
 │   │   │       │   │   └── playList
 │   │   │       │   ├── main.vue
 │   │   │       │   └── pages
@@ -163,7 +166,8 @@ to get dir tree `npm run createDirTree`
 │   │   │       │   ├── components
 │   │   │       │   │   ├── Collectors.vue
 │   │   │       │   │   ├── Comments.vue
-│   │   │       │   │   └── List.vue
+│   │   │       │   │   ├── List.vue
+│   │   │       │   │   └── Skeleton.jsx
 │   │   │       │   └── main.vue
 │   │   │       └── star
 │   │   │           └── main.vue

@@ -37,7 +37,7 @@ export default {
         const toClassDetail = (major, gender)=> router.push({name: 'booksCatsDetail', params: {major,gender}});
         const jump = path=> {
             router.push(`/books/${path}`);
-            store.commit('config/updateTabsPath', {tabsIndex: 2, path: `/books/${path}`});
+            store.commit('config/updateTabsPath', {tabsIndex: 3, path: `/books/${path}`});
         };
 
         return {

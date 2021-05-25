@@ -82,6 +82,13 @@ export default {
         provide('zeroNum', zeroNum);
         // ms 格式化为 m : s
         provide('msFormat', msFormat);
+        // 加入书架
+        provide('addToBookshelf', (id, cover)=> {
+            store.commit('user/updateBookshelf', {
+                booksId: id,
+                cover: process.env.VUE_APP_BOOKS_STATICS_URL + cover
+            });
+        });
 
         return {
             backgroundImg,

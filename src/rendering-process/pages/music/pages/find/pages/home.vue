@@ -1,14 +1,21 @@
 <template>
-    <div class="home" v-if="ready">
-        <Banners :list="data.banners"/>
-        <transition-group name="component-list">
-            <component 
-                v-for="component in componentsList" :key="component.title" 
-                :is="component.component" :list="data[component.data]"
-            />
-        </transition-group>
-        <DragController :list="componentsList" @sort="handleSort"/>
-    </div>
+    <el-skeleton :loading="loading" animated>
+        <template #default>
+            <div class="home">
+                <Banners :list="data.banners"/>
+                <transition-group name="component-list">
+                    <component 
+                        v-for="component in componentsList" :key="component.title" 
+                        :is="component.component" :list="data[component.data]"
+                    />
+                </transition-group>
+                <DragController :list="componentsList" @sort="handleSort"/>
+            </div>
+        </template>
+        <template #template>
+            <Skeleton />
+        </template>
+    </el-skeleton>
 </template>
 
 <script>
@@ -20,6 +27,7 @@ import NewSong from '../components/home/NewSong';
 import Mv from '../components/home/Mv';
 import Dj from '../components/home/Dj';
 import DragController from '../components/home/DragController';
+import Skeleton from '../components/home/Skeleton';
 export default {
     components: {
         Banners,
@@ -28,10 +36,11 @@ export default {
         NewSong,
         Mv,
         Dj,
-        DragController
+        DragController,
+        Skeleton
     },
     setup() {
-        const ready = ref(false);
+        const loading = ref(true);
         const data = ref({});
         const componentsList = ref([
             {
@@ -73,6 +82,7 @@ export default {
         };
 
         onMounted(async ()=> {
+            loading.value = true;
             Promise.all([
                 getBanner(),
                 getPrivateContent(),
@@ -97,12 +107,12 @@ export default {
                     mv,
                     dj
                 };
-                ready.value = true;
+                loading.value = false;
             })
         })
         return {
             data,
-            ready,
+            loading,
             componentsList,
             handleSort
         }

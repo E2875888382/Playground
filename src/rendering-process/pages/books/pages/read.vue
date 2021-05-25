@@ -18,7 +18,7 @@
         </transition>
         <transition name="fade_up">
             <div class="book-read__drawer_bottom" v-show="showBottomDrawer">
-                <div class="bookshelf__btn">加入书架</div>
+                <div class="bookshelf__btn" @click="addToBookShelf">加入书架</div>
                 <div class="fontsize__btn">
                     <span>字体大小</span>
                     <el-slider v-model="fontSize" :min="18" :max="30"></el-slider>
@@ -106,6 +106,8 @@ export default {
         const changeMode = mode=> {
             store.commit('config/updateReadMode', mode);
         };
+        const addbookshelf = inject('addToBookshelf');
+        const addToBookShelf = ()=> addbookshelf(bookMsg.value._id, bookMsg.value.cover);
 
         onActivated(async ()=> {
             showTopDrawer.value = false;
@@ -134,7 +136,8 @@ export default {
             changeChapter,
             contentRef,
             fontSize,
-            changeMode
+            changeMode,
+            addToBookShelf
         }
     }
 }

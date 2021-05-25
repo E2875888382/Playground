@@ -1,72 +1,79 @@
 <template>
-    <div class="playlist-container" v-if="data.code && data.code === 200">
-        <div class="playlist-header">
-            <el-image class="playlist__cover" :src="data.playlist.coverImgUrl + '?param=230y230'" alt="" fit="fit">
-                <template #placeholder>
-                    <div class="image-slot">
-                        <i class="el-icon-picture-outline"></i>
+    <el-skeleton :loading="loading" animated>
+        <template #default>
+            <div class="playlist-container">
+                <div class="playlist-header">
+                    <el-image class="playlist__cover" :src="data.playlist.coverImgUrl + '?param=230y230'" alt="" fit="fit">
+                        <template #placeholder>
+                            <div class="image-slot">
+                                <i class="el-icon-picture-outline"></i>
+                            </div>
+                        </template>
+                    </el-image>
+                    <div class="playlist__des">
+                        <h2 class="align-center playlist__name">
+                            <el-tag type="danger" effect="plain">歌单</el-tag>
+                            <span class="playlist__nameContent">{{data.playlist.name}}</span>
+                        </h2>
+                        <div class="playlist__creator">
+                            <el-avatar :size="30" :src="data.playlist.creator.avatarUrl" />
+                            <span class="playlist__creatorName">{{data.playlist.creator.nickname}}</span>
+                            <span class="playlist__createTime">{{getDate(data.playlist.createTime)}}创建</span>
+                        </div>
+                        <div class="playlist__btns">
+                            <el-button type="danger" round @click="handlePlayAll">
+                                <i class="iconfont icon-Playerplay"></i> 
+                                <span>播放全部</span>
+                                <i class="el-icon-plus" @click.stop="handleAddAll"></i> 
+                            </el-button>
+                            <el-button round :disabled="!data.playlist.subscribed">
+                                <i class="el-icon-folder-add"></i>
+                                收藏({{numFormat(data.playlist.subscribedCount)}})
+                            </el-button>
+                            <el-button round @click="handleShare">
+                                <i class="el-icon-share"></i>
+                                分享({{numFormat(data.playlist.shareCount)}})
+                            </el-button>
+                            <el-button round @click="handleDownloadAll">
+                                <i class="iconfont icon-xiazai1"></i>
+                                下载全部
+                            </el-button>
+                        </div>
+                        <p class="playlist__tags" v-if="data.playlist.tags.length">标签 : {{joinArr(data.playlist.tags)}}</p>
+                        <p class="playlist__count">
+                            <span>歌曲 : {{numFormat(data.playlist.trackCount)}}</span>
+                            <span>播放 : {{numFormat(data.playlist.playCount)}}</span>
+                        </p>
+                        <p class="playlist__description" v-if="data.playlist.description">简介 : {{data.playlist.description}}</p>
                     </div>
-                </template>
-            </el-image>
-            <div class="playlist__des">
-                <h2 class="align-center playlist__name">
-                    <el-tag type="danger" effect="plain">歌单</el-tag>
-                    <span class="playlist__nameContent">{{data.playlist.name}}</span>
-                </h2>
-                <div class="playlist__creator">
-                    <el-avatar :size="30" :src="data.playlist.creator.avatarUrl" />
-                    <span class="playlist__creatorName">{{data.playlist.creator.nickname}}</span>
-                    <span class="playlist__createTime">{{getDate(data.playlist.createTime)}}创建</span>
                 </div>
-                <div class="playlist__btns">
-                    <el-button type="danger" round @click="handlePlayAll">
-                        <i class="iconfont icon-Playerplay"></i> 
-                        <span>播放全部</span>
-                        <i class="el-icon-plus" @click.stop="handleAddAll"></i> 
-                    </el-button>
-                    <el-button round :disabled="!data.playlist.subscribed">
-                        <i class="el-icon-folder-add"></i>
-                        收藏({{numFormat(data.playlist.subscribedCount)}})
-                    </el-button>
-                    <el-button round @click="handleShare">
-                        <i class="el-icon-share"></i>
-                        分享({{numFormat(data.playlist.shareCount)}})
-                    </el-button>
-                    <el-button round @click="handleDownloadAll">
-                        <i class="iconfont icon-xiazai1"></i>
-                        下载全部
-                    </el-button>
+                <div style="position:relative">
+                    <el-tabs v-model="activeName">
+                        <el-tab-pane label="歌曲列表" name="first">
+                            <List :list="songsFilter" />
+                        </el-tab-pane>
+                        <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second">
+                            <Comments />
+                        </el-tab-pane>
+                        <el-tab-pane label="收藏者" name="third">
+                            <Collectors />
+                        </el-tab-pane>
+                    </el-tabs>
+                    <el-input
+                        v-show="activeName === 'first'"
+                        placeholder="搜索歌单音乐"
+                        suffix-icon="el-icon-search"
+                        v-model="search"
+                        :clearable="true"
+                        @input="searchMusic"
+                    />
                 </div>
-                <p class="playlist__tags" v-if="data.playlist.tags.length">标签 : {{joinArr(data.playlist.tags)}}</p>
-                <p class="playlist__count">
-                    <span>歌曲 : {{numFormat(data.playlist.trackCount)}}</span>
-                    <span>播放 : {{numFormat(data.playlist.playCount)}}</span>
-                </p>
-                <p class="playlist__description" v-if="data.playlist.description">简介 : {{data.playlist.description}}</p>
             </div>
-        </div>
-        <div style="position:relative">
-            <el-tabs v-model="activeName">
-                <el-tab-pane label="歌曲列表" name="first">
-                    <List :list="songsFilter" />
-                </el-tab-pane>
-                <el-tab-pane :label="`评论(${data.playlist.commentCount})`" name="second">
-                    <Comments />
-                </el-tab-pane>
-                <el-tab-pane label="收藏者" name="third">
-                    <Collectors />
-                </el-tab-pane>
-            </el-tabs>
-            <el-input
-                v-show="activeName === 'first'"
-                placeholder="搜索歌单音乐"
-                suffix-icon="el-icon-search"
-                v-model="search"
-                :clearable="true"
-                @input="searchMusic"
-            />
-        </div>
-    </div>
+        </template>
+        <template #template>
+            <Skeleton />
+        </template>
+    </el-skeleton>
 </template>
 
 <script>
@@ -75,13 +82,17 @@ import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import List from './components/List';
 import Comments from './components/Comments';
 import Collectors from './components/Collectors';
+import { remote } from 'electron';
+import Skeleton from './components/Skeleton';
 export default {
     components: {
         List,
         Comments,
-        Collectors
+        Collectors,
+        Skeleton
     },
     setup() {
+        const loading = ref(true);
         const search = ref('');
         const activeName = ref('first');
         const songs = ref([]);
@@ -90,13 +101,14 @@ export default {
         const { getPlaylist, getSongDetail } = inject('api').music.find;
         const joinArr = arr=> arr.join('／');
         const getPlaylistDetail = async id=> {
+            loading.value = true;
             const res = await getPlaylist(id);
 
+            if (res && res.code === 200) loading.value = false;
             data.value = res;
             const songsRes = await getSongDetail(res.playlist.trackIds.map(item=> item.id));
 
             songs.value = songsRes?.songs;
-            console.log('songs', songs.value);
         };
         const getDate = time=> {
             const date = new Date(time);
@@ -113,7 +125,16 @@ export default {
             console.log('播放全部');
         };
         const handleShare = ()=> {
-            console.log('分享歌单');
+            const {playlist:{description, name, coverImgUrl}} = data.value;
+            let baseUrl = `https://music.163.com/#/playlist?id=${route.params.id}`;
+            let shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
+
+            shareUrl += baseUrl;
+            shareUrl += '&showcount=1&desc=♪我发现一个不错的歌单-' + (description || name);
+            shareUrl += '&summary=分享摘要&title=♪我发现一个不错的歌单-' + name;
+            shareUrl += '&site=https://music.163.com/&pics=' + coverImgUrl;
+
+            remote.shell.openExternal(shareUrl);
         };
         const handleDownloadAll = ()=> {
             console.log('下载全部');
@@ -140,6 +161,7 @@ export default {
             }
         })
         return {
+            loading,
             searchMusic,
             search,
             joinArr,

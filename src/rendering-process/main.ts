@@ -27,7 +27,9 @@ import {
     ElMenuItem,
     ElAffix,
     ElTable,
-    ElTableColumn
+    ElTableColumn,
+    ElSkeleton,
+    ElSkeletonItem
 } from 'element-plus';
 import router from './routers';
 import store from './store';
@@ -66,5 +68,7 @@ app
 .use(ElAffix)
 .use(ElTable)
 .use(ElTableColumn)
+.use(ElSkeleton)
+.use(ElSkeletonItem)
 .use(store);
 app.mount('#app');
