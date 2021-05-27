@@ -74,7 +74,8 @@ to get dir tree `npm run createDirTree`
 │   │   └── street
 │   │       └── index.ts
 │   ├── app
-│   │   └── App.vue
+│   │   ├── App.vue
+│   │   └── provide.ts
 │   ├── assets
 │   │   ├── css
 │   │   │   ├── color.less
@@ -94,6 +95,7 @@ to get dir tree `npm run createDirTree`
 │   │       └── utils.ts
 │   ├── components
 │   │   ├── Layout.vue
+│   │   ├── Login.vue
 │   │   ├── Search.vue
 │   │   ├── SideBar.vue
 │   │   └── TitleBar.vue

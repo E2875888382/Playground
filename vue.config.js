@@ -20,6 +20,7 @@ module.exports = {
             .set('commonCss', resolve('./src/rendering-process/assets/css'))
             .set('commonImgs', resolve('./src/rendering-process/assets/img'))
             .set('commonJs', resolve('./src/rendering-process/assets/js'))
+            .set('pages', resolve('./src/rendering-process/pages'))
     },
     configureWebpack: config => {
         config.entry.app = './src/rendering-process/main.ts'

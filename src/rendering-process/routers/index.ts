@@ -11,7 +11,7 @@ const router = createRouter({
         {
             path: '/lyric',
             name: 'lyric',
-            component: ()=> import('../pages/music/components/Lyric.vue'),
+            component: ()=> import('pages/music/components/Lyric.vue'),
             meta: {
                 needSearch: false
             }
@@ -19,7 +19,7 @@ const router = createRouter({
         {
             path: '/bbs',
             name: 'bbs',
-            component: ()=> import('../pages/street/main.vue'),
+            component: ()=> import('pages/street/main.vue'),
             meta: {
                 needSearch: true
             }
@@ -27,7 +27,7 @@ const router = createRouter({
         {
             path: '/webview',
             name: 'webview',
-            component: ()=> import('../pages/link/main.vue'),
+            component: ()=> import('pages/link/main.vue'),
             meta: {
                 needSearch: false
             }
@@ -35,7 +35,7 @@ const router = createRouter({
         {
             path: '/books',
             name: 'books',
-            component: ()=> import('../pages/books/main.vue'),
+            component: ()=> import('pages/books/main.vue'),
             children: [
                 {
                     path: '',
@@ -44,7 +44,7 @@ const router = createRouter({
                 {
                     path: 'booksSearch',
                     name: 'booksSearch',
-                    component: ()=> import('../pages/books/pages/search.vue'),
+                    component: ()=> import('pages/books/pages/search.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -52,7 +52,7 @@ const router = createRouter({
                 {
                     path: 'index',
                     name: 'booksIndex',
-                    component: ()=> import('../pages/books/pages/index.vue'),
+                    component: ()=> import('pages/books/pages/index.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -60,7 +60,7 @@ const router = createRouter({
                 {
                     path: 'ranking',
                     name: 'booksRanking',
-                    component: ()=> import('../pages/books/pages/ranking.vue'),
+                    component: ()=> import('pages/books/pages/ranking.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -68,7 +68,7 @@ const router = createRouter({
                 {
                     path: 'cats',
                     name: 'booksCats',
-                    component: ()=> import('../pages/books/pages/cats.vue'),
+                    component: ()=> import('pages/books/pages/cats.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -76,7 +76,7 @@ const router = createRouter({
                 {
                     path: 'catsDetail/:major/:gender',
                     name: 'booksCatsDetail',
-                    component: ()=> import('../pages/books/pages/catsDetail.vue'),
+                    component: ()=> import('pages/books/pages/catsDetail.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -84,7 +84,7 @@ const router = createRouter({
                 {
                     path: 'booksDetail/:from/:booksId',
                     name: 'booksDetail',
-                    component: ()=> import('../pages/books/pages/booksDetail.vue'),
+                    component: ()=> import('pages/books/pages/booksDetail.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -92,7 +92,7 @@ const router = createRouter({
                 {
                     path: 'booksComments/:booksId',
                     name: 'booksComments',
-                    component: ()=> import('../pages/books/pages/comments.vue'),
+                    component: ()=> import('pages/books/pages/comments.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -100,7 +100,7 @@ const router = createRouter({
                 {
                     path: 'booksRecommend/:booksId',
                     name: 'booksRecommend',
-                    component: ()=> import('../pages/books/pages/recommend.vue'),
+                    component: ()=> import('pages/books/pages/recommend.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -108,7 +108,7 @@ const router = createRouter({
                 {
                     path: 'booksChapters/:booksId',
                     name: 'booksChapters',
-                    component: ()=> import('../pages/books/pages/chapters.vue'),
+                    component: ()=> import('pages/books/pages/chapters.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -116,7 +116,7 @@ const router = createRouter({
                 {
                     path: 'booksChaptersDetail/:chapterIndex',
                     name: 'booksChaptersDetail',
-                    component: ()=> import('../pages/books/pages/read.vue'),
+                    component: ()=> import('pages/books/pages/read.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -126,7 +126,7 @@ const router = createRouter({
         {
             path: '/pictures',
             name: 'pictures',
-            component: ()=> import('../pages/pictures/main.vue'),
+            component: ()=> import('pages/pictures/main.vue'),
             meta: {
                 needSearch: false
             }
@@ -134,7 +134,7 @@ const router = createRouter({
         {
             path: '/preview/:currentIndex',
             name: 'preview',
-            component: ()=> import('../pages/pictures/preview.vue'),
+            component: ()=> import('pages/pictures/preview.vue'),
             meta: {
                 needSearch: false
             }
@@ -142,7 +142,7 @@ const router = createRouter({
         {
             path: '/music',
             name: 'music',
-            component: ()=> import('../pages/music/main.vue'),
+            component: ()=> import('pages/music/main.vue'),
             children: [
                 {
                     path: '',
@@ -151,7 +151,7 @@ const router = createRouter({
                 {
                     path: 'find',
                     name: 'musicFind',
-                    component: ()=> import('../pages/music/pages/find/main.vue'),
+                    component: ()=> import('pages/music/pages/find/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -159,7 +159,7 @@ const router = createRouter({
                 {
                     path: 'fm',
                     name: 'musicFM',
-                    component: ()=> import('../pages/music/pages/fm/main.vue'),
+                    component: ()=> import('pages/music/pages/fm/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -167,7 +167,7 @@ const router = createRouter({
                 {
                     path: 'media',
                     name: 'musicMedia',
-                    component: ()=> import('../pages/music/pages/media/main.vue'),
+                    component: ()=> import('pages/music/pages/media/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -175,7 +175,7 @@ const router = createRouter({
                 {
                     path: 'dynamic',
                     name: 'musicDynamic',
-                    component: ()=> import('../pages/music/pages/dynamic/main.vue'),
+                    component: ()=> import('pages/music/pages/dynamic/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -183,7 +183,7 @@ const router = createRouter({
                 {
                     path: 'local',
                     name: 'musicLocal',
-                    component: ()=> import('../pages/music/pages/local/main.vue'),
+                    component: ()=> import('pages/music/pages/local/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -191,7 +191,7 @@ const router = createRouter({
                 {
                     path: 'playlist/:id',
                     name: 'musicPlaylist',
-                    component: ()=> import('../pages/music/pages/playlist/main.vue'),
+                    component: ()=> import('pages/music/pages/playlist/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -199,7 +199,7 @@ const router = createRouter({
                 {
                     path: 'cloud',
                     name: 'musicCloud',
-                    component: ()=> import('../pages/music/pages/cloud/main.vue'),
+                    component: ()=> import('pages/music/pages/cloud/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -207,7 +207,7 @@ const router = createRouter({
                 {
                     path: 'download',
                     name: 'musicDownload',
-                    component: ()=> import('../pages/music/pages/download/main.vue'),
+                    component: ()=> import('pages/music/pages/download/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -215,7 +215,7 @@ const router = createRouter({
                 {
                     path: 'star',
                     name: 'musicStar',
-                    component: ()=> import('../pages/music/pages/star/main.vue'),
+                    component: ()=> import('pages/music/pages/star/main.vue'),
                     meta: {
                         needSearch: false
                     }
@@ -225,7 +225,7 @@ const router = createRouter({
         {
             path: '/set',
             name: 'set',
-            component: ()=> import('../pages/set/main.vue'),
+            component: ()=> import('pages/set/main.vue'),
             meta: {
                 needSearch: true
             }

@@ -1,8 +1,8 @@
 <template>
     <div class="app-container">
-        <side-bar v-if="!isLyric"/>
+        <SideBar v-if="!isLyric"/>
         <div class="tabs-container">
-            <title-bar v-if="!isLyric"/>
+            <TitleBar v-if="!isLyric"/>
             <div class="tabs-content" :style="tabsContentStyle">
                 <router-view v-slot="{ Component }">
                     <keep-alive>
@@ -15,30 +15,18 @@
 </template>
 
 <script>
-import SideBar from '../components/SideBar';
-import TitleBar from '../components/TitleBar';
-import api from '../api/manager';
-import { useRoute, useRouter } from 'vue-router';
+import SideBar from 'commonComponents/SideBar';
+import TitleBar from 'commonComponents/TitleBar';
+import { useRoute } from 'vue-router';
 import { computed, provide } from 'vue';
-import { ElLoading, ElMessage } from 'element-plus';
-import { 
-    timeFormat,
-    wordFormat,
-    hotFormat,
-    numFormat,
-    zeroNum,
-    msFormat
-} from '../assets/js/utils';
 import { useStore } from 'vuex';
-import { remote } from 'electron';
+import provides from './provide';
 export default {
     components: {
-        'side-bar': SideBar,
-        'title-bar': TitleBar,
+        SideBar,
+        TitleBar,
     },
     setup() {
-        const { Menu } = remote;
-        const router = useRouter();
         const store = useStore();
         const route = useRoute();
         const backgroundImg = computed(()=> store.state.config.backgroundImg);
@@ -53,43 +41,9 @@ export default {
         // 歌词窗口下将其他公共组件隐藏
         const isLyric = computed(()=> route.name === 'lyric');
 
-        // 全局消息提醒
-        provide('message', options=> ElMessage(options));
-        // 全局loading
-        provide('loading', options=> ElLoading.service(options));
-        // 全局api
-        provide('api', api);
-        // 跳转书籍详情页
-        provide('toBooksDetail', (booksId, from='')=> router.push({name: 'booksDetail', params: {booksId, from}}));
-        // 获取静态图片资源
-        provide('getStaticsImg', src=> process.env.VUE_APP_BOOKS_STATICS_URL + src);
-        // 格式化相对日期
-        provide('timeFormat', timeFormat);
-        // 格式化书籍字数
-        provide('wordFormat', wordFormat);
-        // 格式化书籍人气
-        provide('hotFormat', hotFormat);
-        // 通用格式
-        provide('numFormat', numFormat);
-        // menu
-        provide('menu', config=> {
-            const menu = Menu.buildFromTemplate(config);
-
-            Menu.setApplicationMenu(menu);
-            menu.popup();
-        });
-        // 补零
-        provide('zeroNum', zeroNum);
-        // ms 格式化为 m : s
-        provide('msFormat', msFormat);
-        // 加入书架
-        provide('addToBookshelf', (id, cover)=> {
-            store.commit('user/updateBookshelf', {
-                booksId: id,
-                cover: process.env.VUE_APP_BOOKS_STATICS_URL + cover
-            });
-        });
-
+        for (const key in provides) {
+            provide(key, provides[key]);
+        }
         return {
             backgroundImg,
             tabsContentStyle,

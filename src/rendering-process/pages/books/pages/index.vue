@@ -25,7 +25,7 @@
             </el-card>
         </section>
         <!-- 侧边栏 -->
-        <section class="side-bar">
+        <section class="bookIndex__side-bar">
             <el-input prefix-icon="el-icon-search" placeholder="搜索书名" v-model="searchInput" @focus="toSearch" />
             <Hotwords :list="booksIndex.hotwords.newHotWords"/>
             <ClassCard icon="el-icon-male" gender="male" title="男生" :classes="booksIndex.classes.male"/>
@@ -113,7 +113,7 @@ i {
     width: 100%;
     height: 100%;
 }
-.side-bar {
+.bookIndex__side-bar {
     width: @sideBarWidth;
     margin-left: 20px;
     &:deep(.el-card__body) {

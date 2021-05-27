@@ -4,7 +4,9 @@
 <template>
     <div class="side-bar">
         <div class="side-bar__avatar">
-            <el-avatar :src="avatar" shape="square" class="avatar-content" @click="showLoginDialog"/>
+            <Login>
+                <el-avatar :src="avatar" shape="square" class="avatar-content"/>
+            </Login>
         </div>
         <div class="side-bar__tabs">
             <router-link
@@ -19,98 +21,20 @@
         <div class="side-bar__options">
             <router-link exact to="/set" class="iconfont icon-shezhi options__item"></router-link>
         </div>
-        <el-dialog
-            title="Playground"
-            v-model="dialogVisible"
-            width="350px"
-            custom-class="login-dialog"
-            :close-on-click-modal="false"
-            :destroy-on-close="true"
-        >
-            <div class="login-dialog__content">
-                <el-image :src="loginCode"/>
-            </div>
-            <template #footer>
-                <p class="login-dialog__footer">请使用网易云扫一扫以登录</p>
-            </template>
-        </el-dialog>
     </div>
 </template>
 
 <script>
-import { computed, inject, onMounted, ref } from 'vue';
+import Login from './Login';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 export default {
+    components: {
+        Login
+    },
     setup() {
-        const loginStatus = computed(()=> store.state.user.cookie.length > 0);
-        const loginCode = ref('');
-        const { getQrCode, getQrCodeImg, checkQrCodeStatus, getLoginStatus } = inject('api').login;
-        const { getUserPlaylist } = inject('api').music.user;
-        const dialogVisible = ref(false);
         const store = useStore();
-        const Message = inject('message');
-        const getLoginMsg = async ()=> {
-            const res = await getLoginStatus();
-
-            if (res.data?.code === 200 && res.data.profile && res.data.account) {
-                Message({
-                    message: '登录成功',
-                    type: 'success',
-                    offset: 200,
-                    duration: 1000
-                });
-                dialogVisible.value = false;
-                const { profile, account } = res.data;
-                store.commit('user/updateAvatar', profile.avatarUrl);
-                store.commit('user/updateNickName', profile.nickname);
-                const playList = await getUserPlaylist(account.id);
-
-                store.commit('user/updatePlayList', playList.playlist);
-            }
-        };
-        // 生成二维码
-        const createQrcode = async()=> {
-            const qrcode = await getQrCode();
-            const key = qrcode.data?.unikey;
-            const img = await getQrCodeImg(key);
-
-            loginCode.value = img.data?.qrimg || '';
-            const timer = setInterval(async ()=> {
-                const statusRes = await checkQrCodeStatus(key);
-
-                if (statusRes.code === 800) {
-                    clearInterval(timer);
-                    createQrcode();
-                    Message({
-                        message: '二维码已过期，请重新扫码',
-                        type: 'info',
-                        offset: 200,
-                        duration: 1000
-                    });
-                } else if (statusRes.code === 803) {
-                    clearInterval(timer);
-                    // 将cookie写入请求头
-                    store.commit('user/updateCookie', statusRes.cookie);
-                    getLoginMsg();
-                }
-            }, 3000);
-        };
-        const showLoginDialog = ()=> {
-            if (loginStatus.value) return;
-            createQrcode();
-            dialogVisible.value = true;
-        };
-
-        onMounted(()=> {
-            const cookie = localStorage.getItem('cookie');
-
-            cookie && store.commit('user/updateCookie', cookie);
-            getLoginMsg();
-        });
         return {
-            loginCode,
-            dialogVisible,
-            showLoginDialog,
             avatar: computed(()=> store.state.user.avatar),
             tabs: computed(()=> store.state.config.tabs)
         }
@@ -142,20 +66,6 @@ export default {
         }
         padding: 10px 12px 20px;
     }
-}
-.login-dialog__content {
-    .flex-center;
-    align-items: flex-end;
-    height: 253px;
-    .el-image {
-        width: 240px;
-        height: 240px;
-    }
-}
-.login-dialog__footer {
-    text-align: center;
-    font-size: 18px;
-    color: #606266c7;
 }
 .side-bar__avatar {
     -webkit-app-region: no-drag;
