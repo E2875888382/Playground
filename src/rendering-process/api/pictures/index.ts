@@ -1,4 +1,4 @@
-import { get } from '../base';
+import {get} from 'api/base';
 
 export const getPictures = (page:number)=> {
     return get({

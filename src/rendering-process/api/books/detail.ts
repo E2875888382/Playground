@@ -1,4 +1,4 @@
-import {get} from '../base';
+import {get} from 'api/base';
 
 const baseUrl = process.env.VUE_APP_BOOKS_URL;
 

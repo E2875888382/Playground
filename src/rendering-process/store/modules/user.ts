@@ -1,5 +1,5 @@
-import { getLoginStatus } from '../../api/login';
-import { getUserPlaylist } from '../../api/music/user';
+import { getLoginStatus } from 'api/login';
+import { getUserPlaylist } from 'api/music/user';
 import { ElMessage } from 'element-plus';
 
 const state = {
@@ -49,12 +49,12 @@ const actions = {
             });
             const { profile, account } = res.data;
 
-            context.commit('user/updateAvatar', profile.avatarUrl);
-            context.commit('user/updateNickName', profile.nickname);
+            context.commit('updateAvatar', profile.avatarUrl);
+            context.commit('updateNickName', profile.nickname);
             // 获取用户歌单
             const playList:any = await getUserPlaylist(account.id);
 
-            context.commit('user/updatePlayList', playList.playlist);
+            context.commit('updatePlayList', playList.playlist);
         }
     }
 };

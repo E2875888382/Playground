@@ -119,14 +119,15 @@ export default {
 .list-container {
     max-width: 100%;
     padding-left: 15px;
+    &:deep(.el-table .cell) {
+        font-weight: 400;
+        font-size: 16px;
+        color: #606266d6;
+        .font-overflow;
+        -webkit-line-clamp: 1;
+    }
 }
-.el-table .cell {
-    font-weight: 400;
-    font-size: 16px;
-    color: #606266d6;
-    .font-overflow;
-    -webkit-line-clamp: 1;
-}
+
 .music__title {
     padding-left: 15px;
     .icon-mv {
