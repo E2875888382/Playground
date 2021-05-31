@@ -42,7 +42,7 @@ export default {
         return {
             avatarHover,
             getAuthors,
-            staticPic: require('../../../assets/img/defaultMusic.jpg'),
+            staticPic: require('commonImgs/defaultMusic.jpg'),
             togglePlayPanel: ()=> {
                 if (store.state.music.playlist.length === 0) return;
                 fullScreen.value = !fullScreen.value;

@@ -84,6 +84,7 @@ import Comments from './components/Comments';
 import Collectors from './components/Collectors';
 import { remote } from 'electron';
 import Skeleton from './components/Skeleton';
+import { useStore } from 'vuex';
 export default {
     components: {
         List,
@@ -98,6 +99,7 @@ export default {
         const songs = ref([]);
         const data = ref({});
         const route = useRoute();
+        const store = useStore();
         const { getPlaylist, getSongDetail } = inject('api').music.find;
         const joinArr = arr=> arr.join('／');
         const getPlaylistDetail = async id=> {
@@ -119,10 +121,10 @@ export default {
             return `${year}-${month[1] ? month : '0' + month}-${day[1] ? day : '0' + day}`;
         };
         const handleAddAll = ()=> {
-            console.log('添加全部到歌单');
+            store.commit('music/updatePlaylist', songsFilter.value);
         };
         const handlePlayAll = ()=> {
-            console.log('播放全部');
+            store.commit('music/updatePlaylist', songsFilter.value);
         };
         const handleShare = ()=> {
             const {playlist:{description, name, coverImgUrl}} = data.value;

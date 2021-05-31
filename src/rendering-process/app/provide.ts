@@ -1,5 +1,5 @@
 import { ElLoading, ElMessage } from 'element-plus';
-import api from '../api/manager';
+import api from 'api/manager';
 import { remote } from 'electron';
 import { 
     timeFormat,
@@ -8,9 +8,9 @@ import {
     numFormat,
     zeroNum,
     msFormat
-} from '../assets/js/utils';
-import store from '../store/index';
-import router from '../routers/index';
+} from 'assets/js/utils';
+import store from '@/rendering-process/store/index';
+import router from '@/rendering-process/routers/index';
 
 // 存放 provide 的全局方法或变量 
 export default {

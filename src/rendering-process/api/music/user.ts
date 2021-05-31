@@ -1,4 +1,4 @@
-import { get } from '../base';
+import {get} from 'api/base';
 
 const baseServe = process.env.VUE_APP_MUSIC_URL;
 

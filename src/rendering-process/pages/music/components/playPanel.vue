@@ -102,7 +102,7 @@ export default {
     height: 400px;
     margin: 80px 0 20px 60px;
     border-radius: 50%;
-    background: url('../../../assets/img/record.png') no-repeat;
+    background: url('~assets/img/record.png') no-repeat;
     background-size: cover;
     border: 8px solid #e4e7ed;
     .el-avatar {
@@ -118,7 +118,7 @@ export default {
         height: 180px;
         margin-left: -22px;
         filter: drop-shadow(0 4px 2px rgba(0, 0, 0, .5));
-        background: url('../../../assets/img/record_dec.png') no-repeat;
+        background: url('~assets/img/record_dec.png') no-repeat;
         background-size: cover;
         z-index: 1;
         transform-origin: 10px 0;

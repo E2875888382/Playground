@@ -137,6 +137,20 @@ export default {
     box-shadow: -2px 0px 4px #ddd;
     background-color: #fff;
     z-index: 6;
+    &:deep(.el-table__body-wrapper) {
+        .customScroll;
+    }
+    &:deep(.el-table .cell) {
+        font-weight: 400;
+        font-size: 16px;
+        color: #606266d6;
+        .font-overflow;
+        -webkit-line-clamp: 1;
+    }
+    &:deep(.music__title) {
+        position: relative;
+        padding-left: 15px;
+    }
 }
 .light {
     color: #c0c4cc9c;
@@ -151,20 +165,6 @@ export default {
     position: absolute;
     left: 10px;
     color: red;
-}
-.music__title {
-    position: relative;
-    padding-left: 15px;
-}
-.el-table .cell {
-    font-weight: 400;
-    font-size: 16px;
-    color: #606266d6;
-    .font-overflow;
-    -webkit-line-clamp: 1;
-}
-.el-table__body-wrapper {
-    .customScroll;
 }
 .icon-mv {
     padding-left: 2px;

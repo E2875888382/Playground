@@ -15,6 +15,12 @@
         "paths": {
             "@/*": [
                 "src/*"
+            ],
+            "api/*": [
+                "src/rendering-process/api/*"
+            ],
+            "assets/*": [
+                "src/rendering-process/assets/*"
             ]
         },
         "lib": [

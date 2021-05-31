@@ -88,6 +88,8 @@ export default {
         };
         // 暂停播放
         const handlePause = ()=> {
+            // 没有歌曲无法点击播放
+            if (!props.music.id) return;
             if (musicAudio.value.paused) {
                 musicAudio.value.play();
                 store.commit('music/updatePause', false);

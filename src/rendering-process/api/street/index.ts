@@ -1,5 +1,5 @@
-import {get} from '../base';
-import mock from '../mock';
+import {get} from 'api/base';
+import mock from 'api/mock';
 
 const baseUrl = process.env.VUE_APP_NEWS_URL;
 
