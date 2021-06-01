@@ -3,7 +3,7 @@
         <SideBar v-if="!isLyric"/>
         <div class="tabs-container">
             <TitleBar v-if="!isLyric"/>
-            <div class="tabs-content" :style="tabsContentStyle">
+            <div class="tabs-content" :style="{background: backgroundImg}">
                 <router-view v-slot="{ Component }">
                     <keep-alive>
                         <component :is="Component" />
@@ -30,14 +30,6 @@ export default {
         const store = useStore();
         const route = useRoute();
         const backgroundImg = computed(()=> store.state.config.backgroundImg);
-        const tabsContentStyle = computed(()=> {
-            return {
-                background: backgroundImg.value,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                height: `calc(100% - ${route.meta.needSearch ? '78px' : '30px'})`
-            }
-        });
         // 歌词窗口下将其他公共组件隐藏
         const isLyric = computed(()=> route.name === 'lyric');
 
@@ -46,7 +38,6 @@ export default {
         }
         return {
             backgroundImg,
-            tabsContentStyle,
             isLyric
         }
     }
@@ -70,5 +61,10 @@ export default {
     flex-grow: 1;
     height: 100%;
     background-color: @bgc_common;
+}
+.tabs-content {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100% - 30px);
 }
 </style>

@@ -1,66 +1,36 @@
-<!--
-    @description 顶部自定义操作栏
--->
-<template>
-    <div class="title-bar-container" :style="containerHeight">
-        <Search v-show="showSearch"/>
-        <div class="title-bar">
-            <div 
-                class="title-bar__item"
-                v-for="(titleBar, index) in titleBars"
-                :key="index"
-                @click="titleBar.event"
-            >
-                <i :class="[`el-icon-${titleBar.icon}`]"/>
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
-import Search from './Search';
+<script lang="jsx">
 import { computed } from 'vue';
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
 export default {
-    components: {
-        Search
-    },
     setup() {
         const store = useStore();
-        const route = useRoute();
-        const showSearch = computed(()=> {
-            return route.meta.needSearch;
-        });
-        const containerHeight = computed(()=> {
-            return showSearch.value ? {height: '78px'} : {};
-        });
 
         return {
-            showSearch,
-            containerHeight,
             titleBars: computed(()=> store.state.config.titleBars)
         }
+    },
+    render() {
+        return (
+            <div class="title-bar">
+                {
+                    this.titleBars.map(titleBar=> {
+                        return <div onclick={titleBar.event} class="title-bar__item"><i class={`el-icon-${titleBar.icon}`}/></div>
+                    })
+                }
+            </div>
+        )
     }
 }
 </script>
 
 <style lang="less" scoped>
-.title-bar-container {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    -webkit-app-region: drag;
-    width: 100%;
-    background-color: transparent;
-    .border_bottom(#e7e7e7);
-}
 .title-bar {
     display: flex;
-    flex-grow: 1;
     justify-content: flex-end;
     height: 30px;
-    width: 200px;
+    -webkit-app-region: drag;
+    background-color: transparent;
+    .border_bottom(#e7e7e7);
 }
 .title-bar__item {
     .flex-center;

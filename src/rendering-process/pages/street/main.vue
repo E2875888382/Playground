@@ -23,7 +23,6 @@
 <script>
 import Layout from 'commonComponents/Layout';
 import { ref, onMounted, inject } from 'vue';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { bodyParser } from './contentParser';
 export default {
@@ -32,7 +31,6 @@ export default {
     },
     setup() {
         const {newsList, newsDetail} = inject('api').street;
-        const store = useStore();
         const list = ref([]);
         const active = ref('');
         const newsContent = ref('');
@@ -47,7 +45,6 @@ export default {
         };
         const handleClick = async (news)=> {
             active.value = news.docid;
-            store.commit('config/updateTitle', {tabs: 'bbs', title: news.title});
             const res = await newsDetail(news.docid);
 
             newsContent.value = bodyParser(res.data);
