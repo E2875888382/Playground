@@ -23,11 +23,11 @@ export default {
     msFormat, // ms 格式化为 m : s
     // 消息提醒
     message(options: any) {
-        ElMessage(options);
+        return ElMessage(options);
     },
     // loading
     loading(options: any) {
-        ElLoading.service(options);
+        return ElLoading.service(options);
     },
     // 获取静态图片资源
     getStaticsImg(src: string) {
