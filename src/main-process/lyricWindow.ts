@@ -2,8 +2,11 @@
  * @description 创建歌词窗口
  */
 import { BrowserWindow, screen } from 'electron';
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 
-const lyricUrl = 'http://localhost:8080/#/lyric';
+// 调试时使用localhost，打包时使用协议
+// const lyricUrl = 'http://localhost:8080/#/lyric';
+const lyricUrl = 'app://./index.html/#/lyric';
 
 export default async function() {
     const { x, y, width, height } = screen.getPrimaryDisplay().workArea;
@@ -22,6 +25,7 @@ export default async function() {
         skipTaskbar: true, 
         transparent: true,
         closable: false,
+        autoHideMenuBar: true,
         parent: global.mainWindow,
         webPreferences: {
             nodeIntegration: true,
@@ -30,5 +34,6 @@ export default async function() {
             devTools: false
         }
     });
+    createProtocol('app');
     global.lyricWindow.loadURL(lyricUrl);
 }

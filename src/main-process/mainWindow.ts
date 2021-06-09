@@ -7,7 +7,7 @@ import { initIpcManager } from './ipcManager';
 import createLyricWindow from './lyricWindow';
 
 const path = require('path');
-const icon = path.join(__dirname, '../src/rendering-process/assets/img/icon.png');
+const icon = path.join(__dirname, '../public/icon.png');
 
 export default async function() {
     global.mainWindow = new BrowserWindow({

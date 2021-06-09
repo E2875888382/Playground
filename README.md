@@ -238,14 +238,26 @@ to get dir tree `npm run createDirTree`
 
 ![13.png](https://upload-images.jianshu.io/upload_images/19383585-505b24cb205381ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+## 关于应用打包
+
+`electron-builder`的`build`配置位于`vue.config.js`下，请阅读文档并自行更改
+
+根目录下执行 `npm run electron:build`，构建过程如果遇到构建依赖请求失败，可以直接到目标地址下载并且放到本地cache下（具体操作可以goole下）
+
+## 一些已知问题
+- window7操作系统下歌词窗口底色不透明
+  - win7需要设置窗口主题透明
+
 ## About data
 
-大部分的请求都是使用的开源接口，包括：
+大部分的请求都是使用的开源接口（本项目仅供参考，请勿商用），包括：
 - 新闻类：网易新闻API，每天有100次的调用限制，调用失败会返回本地mock
-- 小说类：追书神器API（本项目仅供参考，请勿商用）
-- 壁纸类：360浏览器API（本项目仅供参考，请勿商用）
+- 小说类：追书神器API
+- 壁纸类：360浏览器API
 
 ## About debug
+
+点击窗口右上角的小图标可以打开chrome devtools
 
 渲染进程的debug可以借助vue-devtools，在主进程加入
 ```
@@ -299,3 +311,5 @@ yarn lint
 [Plugin electron-builder](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/configuration.html#configuring-electron-builder)
 
 [Vue3.0](https://vue3js.cn/docs/zh/)
+
+[electron-builder](https://www.electron.build/configuration/configuration)

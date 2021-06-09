@@ -2,6 +2,10 @@
   "name": "playground",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "elric"
+  },
+  "description": "An app for slacking off, have fun",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

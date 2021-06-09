@@ -6,7 +6,7 @@ import { ipcMain, Menu, Tray, app } from 'electron';
 const fs = require('fs');
 const request = require('request');
 const path = require('path');
-const icon = path.join(__dirname, '../src/rendering-process/assets/img/icon.png');
+const icon = path.join(__dirname, '../public/icon.png');
 
 export const initIpcManager = (win: any, lyric: any)=> {
 
