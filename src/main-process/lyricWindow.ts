@@ -6,7 +6,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 
 // 调试时使用localhost，打包时使用协议
 // const lyricUrl = 'http://localhost:8080/#/lyric';
-const lyricUrl = 'app://./index.html/#/lyric';
+const lyricUrl = process.env.NODE_ENV === 'production' ? 'app://./index.html/#/lyric': 'http://localhost:8080/#/lyric';
 
 export default async function() {
     const { x, y, width, height } = screen.getPrimaryDisplay().workArea;
